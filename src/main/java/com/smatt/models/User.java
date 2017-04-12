@@ -1,18 +1,15 @@
 package com.smatt.models;
 
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by smatt on 22/03/2017.
  */
-//@Entity
+@Document(collection = "users")
 public class User {
 
-//    @Id
-//    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Id
     private String id;
 
     private String name;
@@ -23,7 +20,7 @@ public class User {
 
     private String password;
 
-    private String salt;
+    private String profile_pic = "";
 
     public User() {}
 
@@ -31,6 +28,8 @@ public class User {
         this.username = username;
         this.password =  password;
     }
+
+
 
 
     public String getId() {
@@ -77,11 +76,10 @@ public class User {
         this.password = password;
     }
 
-    public String getSalt() {
-        return salt;
+    public boolean isCredentialsValid() {
+        return getEmail().isEmpty() && getPassword().isEmpty();
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+
+
 }

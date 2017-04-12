@@ -1,46 +1,48 @@
 <#include "../layouts/admin.ftl"/>
 <@admin title="Dashboard">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Blank page
+                <small>it all starts here</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Examples</a></li>
+                <li class="active">Blank page</li>
+            </ol>
+        </section>
 
-<div class="right_col" role="main">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h3>Dashboard</h3>
-            </div>
-        </div>
+        <!-- Main content -->
+        <section class="content">
 
-        <div class="clearfix"></div>
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Title</h3>
 
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Plain Page</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        Add content to the page ...
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>User Statistics</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        Add content to the page ...
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i></button>
                     </div>
                 </div>
+                <div class="box-body">
+                    Start creating your amazing application!
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    Footer
+                </div>
+                <!-- /.box-footer-->
             </div>
-        </div>
+            <!-- /.box -->
 
-
+        </section>
+        <!-- /.content -->
     </div>
-</div>
-
-</@admin>
+    <!-- /.content-wrapper -->
+ </@admin>

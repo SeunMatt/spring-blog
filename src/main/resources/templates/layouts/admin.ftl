@@ -3,259 +3,457 @@
 <#assign asset = "com.smatt.addons.AssetDirective"?new()>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smatt Blog <#if ((title?length) > 0) > | ${title}</#if></title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="<@asset url = 'admin/css/bootstrap/bootstrap.min.css' />">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<@asset url = 'font-awesome-4.7.0/css/font-awesome.min.css' />">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<@asset url = 'admin/css/AdminLTE.min.css' />">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="<@asset url = 'admin/css/skins/_all-skins.css' />">
 
-    <title>${title} | Seun Matt Online</title>
-
-    <!-- Bootstrap -->
-    <link href="<@asset url ='admin/css/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
-
-    <link href="<@asset url='font-awesome-4.7.0/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
-    <!-- NProgress -->
-    <link href="<@asset url='admin/css/nprogress/nprogress.css' />" rel="stylesheet">
-
-    <link href="<@asset url = 'admin/animate/animate.min.css' />" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="<@asset url='admin/css/custom.min.css' />" rel="stylesheet">
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
 
-<body class="nav-md">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="../../index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>S</b>M</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Smatt</b> Blog</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
 
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Smatt Online</span></a>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <!-- menu profile quick info -->
-                <div class="profile clearfix">
-                    <div class="profile_pic">
-                        <img src="<@asset url='admin/images/img.jpg' />" alt="..." class="img-circle profile_img">
-                    </div>
-                    <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>John Doe</h2>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- /menu profile quick info -->
-
-                <br />
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>General</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Dashboard</a></li>
-                            <li><a><i class="fa fa-user"></i> Users</a></li>
-                            <li><a><i class="fa fa-user"></i> Sections</a></li>
-                            <li><a><i class="fa fa-user"></i> Categories</a></li>
-                            <li><a><i class="fa fa-user"></i> Featured Articles</a></li>
-
-                        </ul>
-                    </div>
-
-                    <#--<div class="menu_section">-->
-                        <#--<h3>Live On</h3>-->
-                        <#--<ul class="nav side-menu">-->
-                            <#--<li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>-->
-                                <#--<ul class="nav child_menu">-->
-                                    <#--<li><a href="e_commerce.html">E-commerce</a></li>-->
-                                    <#--<li><a href="projects.html">Projects</a></li>-->
-                                    <#--<li><a href="project_detail.html">Project Detail</a></li>-->
-                                    <#--<li><a href="contacts.html">Contacts</a></li>-->
-                                    <#--<li><a href="profile.html">Profile</a></li>-->
-                                <#--</ul>-->
-                            <#--</li>-->
-                            <#--<li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>-->
-                                <#--<ul class="nav child_menu">-->
-                                    <#--<li><a href="page_403.html">403 Error</a></li>-->
-                                    <#--<li><a href="page_404.html">404 Error</a></li>-->
-                                    <#--<li><a href="page_500.html">500 Error</a></li>-->
-                                    <#--<li><a href="plain_page.html">Plain Page</a></li>-->
-                                    <#--<li><a href="login.html">Login Page</a></li>-->
-                                    <#--<li><a href="pricing_tables.html">Pricing Tables</a></li>-->
-                                <#--</ul>-->
-                            <#--</li>-->
-                            <#--<li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>-->
-                                <#--<ul class="nav child_menu">-->
-                                    <#--<li><a href="#level1_1">Level One</a>-->
-                                    <#--<li><a>Level One<span class="fa fa-chevron-down"></span></a>-->
-                                        <#--<ul class="nav child_menu">-->
-                                            <#--<li class="sub_menu"><a href="level2.html">Level Two</a>-->
-                                            <#--</li>-->
-                                            <#--<li><a href="#level2_1">Level Two</a>-->
-                                            <#--</li>-->
-                                            <#--<li><a href="#level2_2">Level Two</a>-->
-                                            <#--</li>-->
-                                        <#--</ul>-->
-                                    <#--</li>-->
-                                    <#--<li><a href="#level1_2">Level One</a>-->
-                                    <#--</li>-->
-                                <#--</ul>-->
-                            <#--</li>-->
-                            <#--<li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>-->
-                        <#--</ul>-->
-                    <#--</div>-->
-
-                </div>
-                <!-- /sidebar menu -->
-
-                <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- /menu footer buttons -->
-            </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="<@asset url = 'admin/images/img.jpg' />" alt="">John Doe
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
-                                        <span>Settings</span>
-                                    </a>
-                                </li>
-                                <li><a href="javascript:;">Help</a></li>
-                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge bg-green">6</span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                <li>
-                                    <a>
-                                        <span class="image"><img src="<@asset url='admin/images/img.jpg' />" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <span class="image"><img src="<@asset url='admin/images/img.jpg' />" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <span class="image"><img src="<@asset url='admin/images/img.jpg' />" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <span class="image"><img src="<@asset url='admin/images/img.jpg' />" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="text-center">
-                                        <a>
-                                            <strong>See All Alerts</strong>
-                                            <i class="fa fa-angle-right"></i>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 4 messages</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="<@asset url='admin/images/user2-160x160.jpg' />" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
                                         </a>
+                                    </li>
+                                    <!-- end message -->
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 10 notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 9 tasks</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Design some buttons
+                                                <small class="pull-right">20%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">20% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">View all tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="<@asset url = 'admin/images/user2-160x160.jpg' />" class="user-image" alt="User Image">
+                            <span class="hidden-xs">${username!'Guest'}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="<@asset url = 'admin/images/user2-160x160.jpg' />" class="img-circle" alt="User Image">
+
+                                <p>
+                                    ${username ! 'Guest'}
+                                    <small></small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Editor</a>
                                     </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                                    <#--<div class="col-xs-4 text-center">-->
+                                        <#--<a href="#">Sales</a>-->
+                                    <#--</div>-->
+                                    <#--<div class="col-xs-4 text-center">-->
+                                        <#--<a href="#">Friends</a>-->
+                                    <#--</div>-->
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
             </div>
+        </nav>
+    </header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="<@asset url = 'admin/images/user2-160x160.jpg' />" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>${username!'Guest'}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>Posts</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+     <#nested >
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.3.12
         </div>
-        <!-- /top navigation -->
+        <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+        reserved.
+    </footer>
 
-        <!-- page content -->
-         <#nested>
-        <!-- /page content -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
 
-        <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                Copyright &copy; 2017, Seun Matt
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
             </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-    </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
 </div>
+<!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<@asset url = 'admin/js/jquery/jquery.min.js' />"></script>
-<!-- Bootstrap -->
-<script src="<@asset url = 'admin/js/bootstrap/bootstrap.min.js' />"></script>
+<!-- jQuery 2.2.3 -->
+<script src="<@asset url = 'admin/js/jQuery/jquery-2.2.3.min.js' />"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="<@asset url = 'admin/js/bootstrap/bootstrap.min.js' /> "></script>
+<!-- SlimScroll -->
+<script src="<@asset url = 'admin/js//slimscroll/jquery.slimscroll.min.js' />"></script>
 <!-- FastClick -->
-<script src="<@asset url = 'admin/js/fastclick/fastclick.js'/> "></script>
-<!-- NProgress -->
-<script src="<@asset url = 'admin/js/nprogress/nprogress.js' />"></script>
-
-<!-- Custom Theme Scripts -->
-<script src="<@asset url = 'admin/js/custom.min.js' />"></script>
+<script src="<@asset url = 'admin/js/fastclick/fastclick.min.js' />"></script>
+<!-- AdminLTE App -->
+<script src="<@asset url = 'admin/js/app.min.js' />"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<@asset url = 'admin/js/demo.js' />"></script>
 </body>
 </html>
 

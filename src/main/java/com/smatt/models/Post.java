@@ -1,6 +1,7 @@
 package com.smatt.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 //import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
@@ -10,9 +11,11 @@ import java.util.Date;
 /**
  * Created by smatt on 22/03/2017.
  */
+@Document(collection = "posts")
 public class Post
 {
 
+    @Id
     public String id;
 
     public String post = "";

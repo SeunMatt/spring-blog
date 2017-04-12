@@ -1,33 +1,51 @@
-<#macro login title="">
-<#--make the asset helper available-->
-    <#assign asset = "com.smatt.addons.AssetDirective"?new()>
-
+<#macro login title="" body="">
+<#assign asset = "com.smatt.addons.AssetDirective"?new()>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smatt Blog <#if (title?length > 0) >| ${title} </#if>)</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="<@asset url = 'admin/css/bootstrap/bootstrap.min.css' />">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<@asset url = 'font-awesome-4.7.0/css/font-awesome.min.css' />">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<@asset url = 'admin/css/AdminLTE.min.css' />">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="<@asset url = 'admin/plugins/iCheck/square/blue.css' />">
 
-    <title>${title} | Seun Matt Online</title>
-
-    <!-- Bootstrap -->
-    <link href="<@asset url ='admin/css/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
-
-    <link href="<@asset url='font-awesome-4.7.0/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
-    <!-- NProgress -->
-    <link href="<@asset url='admin/css/nprogress/nprogress.css' />" rel="stylesheet">
-
-    <link href="<@asset url = 'admin/css/animate/animate.min.css' />" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="<@asset url='admin/css/custom.min.css' />" rel="stylesheet">
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+<body class="hold-transition ${body}">
 
 <#nested >
 
+<!-- jQuery 2.2.3 -->
+<script src="<@asset url = 'admin/js/jQuery/jquery-2.2.3.min.js' />"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="<@asset url = 'admin/js/bootstrap/bootstrap.min.js' /> "></script>
+<!-- iCheck -->
+<script src="<@asset url = 'admin/plugins/iCheck/icheck.min.js' />"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+</body>
 </html>
+
 </#macro>
