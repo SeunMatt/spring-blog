@@ -1,4 +1,4 @@
-package com.smatt.controllers;
+package com.smatt.controllers.admin;
 
 
 import org.apache.log4j.Logger;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping(value = "/eyin")
-public class AdminController {
+public class AdminIndexController {
 
-    Logger logger = Logger.getLogger(AdminController.class);
+    Logger logger = Logger.getLogger(AdminIndexController.class);
 
     @GetMapping
     public String index() {

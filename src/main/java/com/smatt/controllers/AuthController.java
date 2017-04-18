@@ -42,7 +42,6 @@ public class AuthController {
 
     @GetMapping(value = "/login")
     public String login(ModelMap model) {
-        logger.info("error in model == " + model.get("error") + " toString = " + model.toString());
         return "admin/login";
     }
 

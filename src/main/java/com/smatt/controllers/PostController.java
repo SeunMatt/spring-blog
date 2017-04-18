@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @Controller
+//@RequestMapping(value = "/app")
 public class PostController {
 
     @Autowired

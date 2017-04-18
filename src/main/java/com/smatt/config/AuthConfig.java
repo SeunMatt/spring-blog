@@ -36,11 +36,12 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.antMatcher("/**").authorizeRequests().anyRequest().permitAll();
+//
+//        http.regexMatcher("?/eyin*").authorizeRequests().anyRequest().authenticated();
 
-        http .authorizeRequests() //any request hitting this server should be check for auth with rules stated below
-                .antMatchers("/eyin**") //if the path matches "/eyin**"
-                .authenticated()
+        http      .authorizeRequests() //any request hitting this server should be check for auth with rules stated below
+                    .regexMatchers("/eyin.*") //if the path matches "/eyin**"
+                    .authenticated()
                     //any other rules for the above antMatchers can follow here
         //uncomment below if you want spring to handle the logic for ya
 //                .and() //this is like we are done specifying rules for the antMatchers above. We wanna make another rule here
@@ -48,14 +49,11 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 //                    .loginPage("/login") //my custom login url that returns my login page is here
 //                    .loginProcessingUrl("/login") //my custom url for handling the post request from login
                 .and()
-                    .authorizeRequests()
-                    .antMatchers("/eyin")
-                    .hasRole("ADMIN")
-                .and()
                 .exceptionHandling()
                     .accessDeniedHandler(accessDeniedHandler())
                     .accessDeniedPage("/admin/login")
                     .authenticationEntryPoint((request, response, authException) -> {
+                        //this is called for access denied or forbidden event - 403
                         logger.info("Authentication Entry Point is invoked!");
                         response.sendRedirect("/login");
                     });

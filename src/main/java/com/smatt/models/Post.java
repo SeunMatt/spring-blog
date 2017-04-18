@@ -27,44 +27,11 @@ public class Post
     public Date createdAt;
     public Date updatedAt;
     public int likes;
+    public int reads;
+    public boolean published = true;
 
-   public Post() {
-        createdAt = new Date();
-        updatedAt = new Date();
-   }
 
-   public Post(String title, String post, String author) {
-
-        this.title = title;
-        this.author = author;
-        this.post = post;
-        createdAt = new Date();
-        updatedAt = new Date();
-        category_id = 1;
-        section_id = 1;
-    }
-
-    public Post(String title, String post, String author, int category_id) {
-
-        this.title = title;
-        this.author = author;
-        this.post = post;
-        createdAt = new Date();
-        updatedAt = new Date();
-        this.category_id = category_id;
-        section_id = 1;
-    }
-
-    public Post(String title, String post, String author, int category_id, int section_id) {
-
-        this.title = title;
-        this.author = author;
-        this.post = post;
-        createdAt = new Date();
-        updatedAt = new Date();
-        this.category_id = category_id;
-        this.section_id = section_id;
-    }
+    public Post() { }
 
 
     public String getId() {
@@ -140,13 +107,40 @@ public class Post
         this.section_id = section_id;
     }
 
+    public String getCover_pic() {
+        return cover_pic;
+    }
+
+    public void setCover_pic(String cover_pic) {
+        this.cover_pic = cover_pic;
+    }
+
+    public int getReads() {
+        return reads;
+    }
+
+    public void setReads(int reads) {
+        this.reads = reads;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    @Override
     public String toString() {
-        return "post = " + post +
+        return "id = " + id +
+                "\npost = " + post +
                 "\ntitle = " + title +
                 "\nauthor = " + author +
                 "\ncreatedAt = " + createdAt +
                 "\nupdatedAt = " + updatedAt +
-                "\nlikes = " + likes;
+                "\nlikes = " + likes +
+                "\npublished = " + published;
     }
 
     public boolean validate() {
