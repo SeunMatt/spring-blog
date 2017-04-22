@@ -38,7 +38,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="../../index2.html" class="logo">
+        <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>S</b>M</span>
             <!-- logo for regular state and mobile devices -->
@@ -219,14 +219,29 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
+                <li class="<#if dashboardMenu??>active<#else></#if>">
                     <a href="/eyin">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
+                <li class="<#if postMenu??>active<#else></#if>">
                     <a href="/eyin/posts">
                         <i class="fa fa-book"></i> <span>Posts</span>
+                    </a>
+                </li>
+                <li class="<#if categoryMenu??>active<#else></#if>">
+                    <a href="/eyin/categories">
+                        <i class="fa fa-th-list"></i> <span>Categories</span>
+                    </a>
+                </li>
+                <li class="<#if sectionMenu??>active<#else></#if>">
+                    <a href="/eyin/sections">
+                        <i class="fa fa-th-large"></i> <span>Sections</span>
+                    </a>
+                </li>
+                <li class="<#if userMenu??>active<#else></#if>">
+                    <a href="/eyin/users">
+                        <i class="fa fa-users"></i> <span>Users</span>
                     </a>
                 </li>
             </ul>
@@ -455,6 +470,7 @@
 <script src="<@asset url = 'admin/js/sweetalert.min.js' />"></script>
 <!-- AdminLTE App -->
 <script src="<@asset url = 'admin/js/app.min.js' />"></script>
+<script type="text/javascript" src="<@asset url = 'admin/js/tinymce/tinymce.min.js'/>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<@asset url = 'admin/js/demo.js' />"></script>
 <script src="<@asset url = 'admin/js/utility.js' />"></script>

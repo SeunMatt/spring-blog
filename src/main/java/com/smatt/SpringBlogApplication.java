@@ -1,13 +1,18 @@
 package com.smatt;
 
+import com.smatt.config.StorageProperties;
 import com.smatt.dao.PostRepository;
 import com.smatt.models.Post;
+import com.smatt.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableConfigurationProperties({StorageProperties.class})
 public class SpringBlogApplication {
 
 	@Autowired
@@ -17,25 +22,13 @@ public class SpringBlogApplication {
 		SpringApplication.run(SpringBlogApplication.class, args);
 	}
 
-//	@Override
-//	public void run(String... strings) throws Exception {
-//
-//		postRepository.deleteAll();
-//
-//		postRepository.save(new Post("Test Post One"));
-//		postRepository.save(new Post("Test Post Two"));
-//		postRepository.save(new Post("Test Post Three"));
-//
-//		System.out.println("Find All");
-//		System.out.println("--------------------------");
-//		for(Post p : postRepository.findAll()) {
-//			System.out.println(p.toString());
-//		}
-//
-//		System.out.println();
-//		System.out.println("FindByPost");
-//		System.out.println("------------------------");
-//		System.out.println(postRepository.findByPost("Test Post One"));
-//
-//	}
+
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+//			storageService.deleteAll();
+			storageService.init();
+		};
+	}
+
 }

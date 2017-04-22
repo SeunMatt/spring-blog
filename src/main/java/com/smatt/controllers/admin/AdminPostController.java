@@ -2,6 +2,7 @@ package com.smatt.controllers.admin;
 
 import com.smatt.dao.PostRepository;
 import com.smatt.models.Post;
+import com.smatt.service.StorageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,22 +23,29 @@ public class AdminPostController {
     @Autowired
     PostRepository postRepository;
 
+    private String index = "/eyin/posts";
+
+    @Autowired
+    StorageService storageService;
+
     Logger logger = Logger.getLogger(AdminPostController.class);
 
     @GetMapping(value = {"", "/"})
     public String index(ModelMap model) {
-       logger.info("post when reading = \n" + postRepository.findAll().get(0).toString());
        model.addAttribute("posts", postRepository.findAll());
+       model.addAttribute("postMenu", true);
        return "admin/posts/index";
     }
 
     @PostMapping(value = {"", "/"})
-    public String save(ModelMap model, Post post, RedirectAttributes attr) {
+    public String save(ModelMap model, Post post, @RequestParam(value = "coverPic") String coverPic, RedirectAttributes attr) {
+        logger.info("coverPic == " + coverPic);
+        logger.info("post incoming == " + post.toString());
 
         if(!post.validate()) {
             attr.addFlashAttribute("post", post);
             attr.addFlashAttribute("error", "Some Important Parameters are missing. Post must have title, author and post body");
-            return "redirect:/eyin/posts/edit";
+            return "redirect:"+index;
         }
 
         if(post.getId() != null && !post.getId().isEmpty()) {
@@ -49,7 +57,12 @@ public class AdminPostController {
                 existP.setUpdatedAt(new Date());
                 existP.setCategory_id(post.getCategory_id());
                 existP.setSection_id(post.getSection_id());
-                existP.setCover_pic(post.getCover_pic());
+                if(!existP.getCoverPic().equals(post.getCoverPic())) {
+                    logger.info("I have changed the coverPic Old one == " + existP.getCoverPic() + " NEW ONE == " + post.getCoverPic());
+                    //I have changed the coverpic while updating so delete the old one
+                    storageService.delete(existP.getCoverPic());
+                }
+                existP.setCoverPic(post.getCoverPic());
                 existP.setPublished(post.isPublished());
                 logger.info("updated post = " + postRepository.save(existP).toString());
                 attr.addFlashAttribute("success", "Post updated Successfully");
@@ -72,23 +85,24 @@ public class AdminPostController {
    @GetMapping(value = "/read/{id}")
     public String read(@PathVariable String id, ModelMap model) {
         model.addAttribute("post", postRepository.findOne(id));
-        return "admin/posts/post";
+       model.addAttribute("postMenu", true);
+       return "admin/posts/post";
     }
 
     @GetMapping(value = {"/edit/{id}", "/edit"})
     public String edit(@PathVariable(required = false) String id, ModelMap model) {
+        model.addAttribute("postMenu", true);
         if(id != null && !id.isEmpty()) model.addAttribute("post", postRepository.findOne(id));
         return "admin/posts/edit";
     }
 
 
-
     @PostMapping(value = "/delete")
     public String delete(@RequestParam("id") String id, RedirectAttributes attr) {
-        logger.info("Delete Invoked and id == " + id);
+//        logger.info("Delete Invoked and id == " + id);
         postRepository.delete(id);
         attr.addFlashAttribute("success", "Post Deleted Successfully");
-        return "redirect:";
+        return "redirect:"+index;
     }
 
 

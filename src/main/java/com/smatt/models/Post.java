@@ -21,7 +21,7 @@ public class Post
     public String post = "";
     public String author = "";
     public String title = "";
-    public String cover_pic = "";
+    public String coverPic = "";
     public int category_id;
     public int section_id;
     public Date createdAt;
@@ -49,7 +49,6 @@ public class Post
     public void setPost(String post) {
         this.post = post;
     }
-
 
     public Date getCreatedAt() {
         return createdAt;
@@ -107,12 +106,12 @@ public class Post
         this.section_id = section_id;
     }
 
-    public String getCover_pic() {
-        return cover_pic;
+    public String getCoverPic() {
+        return coverPic;
     }
 
-    public void setCover_pic(String cover_pic) {
-        this.cover_pic = cover_pic;
+    public void setCoverPic(String coverPic) {
+        this.coverPic = coverPic;
     }
 
     public int getReads() {
@@ -131,6 +130,7 @@ public class Post
         this.published = published;
     }
 
+
     @Override
     public String toString() {
         return "id = " + id +
@@ -140,7 +140,8 @@ public class Post
                 "\ncreatedAt = " + createdAt +
                 "\nupdatedAt = " + updatedAt +
                 "\nlikes = " + likes +
-                "\npublished = " + published;
+                "\npublished = " + published +
+                "\ncoverPic = " + coverPic;
     }
 
     public boolean validate() {

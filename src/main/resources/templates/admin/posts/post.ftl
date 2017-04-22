@@ -23,11 +23,12 @@
             <input type="hidden" name="id" />
         </form>
         <div class="row">
-            <div class="col-md-3">
-                <a href="/eyin/posts/edit/" class="btn btn-primary btn-block margin-bottom">Compose</a>
+            <div class="col-md-4">
+                <a href="/eyin/posts/edit" class="btn btn-primary btn-lg btn-flat margin-top margin-bottom">Compose</a>
             </div>
-            <!-- /.col -->
-            <div class="col-md-9">
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">${post.title}</h3>
@@ -38,7 +39,7 @@
                             <h4>Published: ${post.published?c}</h4>
                             <h4>Author: ${post.author}</h4>
                             <h5>Category: ${post.category_id}</h5>
-                                <h5>Section: ${post.section_id}</h5>
+                            <h5>Section: ${post.section_id}</h5>
 
                             <h5>
                                 <span class="mailbox-read-time pull-left">reads: ${post.reads}</span>
@@ -64,13 +65,15 @@
                         </div>
                         <!-- /.mailbox-controls -->
                         <div class="mailbox-read-message">
-
-                            <p>
-                               ${post.post}
-                            </p>
-
+                            <p> ${post.post} </p>
                         </div>
                         <!-- /.mailbox-read-message -->
+                        <div class="form-group">
+                            <br>
+                            <div class="small-box" style="padding-left: 5px;">
+                                <img class="img-responsive" id="img_cover_pic" src="<#if post??><@asset url='eyin/files/${post.coverPic}'/><#else></#if>" alt="Cover Picture" />
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
 

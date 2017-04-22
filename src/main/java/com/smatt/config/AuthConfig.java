@@ -40,25 +40,27 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 //        http.regexMatcher("?/eyin*").authorizeRequests().anyRequest().authenticated();
 
         http      .authorizeRequests() //any request hitting this server should be check for auth with rules stated below
-                    .regexMatchers("/eyin.*") //if the path matches "/eyin**"
+                    .regexMatchers("/eyin.*", "/eyin/files/.*") //if the path matches "/eyin**"
                     .authenticated()
-                    //any other rules for the above antMatchers can follow here
-        //uncomment below if you want spring to handle the logic for ya
+
+//               uncomment below section if you want spring to handle the logic for ya
 //                .and() //this is like we are done specifying rules for the antMatchers above. We wanna make another rule here
 //                .formLogin() //we are using formlogin method and not httpBasic or any other method
 //                    .loginPage("/login") //my custom login url that returns my login page is here
 //                    .loginProcessingUrl("/login") //my custom url for handling the post request from login
-                .and()
-                .exceptionHandling()
-                    .accessDeniedHandler(accessDeniedHandler())
-                    .accessDeniedPage("/admin/login")
-                    .authenticationEntryPoint((request, response, authException) -> {
-                        //this is called for access denied or forbidden event - 403
-                        logger.info("Authentication Entry Point is invoked!");
-                        response.sendRedirect("/login");
-                    });
-         //terminate
 
+                .and()
+                    .rememberMe()
+                .and()
+                    .exceptionHandling()
+                        .accessDeniedHandler(accessDeniedHandler())
+                        .accessDeniedPage("/admin/login")
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            //this is called for access denied or forbidden event - 403
+                            //we just redirect the user to our login page ASAP
+    //                        logger.info("Authentication Entry Point is invoked!");
+                            response.sendRedirect("/login");
+                        });
     }
 
     @Autowired
