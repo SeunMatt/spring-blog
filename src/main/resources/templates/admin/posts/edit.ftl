@@ -187,7 +187,7 @@
         formData.append('file', document.getElementById("cover_pic").files[0]);
         formData.append("${_csrf.parameterName}", "${_csrf.token}");
         $.ajax({
-            url: "/eyin/files/",
+            url: "/files/",
             method: "post",
             data: formData,
             processData: false,

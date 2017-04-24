@@ -141,16 +141,15 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="<@asset url = 'admin/images/user2-160x160.jpg' />" class="user-image" alt="User Image">
-                            <span class="hidden-xs">${username!'Guest'}</span>
+                            <img <#if (user.profilePic??)>  src='/files/${user.profilePic}' <#else> src="<@asset url='admin/images/user.png'/>" </#if> class="user-image" alt="User Image">
+                            <span class="hidden-xs">${user.username!'Guest'}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="<@asset url = 'admin/images/user2-160x160.jpg' />" class="img-circle" alt="User Image">
-
+                                <img <#if (user.profilePic??)>  src='/files/${user.profilePic}' <#else> src="<@asset url='admin/images/user.png'/>" </#if> class="img-circle" alt="User Image">
                                 <p>
-                                    ${username ! 'Guest'}
+                                    ${user.username ! 'Guest'}
                                     <small></small>
                                 </p>
                             </li>
@@ -172,7 +171,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="/eyin/users/profile" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -198,10 +197,10 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="<@asset url = 'admin/images/user2-160x160.jpg' />" class="img-circle" alt="User Image">
+                    <img <#if (user.profilePic??)>  src='/files/${user.profilePic}' <#else> src="<@asset url='admin/images/user.png'/>" </#if> class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>${username!'Guest'}</p>
+                    <p>${user.username!'Guest'}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>

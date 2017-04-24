@@ -1,8 +1,9 @@
-package com.smatt.controllers;
+package com.smatt.controllers.auth;
 
 import com.smatt.dao.UserRepository;
 import com.smatt.models.User;
 import com.smatt.models.UserRegistration;
+import com.smatt.service.MySecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
@@ -38,6 +38,9 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    HttpSession session;
+
     Logger logger  = Logger.getLogger(AuthController.class);
 
     @GetMapping(value = "/login")
@@ -47,9 +50,9 @@ public class AuthController {
 
 
     @PostMapping(value = "/login")
-    public String doLogin(User user, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String doLogin(User user, RedirectAttributes redirectAttributes) {
 
-        logger.info("username = " + user.getEmail() + " password == " + user.getPassword());
+//        logger.info("username = " + user.getEmail() + " password == " + user.getPassword());
 
         if(user.isCredentialsValid()) {
             redirectAttributes.addFlashAttribute("error", "Email/Password is Empty");
@@ -57,7 +60,8 @@ public class AuthController {
         }
 
         if(doAuth(user.getEmail(), user.getPassword())) {
-            session.setAttribute("username", findLoggedInUsername());
+            //used to display username on template
+            session.setAttribute("username", MySecurityService.findLoggedInUsername());
             return "redirect:/eyin";
         } else {
             redirectAttributes.addFlashAttribute("error", "Username/Password Do Not Match");
@@ -66,9 +70,9 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/logout", method = {RequestMethod.POST, RequestMethod.GET})
-    public String logout(HttpServletRequest req, HttpServletResponse res) {
+    public String logout(HttpServletRequest req, HttpServletResponse res, ModelMap model) {
         doLogout(req, res);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping( value = "/register")
@@ -79,7 +83,7 @@ public class AuthController {
     @PostMapping(value = "/register")
     public String doRegister(UserRegistration userRegistration, RedirectAttributes attr) {
 
-        logger.info("reg info = " + userRegistration.toString());
+//        logger.info("reg info = " + userRegistration.toString());
 
         if(!userRegistration.isValidDetails()) {
            attr.addFlashAttribute("error", "One or More Field is Missing");
@@ -92,11 +96,19 @@ public class AuthController {
             attr.addFlashAttribute("formdata", userRegistration);
             return "redirect:/register";
         }
+        User user = userRegistration.getUserObject();
+        userRepository.save(user);
 
-        userRepository.save(userRegistration.getUserObject());
-
-        attr.addFlashAttribute("success", "Registration Successful! Please login with your credentials");
-        return "redirect:/login";
+        //log the user in automatically
+        if(doAuth(user.getEmail(), userRegistration.getPassword())) {
+            //used to display username on template
+            attr.addFlashAttribute("success", "Welcome " + MySecurityService.findLoggedInUsername() + ", click on the profile picture to change it. You can add your status or bio in the settings tab");
+            return "redirect:/eyin/users/profile";
+        } else {
+            logger.info("auto auth failed!");
+            attr.addFlashAttribute("success", "Registration Successful! Please login with your credentials");
+            return "redirect:/login";
+        }
 
     }
 
@@ -106,11 +118,8 @@ public class AuthController {
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(email, password);
 
-        logger.info("authToken principal == " + authToken.getPrincipal() +
-                " credentials = " + authToken.getCredentials());
-
         if(authManager == null) {
-            logger.info("authManager is null");
+//            logger.info("authManager is null");
             return false;
         }
 
@@ -119,30 +128,27 @@ public class AuthController {
             authToken = (UsernamePasswordAuthenticationToken) authManager.authenticate(authToken);
             if(authToken.isAuthenticated()) {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                logger.info("User " + findLoggedInUsername() + " just logged in!");
+                session.setAttribute("user", userRepository.findByUsername(MySecurityService.findLoggedInUsername()));
+//                logger.info("User " + MySecurityService.findLoggedInUsername() + " just logged in!");
                 return true;
             }
 
             return false;
 
         }catch(BadCredentialsException e) {
+//            logger.info("bad credentials exception");
+//            e.printStackTrace();
             return false;
         }catch(Exception ex) {
             logger.info("Other exceptions occurred in doAuth " + ex.getMessage());
+            ex.printStackTrace();
             return false;
         }
 
     }
 
 
-    public String findLoggedInUsername() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth != null && auth.getPrincipal() != null && auth.getPrincipal() instanceof UserDetails) {
-            return ((UserDetails) auth.getPrincipal()).getUsername();
-        }
-        logger.info("findLoggedInUsername is null");
-        return null;
-    }
+
 
 
     public void doLogout(HttpServletRequest request, HttpServletResponse response) {

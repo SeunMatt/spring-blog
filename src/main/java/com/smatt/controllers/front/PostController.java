@@ -1,4 +1,4 @@
-package com.smatt.controllers;
+package com.smatt.controllers.front;
 
 import com.smatt.dao.PostRepository;
 import com.smatt.models.Post;

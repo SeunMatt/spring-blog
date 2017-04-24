@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value = "/eyin/files")
+@RequestMapping(value = "/files")
 public class FileUploadController {
 
     private final StorageService storageService;

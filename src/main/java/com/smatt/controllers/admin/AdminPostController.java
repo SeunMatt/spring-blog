@@ -98,7 +98,7 @@ public class AdminPostController {
 
 
     @PostMapping(value = "/delete")
-    public String delete(@RequestParam("id") String id, RedirectAttributes attr) {
+    public String delete(@RequestParam(value = "id") String id, RedirectAttributes attr) {
 //        logger.info("Delete Invoked and id == " + id);
         postRepository.delete(id);
         attr.addFlashAttribute("success", "Post Deleted Successfully");

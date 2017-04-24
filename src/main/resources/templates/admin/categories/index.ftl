@@ -74,75 +74,80 @@
 
 <script>
 
-    $(".del").on("click", function () {
-        var id = $(this).attr("data-id");
-        swal({
-                    title: "Are you sure?",
-                    text: "Do you really wanna Delete the Category?",
-                    type: "warning",
-                    showCancelButton: true,
-                    cancelButtonClass: "btn-default",
-                    confirmButtonClass: "btn-warning",
-                    confirmButtonText: "Yes, Do it!",
-                    closeOnConfirm: true,
-                },
-                function() {
-                    displayWait(".box-body");
-                    $("input[name='id']").val(id);
-                    $("#delForm").attr("action", "/eyin/categories/delete");
-                    document.getElementById("delForm").submit();
-                });
-    });
+    $(document).ready(function () {
 
-    $(".edit").on("click", function (event) {
-        var id = $(this).attr("data-id"), cat = $(this).attr("data-cat");
-        swal({
-            title: "Rename Category",
-            text: "Old Category Name: " + cat,
-            type: "input",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            animation: "slide-from-top",
-            inputPlaceholder: "New Category Name",
-            showLoaderOnConfirm: true
-        },
-        function(inputValue){
-            if (inputValue === false) return false;
 
-            if (inputValue === "") {
-                swal.showInputError("You need to write something!");
-                return false
-            }
-            $("input[name='id']").val(id);
-            $("input[name='category']").val(inputValue);
-            $("#delForm").attr("action", "/eyin/categories/update");
-            document.getElementById("delForm").submit();
+        $(".del").on("click", function () {
+            var id = $(this).attr("data-id");
+            swal({
+                        title: "Are you sure?",
+                        text: "Do you really wanna Delete the Category?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonClass: "btn-default",
+                        confirmButtonClass: "btn-warning",
+                        confirmButtonText: "Yes, Do it!",
+                        closeOnConfirm: true,
+                    },
+                    function() {
+                        displayWait(".box-body");
+                        $("input[name='id']").val(id);
+                        $("#delForm").attr("action", "/eyin/categories/delete");
+                        document.getElementById("delForm").submit();
+                    });
         });
 
-    });
+        $(".edit").on("click", function (event) {
+            var id = $(this).attr("data-id"), cat = $(this).attr("data-cat");
+            swal({
+                        title: "Rename Category",
+                        text: "Old Category Name: " + cat,
+                        type: "input",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        animation: "slide-from-top",
+                        inputPlaceholder: "New Category Name",
+                        showLoaderOnConfirm: true
+                    },
+                    function(inputValue){
+                        if (inputValue === false) return false;
 
-    $("#addBt").on("click", function (event) {
-        event.preventDefault();
-        swal({
-            title: "New Category",
-            text: "",
-            type: "input",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            animation: "slide-from-top",
-            inputPlaceholder: "Category Name",
-            showLoaderOnConfirm: true
-        },
-        function(inputValue){
-            if (inputValue === false) return false;
+                        if (inputValue === "") {
+                            swal.showInputError("You need to write something!");
+                            return false
+                        }
+                        $("input[name='id']").val(id);
+                        $("input[name='category']").val(inputValue);
+                        $("#delForm").attr("action", "/eyin/categories/update");
+                        document.getElementById("delForm").submit();
+                    });
 
-            if (inputValue === "") {
-                swal.showInputError("You need to write something!");
-                return false
-            }
-            $("input[name='category']").val(inputValue);
-            $("#delForm").attr("action", "/eyin/categories");
-            document.getElementById("delForm").submit();
+        });
+
+        $("#addBt").on("click", function (event) {
+            event.preventDefault();
+            swal({
+                        title: "New Category",
+                        text: "",
+                        type: "input",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        animation: "slide-from-top",
+                        inputPlaceholder: "Category Name",
+                        showLoaderOnConfirm: true
+                    },
+                    function(inputValue){
+                        if (inputValue === false) return false;
+
+                        if (inputValue === "") {
+                            swal.showInputError("You need to write something!");
+                            return false
+                        }
+                        $("input[name='category']").val(inputValue);
+                        $("#delForm").attr("action", "/eyin/categories");
+                        document.getElementById("delForm").submit();
+                    });
+
         });
 
     });
