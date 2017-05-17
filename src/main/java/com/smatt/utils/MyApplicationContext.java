@@ -24,4 +24,6 @@ public class MyApplicationContext implements ApplicationContextAware {
     public static ApplicationContext getApplicationContext() {
         return context;
     }
+
+
 }

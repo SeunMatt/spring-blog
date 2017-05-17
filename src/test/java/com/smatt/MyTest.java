@@ -4,6 +4,10 @@ import com.smatt.models.Post;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by smatt on 21/04/2017.
  */
@@ -14,14 +18,15 @@ public class MyTest {
     public MyTest() {}
 
     @Test
-    public void testRegex() {
-        String filename = "this.is.a.file.jpg";
-        logger.info("extension = " + filename.substring(filename.lastIndexOf(".")));
+    public void testSumByStream() {
+        List<Post> posts = Arrays.asList(
+           new Post(1, "Post 1"),
+           new Post(2, "post 2"),
+           new Post(3, "post 3")
+        );
 
-        Post post = new Post();
-        post.setCoverPic("sample.jpg");
-
-        logger.info("post = " + post.toString());
+        int total = posts.stream().collect(Collectors.summingInt(p -> p.getViews()));
+        logger.info("total = " + total);
     }
 
 

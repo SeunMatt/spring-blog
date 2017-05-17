@@ -1,44 +1,58 @@
 package com.smatt.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.smatt.config.Roles;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.annotations.GeneratorType;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by smatt on 22/03/2017.
  */
-@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Transient
+    Logger logger = Logger.getLogger(User.class);
 
     @Id
     private String id;
     private String name;
+
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String username;
+
     private String password;
     private String profilePic;
     private String bio;
-    private int roleId;
+
+    private String role;
     private Date createdAt, updatedAt;
     private boolean banned;
+    private String token;
+    private boolean confirmEmail;
+
+    //i.e One user has many posts
+    //this will create another table users_posts
+    //I don't want that extra table so am gonna disable it
+    //and fetch all posts for a user with Query in service/controllers
+//    @OneToMany(targetEntity = Post.class)
+//    public List<Post> posts;
 
 
-
-    public User() {
-        createdAt = new Date();
-        updatedAt = new Date();
-    }
+    public User() { }
 
     public User(String username, String password) {
         this.username = username;
         this.password =  password;
-        createdAt = new Date();
-        updatedAt = new Date();
     }
-
-
-
 
     public String getId() {
         return id;
@@ -96,12 +110,12 @@ public class User {
         this.bio = bio;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Date getCreatedAt() {
@@ -128,11 +142,42 @@ public class User {
         this.banned = banned;
     }
 
-
-    public boolean isCredentialsValid() {
-        return getEmail().isEmpty() && getPassword().isEmpty();
+    public String getToken() {
+        return token;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isConfirmEmail() {
+        return confirmEmail;
+    }
+
+    public void setConfirmEmail(boolean confirmEmail) {
+        this.confirmEmail = confirmEmail;
+    }
+
+
+    @PrePersist
+    public void preSave() {
+        if(StringUtils.isEmpty(role)) {
+            role = Roles.WRITER.toString();
+        }
+        if(createdAt == null) {
+            createdAt = new Date();
+        }
+        if(StringUtils.isEmpty(id)) {
+            id = RandomStringUtils.randomAlphanumeric(10);
+        }
+        //always a new one
+        updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = new Date();
+    }
 
     @Override
     public String toString() {
@@ -142,7 +187,7 @@ public class User {
                 "\nBio: " + bio +
                 "\nusername: " + username +
                 "\nbanned: " + banned +
-                "\nroleId " + roleId +
+                "\nroleId " + role +
                 "\nprofilePic " + profilePic;
     }
 

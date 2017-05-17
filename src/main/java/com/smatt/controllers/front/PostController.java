@@ -38,8 +38,8 @@ public class PostController {
     }
 
     @PostMapping("/post/{id}")
-    public String update(@RequestParam("id") int id, ModelMap model) {
-        Post p = postRepository.findOne(id +"");
+    public String update(@RequestParam("id") String id, ModelMap model) {
+        Post p = postRepository.findOne(id);
         if(postRepository == null) {
             model.addAttribute("error", "Post Not Found");
         } else {

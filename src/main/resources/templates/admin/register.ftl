@@ -14,15 +14,18 @@
         <form action="/register" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Full name" name="name">
+                <input type="text" class="form-control" placeholder="Full name" name="name" required
+                       value="<#if formdata??>${formdata.name!''}<#else></#if>" >
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Username" name="username">
+                <input type="text" class="form-control" placeholder="Username" name="username" required
+                       value="<#if formdata??>${formdata.username!''}<#else></#if>">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email" placeholder="Email">
+                <input type="email" class="form-control" name="email" placeholder="Email" required
+                       value="<#if formdata??>${formdata.email!''}<#else></#if>">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -35,9 +38,15 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
+                    <div class="g-recaptcha" data-sitekey="6LcpmiAUAAAAACv69eLygOFO3OPoayrMpT2fk_rJ"></div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> I agree to the <a href="/terms">terms</a>
+                            <#--<input type="checkbox"> I agree to the <a href="/terms">terms</a>-->
                         </label>
                     </div>
                 </div>

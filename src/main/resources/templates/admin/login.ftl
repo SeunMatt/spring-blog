@@ -38,7 +38,7 @@
             </div>
         </form>
 
-        <a href="#">I forgot my password</a><br>
+        <a href="/resend/email">I forgot my password</a><br>
         <a href="/register" class="text-center">Don't have Account?</a>
 
     </div>

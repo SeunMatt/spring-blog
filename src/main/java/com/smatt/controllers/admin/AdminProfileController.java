@@ -1,20 +1,21 @@
 package com.smatt.controllers.admin;
 
+import com.smatt.config.Constants;
+import com.smatt.dao.PostRepository;
 import com.smatt.dao.UserRepository;
 import com.smatt.models.User;
 import com.smatt.service.MySecurityService;
 import com.smatt.service.StorageService;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -28,6 +29,9 @@ public class AdminProfileController {
     UserRepository userRepository;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     StorageService storageService;
 
     String index = "/eyin/users/profile";
@@ -35,20 +39,13 @@ public class AdminProfileController {
 
 
     @GetMapping(value = {"", "/"})
-    public String index(ModelMap model, RedirectAttributes attr) {
-        User user = userRepository.findByUsername(MySecurityService.findLoggedInUsername());
-//        logger.info("user profile = " + user.toString());
-        if(user == null) {
-            attr.addFlashAttribute("error", "You have to login first");
-            return "redirect:/login";
-        }
-
-        model.addAttribute("user", user);
+    public String index(ModelMap model, RedirectAttributes attr, HttpSession session) {
+        model.addAttribute("posts", postRepository.findByAuthor( ((User) session.getAttribute("user")) ) );
         return "admin/profile/index";
     }
 
     @PostMapping(value = {"", "/"})
-    public String update(RedirectAttributes attr, User user) {
+    public String update(RedirectAttributes attr, User user, HttpSession session) {
 
         User existingU = userRepository.findOne(user.getId());
 
@@ -65,17 +62,22 @@ public class AdminProfileController {
         userRepository.save(existingU);
 
         attr.addFlashAttribute("success", "Profile Updated Successfully");
+        session.removeAttribute(Constants.LOGGED_IN_USER);
+        session.setAttribute(Constants.LOGGED_IN_USER, existingU);
         return "redirect:"+index;
     }
 
     @PostMapping(value = {"/pic"})
     @ResponseBody
-    public String updateProfilePic(@RequestParam("file") MultipartFile file, RedirectAttributes attr) {
+    public String updateProfilePic(@RequestParam("file") MultipartFile file, RedirectAttributes attr, HttpSession session) {
         String fileName = storageService.store(file);
         User user = userRepository.findByUsername(MySecurityService.findLoggedInUsername());
-        if(!StringUtils.isEmpty(user.getProfilePic())) storageService.delete(user.getProfilePic());
+        String oldProfilePic = user.getProfilePic();
         user.setProfilePic(fileName);
         userRepository.save(user);
+        session.removeAttribute(Constants.LOGGED_IN_USER);
+        session.setAttribute(Constants.LOGGED_IN_USER, user);
+        if(!StringUtils.isEmpty(oldProfilePic)) storageService.delete(oldProfilePic);
         return "success";
     }
 

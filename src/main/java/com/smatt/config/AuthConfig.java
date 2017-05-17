@@ -3,6 +3,7 @@ package com.smatt.config;
 import com.smatt.dao.UserRepository;
 import com.smatt.exceptions.MyAccessDeniedHandler;
 import com.smatt.models.User;
+import com.smatt.utils.URLHelper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 /**
  * Created by smatt on 06/04/2017.
@@ -59,8 +61,26 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                             //this is called for access denied or forbidden event - 403
                             //we just redirect the user to our login page ASAP
     //                        logger.info("Authentication Entry Point is invoked!");
+//                            AbstractAuthenticationProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY
+//                            logger.info("path intended = " + request.getPathTranslated());
+//                            logger.info("path intended2 = " + request.getPathInfo());
+//                            logger.info("path intended4 = " + request.getRequestURI());
+//                            logger.info("path intended5 = " + request.getAuthType());
+//                            logger.info("host1 =  " + request.getLocalAddr() );
+//                            logger.info("host2 =  " + request.getRemoteAddr() );
+//                            logger.info("host3 =  " + request.getServerName() );
+//                            logger.info("host4 =  " + request.getServerPort());
+//                            logger.info("host4 =  " + request.getRemoteHost() );
+//                            logger.info("host5 =  " + request.getLocalName());
+//                            logger.info("protocol =  " + request.getProtocol());
+//                            logger.info("user in role =  " + request.isUserInRole("SUPER_ADMIN"));
+//                            logger.info("base url = " + URLHelper.getBaseUrl(request));
+                            request.getSession().setAttribute(Constants.INTENDED_URI, request.getRequestURI());
                             response.sendRedirect("/login");
                         });
+
+
+
     }
 
     @Autowired
@@ -74,7 +94,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                     true, true, true, true,
-                    AuthorityUtils.createAuthorityList("USER"));
+                    AuthorityUtils.createAuthorityList(user.getRole()));
         }).passwordEncoder(new BCryptPasswordEncoder());
     }
 

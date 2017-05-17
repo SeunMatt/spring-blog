@@ -23,6 +23,7 @@ public class HomeController {
     @Autowired
     public PostRepository postRepository;
 
+
     Logger logger = Logger.getLogger(HomeController.class);
 
 

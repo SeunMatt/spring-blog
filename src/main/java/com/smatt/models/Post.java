@@ -1,38 +1,53 @@
 package com.smatt.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.smatt.config.Roles;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.GeneratorType;
 
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.Table;
 import java.util.Date;
+import javax.persistence.*;
 
 /**
  * Created by smatt on 22/03/2017.
  */
-@Document(collection = "posts")
+
+@Entity
+@Table(name = "posts")
 public class Post
 {
 
     @Id
     public String id;
-
-    public String post = "";
-    public String author = "";
-    public String title = "";
-    public String coverPic = "";
-    public int category_id;
-    public int section_id;
+    public String title;
+    public String coverPic;
     public Date createdAt;
     public Date updatedAt;
     public int likes;
-    public int reads;
-    public boolean published = true;
+    public int views;
+    public String post;
+
+    @Column(columnDefinition = "boolean")
+    public boolean published;
+
+    @OneToOne(targetEntity = User.class, cascade = {CascadeType.REMOVE})
+    public User author;
+
+    @OneToOne
+    public Section section;
+
+    @OneToOne
+    public Category category;
+
+
 
 
     public Post() { }
 
+    public Post(int views, String post) {
+        this.views = views;
+        this.post = post;
+    }
 
     public String getId() {
         return id;
@@ -74,12 +89,28 @@ public class Post
         this.likes = likes;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getTitle() {
@@ -90,22 +121,6 @@ public class Post
         this.title = title;
     }
 
-    public int getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-
-    public int getSection_id() {
-        return section_id;
-    }
-
-    public void setSection_id(int section_id) {
-        this.section_id = section_id;
-    }
-
     public String getCoverPic() {
         return coverPic;
     }
@@ -114,12 +129,12 @@ public class Post
         this.coverPic = coverPic;
     }
 
-    public int getReads() {
-        return reads;
+    public int getViews() {
+        return views;
     }
 
-    public void setReads(int reads) {
-        this.reads = reads;
+    public void setViews(int views) {
+        this.views = views;
     }
 
     public boolean isPublished() {
@@ -130,22 +145,41 @@ public class Post
         this.published = published;
     }
 
+    @PrePersist
+    public void preSave() {
+        if(createdAt == null) {
+            createdAt = new Date();
+        }
+        if(StringUtils.isEmpty(id)) {
+            id = RandomStringUtils.randomAlphanumeric(10);
+        }
+        //always a new one
+        updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = new Date();
+    }
+
 
     @Override
     public String toString() {
         return "id = " + id +
                 "\npost = " + post +
                 "\ntitle = " + title +
-                "\nauthor = " + author +
                 "\ncreatedAt = " + createdAt +
-                "\nupdatedAt = " + updatedAt +
+                "\nupdatedAt = " + getUpdatedAt() +
                 "\nlikes = " + likes +
                 "\npublished = " + published +
-                "\ncoverPic = " + coverPic;
+                "\ncoverPic = " + coverPic +
+                "\nauthor:\n\t" + getAuthor() +
+                "\ncategory \n\t" + getCategory() +
+                "\nsection \n\t" + getSection();
     }
 
     public boolean validate() {
-       return !post.isEmpty() && !title.isEmpty() && !author.isEmpty();
+       return !StringUtils.isEmpty(post) && !StringUtils.isEmpty(title);
     }
 
 }

@@ -13,6 +13,8 @@
             <li><a href="/eyin/users">Users</a></li>
             <li class="active">User profile</li>
         </ol>
+        <br>
+        <#include "../../partials/alerts.ftl"/>
     </section>
 
     <!-- Main content -->
@@ -21,6 +23,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input type="hidden" name="id" value="${user.id}" />
             <input type="hidden" name="bstatus">
+            <input type="hidden" name="role">
         </form>
         <div class="row">
             <div class="col-md-3">
@@ -29,7 +32,7 @@
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <img id="profilePicImg" class="profile-user-img img-responsive img-circle"
-                            <#if ((user.profilePic?length) > 0) >  src='/files/${user.profilePic}' <#else> src="<@asset url='admin/images/user4-128x128.jpg'/>" </#if>  alt="User profile picture">
+                            <#if ((user.profilePic!""?length) > 0) >  src='/files/${user.profilePic}' <#else> src="<@asset url='admin/images/user.png'/>" </#if>  alt="User profile picture">
                         <h3 class="profile-username text-center">
                             ${user.name}
                         </h3>
@@ -40,7 +43,7 @@
                             <br>
                             status: <#if (user.banned)!false == true>Banned<#else>Active</#if>
                             <br>
-                            role: ${user.roleId}
+                            role: ${(user.role)!""}
                         </p>
                         <hr>
                         <p class="text-muted text-center">${(user.bio)!""}</p>
@@ -60,12 +63,13 @@
                     <div class="box-body box-admin">
                         <strong>Assign Role</strong>
                         <br><br>
-                        <select class="form-control">
-                            <option>ROLE_EDITOR</option>
-                            <option>ROLE_WRITER</option>
+                        <select class="form-control" id="role">
+                            <#list roles as role>
+                                <option>${role}</option>
+                            </#list>
                         </select>
                         <br>
-                        <button type="submit" class="btn btn-primary"> SAVE CHANGES</button>
+                        <button id="roleBt" class="btn btn-primary"> SAVE CHANGES</button>
                         <br>
                         <hr>
 
@@ -93,92 +97,43 @@
                         <div class="active tab-pane" id="articles">
                             <!-- The timeline -->
                             <ul class="timeline timeline-inverse">
-                                <!-- timeline time label -->
-                                <li class="time-label">
-                        <span class="bg-red">
-                          10 Feb. 2014
-                        </span>
-                                </li>
-                                <!-- /.timeline-label -->
-                                <!-- timeline item -->
-                                <li>
-                                    <i class="fa fa-envelope bg-blue"></i>
+                                <#list posts as post>
+                                    <!-- timeline time label -->
+                                    <li class="time-label">
+                                        <span class="bg-green"> ${post.createdAt?date} </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-comments bg-blue"></i>
 
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                                        <div class="timeline-item">
 
-                                        <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                                            <span class="time"><i class="fa fa-eye"></i> ${post.views}</span>
 
-                                        <div class="timeline-body">
-                                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
+                                            <h3 class="timeline-header"><a href="/eyin/posts/read/${post.id}">${post.title}</a></h3>
+
+                                            <div class="timeline-body">
+                                                ${post.post}
+
+                                                <hr style="margin-bottom: 0px;">
+
+                                                <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
+                                                    category: ${post.category.category!""}
+                                                </span>
+                                                <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
+                                                    section: ${post.section.section!""}
+                                                </span>
+                                                <br>
+                                            </div>
+                                            <div class="timeline-footer">
+                                                <a class="btn btn-primary btn-xs" href="/eyin/posts/edit/${post.id}">Edit</a>
+                                                <a class="btn btn-danger btn-xs del-post" data-id="${post.id}">Delete</a>
+                                            </div>
                                         </div>
-                                        <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">Read more</a>
-                                            <a class="btn btn-danger btn-xs">Delete</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <!-- timeline item -->
-                                <li>
-                                    <i class="fa fa-user bg-aqua"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
-                                        </h3>
-                                    </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <!-- timeline item -->
-                                <li>
-                                    <i class="fa fa-comments bg-yellow"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                                        <div class="timeline-body">
-                                            Take me to your leader!
-                                            Switzerland is small and neutral!
-                                            We are more like Germany, ambitious and misunderstood!
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <!-- timeline time label -->
-                                <li class="time-label">
-                        <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
-                                </li>
-                                <!-- /.timeline-label -->
-                                <!-- timeline item -->
-                                <li>
-                                    <i class="fa fa-camera bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                                        <div class="timeline-body">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- END timeline item -->
+                                    </li>
+                                    <!-- END timeline item -->
+                                </#list>
                                 <li>
                                     <i class="fa fa-clock-o bg-gray"></i>
                                 </li>
@@ -214,6 +169,7 @@
                     },
                     function () {
                         displayWait(".box-admin");
+                        $("#delForm").attr("action", "/eyin/users/delete");
                         document.getElementById("delForm").submit();
                     });
         });
@@ -256,6 +212,46 @@
                     });
         });
 
+        $("#roleBt").on("click", function () {
+            var role = $("#role").val();
+
+            swal({
+                        title: "Are you sure?",
+                        text: "Do you really wanna make the User a " + role + "?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonClass: "btn-default",
+                        confirmButtonClass: "btn-warning",
+                        confirmButtonText: "Yes, Do it!",
+                        closeOnConfirm: true,
+                    },
+                    function () {
+                        $("#delForm").attr("action", "/eyin/users/role");
+                        $("input[name='role']").val(role);
+                        displayWait(".box-admin");
+                        document.getElementById("delForm").submit();
+                    });
+        });
+
+        $(".del-post").on("click", function () {
+            var id = $(this).attr("data-id");
+            swal({
+                        title: "Are you sure?",
+                        text: "Do you really wanna Delete the Post?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonClass: "btn-default",
+                        confirmButtonClass: "btn-warning",
+                        confirmButtonText: "Yes, Do it!",
+                        closeOnConfirm: true,
+                    },
+                    function() {
+                        displayWait(".row");
+                        $("#delForm").attr("action", "/eyin/posts/delete");
+                        $("input[name='id']").val(id);
+                        document.getElementById("delForm").submit();
+                    });
+        });
     });
 </script>
 </@admin>

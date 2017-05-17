@@ -1,5 +1,7 @@
 package com.smatt.models;
 
+import com.smatt.config.Constants;
+import com.smatt.service.TokenGenerator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -72,12 +74,16 @@ public class UserRegistration {
                 "\nPassword Confirm = " + getPassword_confirmation();
     }
 
-    public User getUserObject() {
+    //this method will create the user object that will be saved in the database
+    public User  createUserObject(TokenGenerator tokenGenerator) {
+
         User user = new User();
         user.setUsername(getUsername());
         user.setEmail(getEmail());
         user.setName(getName());
         user.setPassword(new BCryptPasswordEncoder().encode(getPassword()));
+        user.setToken(tokenGenerator.getToken(Constants.TOKEN_LENGTH));
+        user.setConfirmEmail(false);
         return user;
     }
 }

@@ -10,7 +10,7 @@
             <small></small>
         </h1>
         <br>
-        <a href="#" class="btn btn-primary btn-lg btn-flat margin-top margin-bottom" id="addBt">Create User</a>
+        <#--<a href="#" class="btn btn-primary btn-lg btn-flat margin-top margin-bottom" id="addBt">Create User</a>-->
         <ol class="breadcrumb">
             <li><a href="/eyin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">users</li>
@@ -51,7 +51,7 @@
                                     <td>${user.name}</td>
                                     <td>${user.username}</td>
                                     <td>${user.email}</td>
-                                    <td>${user.roleId}</td>
+                                    <td>${(user.role)!""}</td>
                                     <td>
                                         <a href="/eyin/users/view/${user.id}" class="btn btn-sm btn-primary"><span class="fa fa-search"></span>
                                         </a>

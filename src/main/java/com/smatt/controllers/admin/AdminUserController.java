@@ -1,7 +1,10 @@
 package com.smatt.controllers.admin;
 
+import com.smatt.config.Roles;
+import com.smatt.dao.PostRepository;
 import com.smatt.dao.UserRepository;
 import com.smatt.models.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -20,6 +24,8 @@ public class AdminUserController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PostRepository postRepository;
     private String index = "/eyin/users";
     Logger logger = Logger.getLogger(AdminUserController.class);
 
@@ -34,12 +40,15 @@ public class AdminUserController {
     @GetMapping(value = "/view/{id}")
     public String view(ModelMap model, RedirectAttributes attr, @PathVariable String id) {
         User user = userRepository.findOne(id);
+
         if(user == null) {
             attr.addFlashAttribute("error", "User Not Found! Invalid Parameter");
             return "redirect:"+index;
         }
 
         model.addAttribute("user", user);
+        model.addAttribute("posts", postRepository.findByAuthor(user));
+        model.addAttribute("roles", Roles.values());
         model.addAttribute("userMenu", true);
 
         return "admin/users/view";
@@ -47,11 +56,17 @@ public class AdminUserController {
 
 
     @PostMapping(value = "/ban")
-    public String ban(RedirectAttributes attr, @RequestParam(value = "id") String id, @RequestParam(value = "bstatus") String bstatus) {
+    public String ban(RedirectAttributes attr, @RequestParam(value = "id") String id,
+                      @RequestParam(value = "bstatus") String bstatus, HttpSession session) {
         User user = userRepository.findOne(id);
         if(user == null) {
             attr.addFlashAttribute("error", "User Object Not Found. Missing Parameter!");
             return "redirect:/eyin/users/view/"+id;
+        }
+
+        if(StringUtils.equals(user.getEmail(), ((User)session.getAttribute("user")).getEmail())) {
+            attr.addFlashAttribute("error", "You can't ban yourself");
+            return "redirect:"+index;
         }
 
         user.setBanned(Boolean.valueOf(bstatus));
@@ -63,10 +78,15 @@ public class AdminUserController {
     }
 
     @PostMapping(value = "/delete")
-    public String delete(RedirectAttributes attr, @RequestParam(value = "id") String id) {
+    public String delete(RedirectAttributes attr, @RequestParam(value = "id") String id, HttpSession session) {
         User user = userRepository.findOne(id);
         if(user == null) {
             attr.addFlashAttribute("error", "User Object Not Found. Missing Parameter!");
+            return "redirect:"+index;
+        }
+
+        if(StringUtils.equals(user.getEmail(), ((User)session.getAttribute("user")).getEmail())) {
+            attr.addFlashAttribute("error", "You can't delete yourself");
             return "redirect:"+index;
         }
 
@@ -74,6 +94,28 @@ public class AdminUserController {
 
         attr.addFlashAttribute("success", "User has been deleted successfully");
         return "redirect:"+index;
+    }
+
+    @PostMapping(value = "/role")
+    public String setRole(RedirectAttributes attr, @RequestParam(value = "id") String id,
+                          @RequestParam(value = "role") String role, HttpSession session) {
+        User user = userRepository.findOne(id);
+        if(user == null) {
+            attr.addFlashAttribute("error", "User Object Not Found. Missing Parameter!");
+            return "redirect:/eyin/users/view/"+id;
+        }
+
+        if(StringUtils.equals(user.getEmail(), ((User)session.getAttribute("user")).getEmail())) {
+            attr.addFlashAttribute("error", "You can't change your role yourself");
+            return "redirect:"+index;
+        }
+
+        user.setRole(role);
+        user.setUpdatedAt(new Date());
+        userRepository.save(user);
+
+        attr.addFlashAttribute("success", "User " + user.getName() + " 's role has updated successfully");
+        return "redirect:/eyin/users/view/"+id;
     }
 
 

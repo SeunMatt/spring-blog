@@ -37,12 +37,12 @@
                     <div class="box-body no-padding">
                         <div class="mailbox-read-info">
                             <h4>Published: ${post.published?c}</h4>
-                            <h4>Author: ${post.author}</h4>
-                            <h5>Category: ${post.category_id}</h5>
-                            <h5>Section: ${post.section_id}</h5>
+                            <h4>Author: ${post.author.name!""}</h4>
+                            <h5>Category: ${post.category.category!""}</h5>
+                            <h5>Section: ${post.section.section!""}</h5>
 
                             <h5>
-                                <span class="mailbox-read-time pull-left">reads: ${post.reads}</span>
+                                <span class="mailbox-read-time pull-left">views: ${post.views}</span>
                                 <br>
                                 <span class="mailbox-read-time pull-left">created at: ${post.createdAt?date}</span>
                                 <br>
@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <br>
                             <div class="small-box" style="padding-left: 5px;">
-                                <img class="img-responsive" id="img_cover_pic" src="<#if post??><@asset url='eyin/files/${post.coverPic}'/><#else></#if>" alt="Cover Picture" />
+                                <img class="img-responsive" id="img_cover_pic" src="<#if post??><@asset url='files/${post.coverPic}'/><#else></#if>" alt="Cover Picture" />
                             </div>
                         </div>
                     </div>

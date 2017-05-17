@@ -31,9 +31,8 @@ public class FileSystemStorageService implements StorageService {
     Logger logger  = Logger.getLogger(FileSystemStorageService.class);
 
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
-
+    public FileSystemStorageService(StorageProperties storageProperties) {
+        this.rootLocation = Paths.get(storageProperties.getLocation());
     }
 
     @Override
@@ -71,10 +70,9 @@ public class FileSystemStorageService implements StorageService {
         try {
             Path file = load(filename);
             Resource resource = new UrlResource(file.toUri());
-            logger.info("file to Uri = " + file.toUri());
-            logger.info("file exists = " + resource.exists());
+//            logger.info("file to Uri = " + file.toUri());
+//            logger.info("file exists = " + resource.exists());
             if(resource.exists() || resource.isReadable()) {
-
                 return resource;
             }
             else {
@@ -97,7 +95,8 @@ public class FileSystemStorageService implements StorageService {
             Files.delete(load(filename));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new StorageFileNotFoundException("Unable to delete file " + filename + " NOT FOUND!");
+            logger.info("unable to delete file " + filename + " It doesn't exist");
+//            throw new StorageFileNotFoundException("Unable to delete file " + filename + " NOT FOUND!");
         }
     }
 

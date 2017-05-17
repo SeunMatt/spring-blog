@@ -3,7 +3,7 @@
         <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="fa fa-times"></i>
         </button>
-        <strong>Error! </strong> ${error}.
+        ${error}.
     </div>
 <#else>
 </#if>
@@ -12,7 +12,7 @@
     <button data-dismiss="alert" class="close close-sm" type="button">
         <i class="fa fa-times"></i>
     </button>
-    <strong>Success! </strong> ${success}.
+      ${success}.
 </div>
 <#else>
 </#if>
@@ -21,7 +21,7 @@
     <button data-dismiss="alert" class="close close-sm" type="button">
         <i class="fa fa-times"></i>
     </button>
-    <strong>Status! </strong> ${status}.
+    ${status}.
 </div>
 <#else>
 </#if>

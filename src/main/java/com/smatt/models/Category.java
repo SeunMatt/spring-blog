@@ -1,14 +1,16 @@
 package com.smatt.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by smatt on 22/04/2017.
  */
-@Document(collection = "categories")
+@Entity
+@Table(name = "categories")
 public class Category {
 
     @Id
@@ -18,12 +20,12 @@ public class Category {
     private Date createdAt;
     private Date updatedAt;
 
-    public Category() {}
+    public Category() {
+        id = RandomStringUtils.randomAlphanumeric(10);
+    }
 
     public Category(String category) {
         this.category = category;
-        createdAt = new Date();
-        updatedAt = new Date();
     }
 
     public String getId() {
@@ -64,5 +66,31 @@ public class Category {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+    @PrePersist
+    public void preSave() {
+        if(createdAt == null) {
+            createdAt = new Date();
+        }
+        if(StringUtils.isEmpty(id)) {
+            id = RandomStringUtils.randomAlphanumeric(10);
+        }
+        //always a new one
+        updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "category = " + category +
+                "\ncreatedAt = " + createdAt +
+                "\nupdatedAt = " + updatedAt +
+                "\nid = " + id;
     }
 }

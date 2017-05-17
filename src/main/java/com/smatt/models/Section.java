@@ -1,14 +1,16 @@
 package com.smatt.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by smatt on 22/04/2017.
  */
-@Document(collection = "sections")
+@Entity
+@Table(name = "sections")
 public class Section {
 
     @Id
@@ -19,12 +21,12 @@ public class Section {
     private Date updatedAt;
 
 
-    public Section() {}
+    public Section() {
+        id = RandomStringUtils.randomAlphanumeric(10);
+    }
 
     public Section(String section) {
         this.section = section;
-        createdAt = new Date();
-        updatedAt = new Date();
     }
 
     public String getId() {
@@ -66,4 +68,23 @@ public class Section {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @PrePersist
+    public void preSave() {
+        if(createdAt == null) {
+            createdAt = new Date();
+        }
+        if(StringUtils.isEmpty(id)) {
+            id = RandomStringUtils.randomAlphanumeric(10);
+        }
+
+        //always a new one
+        updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = new Date();
+    }
+
 }

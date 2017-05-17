@@ -63,6 +63,7 @@ public class AdminCategoryController {
     public String update(RedirectAttributes attr, Category category) {
 
         Category existingC = categoryRepository.findOne(category.getId());
+
         if(existingC == null) {
             attr.addFlashAttribute("error", "Invalid Request, Missing Parameter");
         } else {

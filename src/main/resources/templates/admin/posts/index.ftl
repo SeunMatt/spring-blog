@@ -43,21 +43,19 @@
 
                         <div class="timeline-item">
 
-                            <span class="time"><i class="fa fa-eye"></i> ${post.reads}</span>
+                            <span class="time"><i class="fa fa-eye"></i> ${post.views}</span>
 
                             <h3 class="timeline-header"><a href="/eyin/posts/read/${post.id}">${post.title}</a></h3>
 
                             <div class="timeline-body">
                                 ${post.post}
-
-                                <br><br>
                                  <hr style="margin-bottom: 0px;">
 
                                 <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
-                                    category: ${post.category_id}
+                                    category: ${post.category.category!""}
                                 </span>
                                 <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
-                                    section: ${post.section_id}
+                                    section: ${post.section.section!""}
                                 </span>
                                 <br>
                             </div>
@@ -83,23 +81,25 @@
 </div>
 
 <script>
-    $(".del").on("click", function () {
-        var id = $(this).attr("data-id");
-        swal({
-                    title: "Are you sure?",
-                    text: "Do you really wanna Delete the Post?",
-                    type: "warning",
-                    showCancelButton: true,
-                    cancelButtonClass: "btn-default",
-                    confirmButtonClass: "btn-warning",
-                    confirmButtonText: "Yes, Do it!",
-                    closeOnConfirm: true,
-                },
-                function() {
-                    displayWait(".row");
-                    $("input[name='id']").val(id);
-                    document.getElementById("delForm").submit();
-                });
+    $(document).ready(function () {
+        $(".del").on("click", function () {
+            var id = $(this).attr("data-id");
+            swal({
+                        title: "Are you sure?",
+                        text: "Do you really wanna Delete the Post?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonClass: "btn-default",
+                        confirmButtonClass: "btn-warning",
+                        confirmButtonText: "Yes, Do it!",
+                        closeOnConfirm: true,
+                    },
+                    function() {
+                        displayWait(".row");
+                        $("input[name='id']").val(id);
+                        document.getElementById("delForm").submit();
+                    });
+        });
     });
 </script>
 
