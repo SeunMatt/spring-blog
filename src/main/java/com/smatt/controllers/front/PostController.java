@@ -21,39 +21,13 @@ public class PostController {
     @GetMapping("/posts")
     public String index(ModelMap model) {
         model.addAttribute("posts", postRepository.findAll());
-        return "posts";
-    }
-
-    @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public @ResponseBody String add(Post post, ModelMap model) {
-       if(post.validate()) { postRepository.save(post); }
-       else { System.out.println("Error Invalid Object"); }
-       return post.toString();
+        return "front/posts";
     }
 
     @GetMapping(path = "/post/{id}")
     public String read(@PathVariable String id, ModelMap model) {
         model.addAttribute("post", postRepository.findOne(id));
-        return "post";
-    }
-
-    @PostMapping("/post/{id}")
-    public String update(@RequestParam("id") String id, ModelMap model) {
-        Post p = postRepository.findOne(id);
-        if(postRepository == null) {
-            model.addAttribute("error", "Post Not Found");
-        } else {
-            model.addAttribute("post", p);
-        }
-
-        return "redirect: /post";
-    }
-
-    @DeleteMapping("/post/{id}")
-    public String delete(@RequestParam("id") String id, ModelMap model) {
-        postRepository.delete(id);
-        model.addAttribute("status", "Post Deleted Successfully");
-        return "redirect: /post";
+        return "front/post";
     }
 
 

@@ -66,7 +66,6 @@ public class AdminSectionController {
             attr.addFlashAttribute("error", "Invalid Request, Missing Parameter");
         } else {
             existingS.setSection(section.getSection());
-            existingS.setUpdatedAt(new Date());
             sectionRepository.save(existingS);
             attr.addFlashAttribute("success", "Section has been updated successfully");
         }

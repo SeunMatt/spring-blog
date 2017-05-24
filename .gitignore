@@ -1,5 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
+upload-dir/
 
 ### STS ###
 .apt_generated
@@ -22,4 +23,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-upload-dir/

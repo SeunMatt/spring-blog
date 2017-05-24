@@ -5,7 +5,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.GeneratorType;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -18,14 +20,15 @@ public class Post
 {
 
     @Id
-    public String id;
-    public String title;
-    public String coverPic;
-    public Date createdAt;
-    public Date updatedAt;
-    public int likes;
-    public int views;
-    public String post;
+    private String id;
+    private String title;
+    private String coverPic;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private int likes;
+    private int views;
+    private String post;
+    private boolean featured;
 
     @Column(columnDefinition = "boolean")
     public boolean published;
@@ -65,19 +68,19 @@ public class Post
         this.post = post;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -145,35 +148,45 @@ public class Post
         this.published = published;
     }
 
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
     @PrePersist
     public void preSave() {
         if(createdAt == null) {
-            createdAt = new Date();
+            createdAt = LocalDateTime.now();
         }
         if(StringUtils.isEmpty(id)) {
             id = RandomStringUtils.randomAlphanumeric(10);
         }
         //always a new one
-        updatedAt = new Date();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        updatedAt = new Date();
+        updatedAt = LocalDateTime.now();
     }
 
 
     @Override
     public String toString() {
         return "id = " + id +
-                "\npost = " + post +
-                "\ntitle = " + title +
-                "\ncreatedAt = " + createdAt +
+                "\npost = " + getPost() +
+                "\ntitle = " + getTitle() +
+                "\ncreatedAt = " + getCreatedAt() +
                 "\nupdatedAt = " + getUpdatedAt() +
-                "\nlikes = " + likes +
-                "\npublished = " + published +
-                "\ncoverPic = " + coverPic +
-                "\nauthor:\n\t" + getAuthor() +
+                "\nlikes = " + getLikes() +
+                "\nviews = " + getViews() +
+                "\npublished = " + isPublished() +
+                "\nfeatured = " + isFeatured() +
+                "\ncoverPic = " + getCoverPic() +
+                "\nauthor:\n\t" + (!Objects.isNull(getAuthor()) ? getAuthor().getUsername() : "null") +
                 "\ncategory \n\t" + getCategory() +
                 "\nsection \n\t" + getSection();
     }

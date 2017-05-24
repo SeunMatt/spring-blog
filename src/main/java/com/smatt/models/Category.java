@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -17,8 +18,8 @@ public class Category {
     private String id;
     private String category;
     private int articleCount;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Category() {
         id = RandomStringUtils.randomAlphanumeric(10);
@@ -52,19 +53,19 @@ public class Category {
         this.articleCount = articleCount;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -72,25 +73,22 @@ public class Category {
     @PrePersist
     public void preSave() {
         if(createdAt == null) {
-            createdAt = new Date();
+            createdAt = LocalDateTime.now();
         }
         if(StringUtils.isEmpty(id)) {
             id = RandomStringUtils.randomAlphanumeric(10);
         }
         //always a new one
-        updatedAt = new Date();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        updatedAt = new Date();
+        updatedAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "category = " + category +
-                "\ncreatedAt = " + createdAt +
-                "\nupdatedAt = " + updatedAt +
-                "\nid = " + id;
+        return "Category = " + getCategory();
     }
 }

@@ -24,7 +24,7 @@ public class SpringBlogApplicationTests {
     @Test
 	public void contextLoads() { }
 
-//	@Test
+ //	@Test
 //    public void whenCreatingPost_thenNoError() {
 //
 //        User user = new User("smatt", "smatt");

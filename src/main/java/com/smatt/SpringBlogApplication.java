@@ -1,9 +1,13 @@
 package com.smatt;
 
+import com.smatt.addons.LocalDateTimeTemplateFormatFactory;
 import com.smatt.config.StorageProperties;
 import com.smatt.dao.PostRepository;
 import com.smatt.models.Post;
 import com.smatt.service.StorageService;
+import freemarker.core.TemplateDateFormat;
+import freemarker.core.TemplateDateFormatFactory;
+import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,12 +15,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 @EnableConfigurationProperties({StorageProperties.class})
 public class SpringBlogApplication {
 
 	@Autowired
-	PostRepository postRepository;
+    Configuration cfg;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBlogApplication.class, args);
@@ -28,6 +36,11 @@ public class SpringBlogApplication {
 		return (args) -> {
 //			storageService.deleteAll();
 			storageService.init();
+
+			//format the template
+            Map<String, TemplateDateFormatFactory> customDateFormats = new HashMap<>();
+            customDateFormats.put("localdatetime", LocalDateTimeTemplateFormatFactory.INSTANCE);
+            cfg.setCustomDateFormats(customDateFormats);
 		};
 	}
 

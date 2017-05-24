@@ -18,8 +18,15 @@
     <!-- Bootstrap Core CSS -->
     <link href="<@asset url='front/vendor/bootstrap/css/bootstrap.min.css' />" rel="stylesheet">
 
+    <#--for cards-->
+    <link href="<@asset url='front/css/blog-post-card.css' />" rel="stylesheet">
+
+    <#--for footer-->
+    <link href="<@asset url='front/css/ustora-footer.css' />" rel="stylesheet">
+
     <!-- Theme CSS -->
-    <link href="<@asset url='front/css/clean-blog.min.css' />" rel="stylesheet">
+    <link href="<@asset url='front/css/clean-blog.css' />" rel="stylesheet">
+
 
     <!-- Custom Fonts -->
     <link href="<@asset url='font-awesome-4.7.0/css/font-awesome.min.css' />" rel="stylesheet" type="text/css">
@@ -33,8 +40,14 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+    <!-- jQuery -->
+    <script src="<@asset url='front/vendor/jquery/jquery.min.js' />"></script>
+
+
 </head>
 <body>
+
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -71,10 +84,7 @@
 
 
 <!-- Footer -->
-<#include '../partials/footer.ftl' />
-
-<!-- jQuery -->
-<script src="<@asset url='front/vendor/jquery/jquery.min.js' />"></script>
+<#--<#include '../partials/footer.ftl' />-->
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<@asset url='front/vendor/bootstrap/js/bootstrap.min.js' />"></script>

@@ -1,4 +1,4 @@
-<#include "layouts/app.ftl"/>
+<#include "../layouts/app.ftl"/>
 <@app>
 
 <!-- Page Header -->

@@ -100,7 +100,7 @@
                                 <#list posts as post>
                                     <!-- timeline time label -->
                                     <li class="time-label">
-                                        <span class="bg-green"> ${post.createdAt?date} </span>
+                                        <span class="bg-green"> ${post.createdAt?date.@localdatetime} </span>
                                     </li>
                                     <!-- /.timeline-label -->
                                     <!-- timeline item -->

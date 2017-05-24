@@ -13,4 +13,6 @@ public class Constants {
 
     public static final int TOKEN_LENGTH = 10;
 
+    public static final String CATEGORY_ANNOUNCEMENT = "Announcement";
+
 }

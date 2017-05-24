@@ -90,6 +90,13 @@ hr.small {
     color: rgba(255, 255, 255, 0.8);
   }
 }
+/*this will remove the row margins on small screens*/
+@media screen and (max-width: 770px) {
+  .row {
+    margin: 0px;
+  }
+}
+
 @media only screen and (min-width: 1170px) {
   .navbar-custom {
     -webkit-transition: background-color 0.3s;
@@ -395,6 +402,10 @@ img::-moz-selection {
   color: white;
   background: transparent;
 }
+.footer {
+    margin-top: 10%;
+}
+
 body {
   -webkit-tap-highlight-color: #0085A1;
 }

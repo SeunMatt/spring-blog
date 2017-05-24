@@ -5,6 +5,7 @@ import freemarker.core.Environment;
 import freemarker.template.*;
 import org.springframework.context.ApplicationContext;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -21,6 +22,8 @@ import java.util.Map;
 public class AssetDirective implements TemplateDirectiveModel {
 
     ApplicationContext context;
+
+    HttpServletRequest request;
 
     public AssetDirective() {
         context = MyApplicationContext.getApplicationContext();
@@ -45,6 +48,7 @@ public class AssetDirective implements TemplateDirectiveModel {
 
         Writer out = environment.getOut();
         out.write(context.getEnvironment().getProperty("server.servlet-path") + map.get("url"));
+//        out.write(URLHelper.getBaseUrl(request) + map.get("url"));
 
     }
 

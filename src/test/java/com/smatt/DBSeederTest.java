@@ -2,6 +2,7 @@ package com.smatt;
 
 import com.smatt.config.Roles;
 import com.smatt.dao.CategoryRepository;
+import com.smatt.dao.PostRepository;
 import com.smatt.dao.SectionRepository;
 import com.smatt.dao.UserRepository;
 import com.smatt.models.Category;
@@ -35,6 +36,7 @@ public class DBSeederTest {
 
     @Autowired
     UserRepository userRepository;
+
 
     @Test
     public void contextLoads() { }

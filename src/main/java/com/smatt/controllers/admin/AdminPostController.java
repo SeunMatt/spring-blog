@@ -5,8 +5,10 @@ import com.smatt.config.Roles;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.PostRepository;
 import com.smatt.dao.SectionRepository;
+import com.smatt.dao.UserRepository;
 import com.smatt.models.Post;
 import com.smatt.models.User;
+import com.smatt.service.MySecurityService;
 import com.smatt.service.StorageService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -43,11 +46,14 @@ public class AdminPostController {
     @Autowired
     HttpSession session;
 
+    @Autowired
+    UserRepository userRepository;
+
+
     Logger logger = Logger.getLogger(AdminPostController.class);
 
     @GetMapping(value = {"", "/"})
     public String index(ModelMap model) {
-
        if(Roles.SUPER_ADMIN.toString().equals(((User) session.getAttribute("user")).getRole()) || Roles.EDITOR.toString().equals(((User) session.getAttribute("user")).getRole())) {
          //show all posts
           model.addAttribute("posts", postRepository.findAll());

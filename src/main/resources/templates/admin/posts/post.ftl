@@ -44,9 +44,9 @@
                             <h5>
                                 <span class="mailbox-read-time pull-left">views: ${post.views}</span>
                                 <br>
-                                <span class="mailbox-read-time pull-left">created at: ${post.createdAt?date}</span>
+                                <span class="mailbox-read-time pull-left">created at: ${post.createdAt?date.@localdatetime}</span>
                                 <br>
-                                <span class="mailbox-read-time pull-left">updated at: ${post.updatedAt?date}</span>
+                                <span class="mailbox-read-time pull-left">updated at: ${post.updatedAt?date.@localdatetime}</span>
 
                             </h5>
                             <h5></h5>

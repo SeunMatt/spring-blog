@@ -68,7 +68,6 @@ public class AdminCategoryController {
             attr.addFlashAttribute("error", "Invalid Request, Missing Parameter");
         } else {
             existingC.setCategory(category.getCategory());
-            existingC.setUpdatedAt(new Date());
             categoryRepository.save(existingC);
             attr.addFlashAttribute("success", "Category has been updated successfully");
         }
