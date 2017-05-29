@@ -3,6 +3,7 @@ package com.smatt.dao;
 import com.smatt.models.Category;
 import com.smatt.models.Post;
 import com.smatt.models.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -22,12 +23,25 @@ public interface PostRepository extends CrudRepository<Post, String> {
    //this will get the announcements
    List<Post> findByCategoryOrderByCreatedAtDesc(String category);
 
+
    List<Post> findByCategoryOrderByCreatedAtDesc(Category category, Pageable pageable);
 
-   //this will get featured posts
-   List<Post> findByFeaturedEqualsOrderByCreatedAtDesc(boolean featured, Pageable pageable);
+   @Query("select p from Post p where p.published = true and p.category like ?1 order by p.createdAt desc")
+   Page<Post> findByCategory(Category category, Pageable pageable);
 
    //this method will get all posts, sort
    @Query("select p from Post p")
    List<Post> findAllPosts(Pageable pageable);
+
+//   any caller that want to use this can specify the sorting order via the Pageable interface
+   @Query("select p from Post p where p.published = true")
+   List<Post> findAllPublishedPosts(Pageable p);
+
+//   this is meant to be listing all posts
+   @Query("select p from Post p where p.published = true order by p.createdAt desc")
+   Page<Post> findAllPublishedPostsPaged(Pageable p);
+
+   @Query("select p from Post p where p.featured = true and p.published = true order by p.createdAt desc")
+   List<Post> findFeaturedPosts(Pageable p);
+
 }

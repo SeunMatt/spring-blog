@@ -88,6 +88,7 @@ public class AdminPostController {
              Post existP = postRepository.findOne(post.getId());
              logger.info("existing post = " + existP.toString());
             if(existP != null) {
+                existP.setTitle(post.getTitle());
                 existP.setPost(post.getPost());
                 existP.setCategory(categoryRepository.findOne(category));
                 existP.setSection(sectionRepository.findOne(section));

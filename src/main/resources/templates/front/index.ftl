@@ -61,11 +61,9 @@
         <div class="row inner-nav-row">
             <div class="col-sm-10 col-sm-offset-1">
                 <ul class="inner-nav">
-                    <li><a class="active" href="#news">Latest</a></li>
-                    <li><a class="" href="#news">Trending</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#contact">Categories</a>
-                    </li>
+                    <li><a class="active" href="/posts/latest">Latest</a></li>
+                    <li><a class="" href="#">Trending</a></li>
+                    <li><a href="#contact">Categories</a></li>
                     <li><a class="" href="#about">Sections</a></li>
                     <li><a class="" href="#about">Announcements</a></li>
                 </ul>
@@ -80,86 +78,55 @@
 
     <#--latest-->
     <div class="row">
-        <h2 class="post-title">Latest Posts</h2>
+        <h2 class="post-title">Technology</h2>
         <hr>
         <div class="row">
             <#--first column 2nd row-->
             <div class="col-sm-4">
-                <div class="row">
-                    <div class="wrapper-no-image">
+                <#list latestPostsLeft as lf>
+                    <div class="row">
+                        <div class="wrapper-no-image">
                             <div class="card">
                                 <div class="card__content card__padding">
                                     <div class="card__meta">
-                                        <a href="#">Web Design</a>
-                                        <time>17th March</time>
+                                        <a href="#">${lf.category.category!""}</a>
+                                        <time>${lf.createdAt?date.@localdatetime}</time>
                                     </div>
                                     <article class="card__article">
-                                        <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
+                                        <h5><a href="/p/${lf.id}">${lf.title}</a></h5>
+                                        <p>${lf.post?substring(0, 120)} . . .</p>
                                     </article>
                                 </div>
                             </div>
                         </div>
-                </div>
-                <#--end sub row 1-->
-                <hr>
-                <div class="row">
-                    <div class="wrapper-no-image">
-                            <div class="card">
-                                <div class="card__content card__padding">
-
-                                    <div class="card__meta">
-                                        <a href="#">Web Design</a>
-                                        <time>17th March</time>
-                                    </div>
-
-                                    <article class="card__article">
-                                        <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                                    </article>
-                                </div>
-                            </div>
-
-                        </div>
-                </div>
-                <#--end sub row 2-->
+                    </div>
+                    <hr>
+                </#list>
             </div>
 
                 <#--second column 2nd row-->
 
             <div class="col-sm-4 divider-right">
-                <article class="card__article">
-                    <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                </article>
-                <br>
-                <article class="card__article">
-                    <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                </article>
-                <br>
-                <article class="card__article">
-                    <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                </article>
+                <#list latestPosts as latestPost>
+                    <#if (latestPost?index % 2) == 0>
+                        <article class="card__article card__article_padding">
+                            <h5><a href="/p/${latestPost.id}">${latestPost.title}</a></h5>
+                            <p>${latestPost.post?substring(0, 100)} . . .</p>
+                        </article>
+                    </#if>
+                </#list>
             </div>
 
                 <#--third colunmn 2nd row-->
             <div class="col-sm-4">
-                <article class="card__article">
-                    <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                </article>
-                <br>
-                <article class="card__article">
-                    <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                </article>
-                <br>
-                <article class="card__article">
-                    <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                </article>
+                <#list latestPosts as latestPost>
+                    <#if (latestPost?index % 2) != 0>
+                        <article class="card__article card__article_padding">
+                            <h5><a href="/p/${latestPost.id}">${latestPost.title}</a></h5>
+                            <p>${latestPost.post?substring(0, 100)} . . .</p>
+                        </article>
+                    </#if>
+                </#list>
             </div>
         </div>
     </div>
@@ -168,13 +135,14 @@
     <div class="row">
         <h2 class="post-title">Featured Posts</h2>
         <hr>
+        <#list featuredPosts as featured>
         <div class="col-sm-4">
             <div class="wrapper">
 
                 <div class="card radius">
                     <div class="card__image border-tlr-radius">
                     <#--<img src="http://lorempixel.com/400/200/sports/" alt="image" class="border-tlr-radius">-->
-                        <img src="<@asset url='front/img/post-sample-image.jpg'/>" alt="image" class="border-tlr-radius">
+                        <img <#if (featured.coverPic?length > 0)>src="<@asset url='files/${featured.coverPic}'/>"<#else>src="<@asset url='front/img/post-sample-image.jpg'/>"</#if> alt="image" class="border-tlr-radius">
                     </div>
 
                     <div class="card__content card__padding">
@@ -189,20 +157,20 @@
                         </div>
 
                         <div class="card__meta">
-                            <a href="#">Web Design</a>
-                            <time>17th March</time>
+                            <a href="/p/${featured.id}">${featured.category.category}</a>
+                            <time>${featured.createdAt?date.@localdatetime}</time>
                         </div>
 
                         <article class="card__article">
-                            <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
+                            <h5><a href="#">${featured.title}</a></h5>
+                            <p>${featured.post?substring(0, 100)} ...</p>
                         </article>
                     </div>
 
                     <div class="card__action">
                         <div class="card__author">
                             <div class="card__author-content">
-                                By <a href="#">John Doe</a>
+                                By <a href="#">${featured.author.name}</a>
                             </div>
                         </div>
                     </div>
@@ -210,134 +178,41 @@
 
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="wrapper">
-
-                <div class="card radius">
-                    <div class="card__image border-tlr-radius">
-                    <#--<img src="http://lorempixel.com/400/200/sports/" alt="image" class="border-tlr-radius">-->
-                        <img src="<@asset url='front/img/post-sample-image.jpg'/>" alt="image" class="border-tlr-radius">
-                    </div>
-
-                    <div class="card__content card__padding">
-                        <div class="card__share">
-                            <div class="card__social">
-                                <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
-                                <a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
-                                <a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
-                            </div>
-
-                            <a id="share" class="share-toggle share-icon" href="#"></a>
-                        </div>
-
-                        <div class="card__meta">
-                            <a href="#">Web Design</a>
-                            <time>17th March</time>
-                        </div>
-
-                        <article class="card__article">
-                            <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                        </article>
-                    </div>
-
-                    <div class="card__action">
-                        <div class="card__author">
-                            <div class="card__author-content">
-                                By <a href="#">John Doe</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="wrapper">
-
-                <div class="card radius">
-                    <div class="card__image border-tlr-radius">
-                    <#--<img src="http://lorempixel.com/400/200/sports/" alt="image" class="border-tlr-radius">-->
-                        <img src="<@asset url='front/img/post-sample-image.jpg'/>" alt="image" class="border-tlr-radius">
-                    </div>
-
-                    <div class="card__content card__padding">
-                        <div class="card__share">
-                            <div class="card__social">
-                                <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
-                                <a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
-                                <a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
-                            </div>
-
-                            <a id="share" class="share-toggle share-icon" href="#"></a>
-                        </div>
-
-                        <div class="card__meta">
-                            <a href="#">Web Design</a>
-                            <time>17th March</time>
-                        </div>
-
-                        <article class="card__article">
-                            <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-                        </article>
-                    </div>
-
-                    <div class="card__action">
-                        <div class="card__author">
-                            <div class="card__author-content">
-                                By <a href="#">John Doe</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        </#list>
     </div>
 
     <#--trending posts-->
     <div class="row">
-        <h2 class="post-title">Trending Posts</h2>
+        <h2 class="post-title">Most Read Articles</h2>
         <hr>
         <div class="col-sm-4">
-          <article class="card__article">
-              <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-          </article>
-          <br>
-          <article class="card__article">
-              <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-          </article>
+            <#list trendingPosts as trending>
+                <#if (trending?index % 2) == 0>
+                    <article class="card__article card__article_padding">
+                        <h5><a href="/p/${trending.id}">${trending.title}</a></h5>
+                        <p>${trending.post?substring(0, 100)} . . .</p>
+                    </article>
+                </#if>
+            </#list>
         </div>
         <div class="col-sm-4">
-          <article class="card__article">
-              <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-          </article>
-          <br>
-          <article class="card__article">
-              <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-          </article>
+            <#list trendingPosts as trending>
+                <#if (trending?index % 2 > 0)>
+                    <article class="card__article card__article_padding">
+                        <h5><a href="/p/${trending.id}">${trending.title}</a></h5>
+                        <p>${trending.post?substring(0, 100)} . . .</p>
+                    </article>
+                </#if>
+            </#list>
         </div>
         <div class="col-sm-4">
             <h2 class="post-title">Announcements <span class="fa fa-star"></span> </h2>
-            <article class="card__article">
-                <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-            </article>
-            <br>
-            <article class="card__article">
-                <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-            </article>
-            <br>
-            <article class="card__article">
-                <h5><a href="#">Material Design Card - For Blog Post Article</a></h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-            </article>
+            <#list announcements as announcement>
+                <article class="card__article">
+                    <h5><a href="/p/${announcement.id}">${announcement.title}</a></h5>
+                    <p>${announcement.post?substring(0, 250)} ....</p>
+                </article>
+            </#list>
         </div>
     </div>
 
@@ -370,25 +245,26 @@
 
                     <div class="col-md-3 col-sm-6">
                         <div class="footer-menu">
-                            <h2 class="footer-wid-title">Sections </h2>
+                            <h2 class="footer-wid-title">Categories</h2>
                             <ul>
-                                <li><a href="#">Technology</a></li>
+                                <li><a href="/posts/technology">Technology</a></li>
                                 <li><a href="#">Business</a></li>
-                                <li><a href="#">Politics</a></li>
+                                <li><a href="#">Life</a></li>
+                                <li><a href="#">Poems</a></li>
+                                <li><a href="#">Guest Posts</a></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-sm-6">
                         <div class="footer-menu">
-                            <h2 class="footer-wid-title">Categories</h2>
+                            <h2 class="footer-wid-title">Sections </h2>
                             <ul>
-                                <li><a href="#">Mobile Phone</a></li>
-                                <li><a href="#">Home accesseries</a></li>
-                                <li><a href="#">LED TV</a></li>
-                                <li><a href="#">Computer</a></li>
-                                <li><a href="#">Gadets</a></li>
+                                <li><a href="#">Technology</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Politics</a></li>
                             </ul>
+
                         </div>
                     </div>
 

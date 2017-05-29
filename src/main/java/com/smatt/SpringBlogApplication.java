@@ -8,6 +8,8 @@ import com.smatt.service.StorageService;
 import freemarker.core.TemplateDateFormat;
 import freemarker.core.TemplateDateFormatFactory;
 import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.ObjectWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -41,6 +43,9 @@ public class SpringBlogApplication {
             Map<String, TemplateDateFormatFactory> customDateFormats = new HashMap<>();
             customDateFormats.put("localdatetime", LocalDateTimeTemplateFormatFactory.INSTANCE);
             cfg.setCustomDateFormats(customDateFormats);
+			DefaultObjectWrapper objectWrapper = new DefaultObjectWrapper();
+			objectWrapper.setIterableSupport(true);
+            cfg.setObjectWrapper(objectWrapper);
 		};
 	}
 

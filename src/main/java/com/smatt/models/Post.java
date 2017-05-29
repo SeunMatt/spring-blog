@@ -27,7 +27,10 @@ public class Post
     private LocalDateTime updatedAt;
     private int likes;
     private int views;
+
+    @Column(columnDefinition = "longtext")
     private String post;
+
     private boolean featured;
 
     @Column(columnDefinition = "boolean")

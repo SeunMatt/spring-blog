@@ -125,6 +125,9 @@ h2 {
 }
 
 /* card article */
+.card__article_padding {
+	padding-right: 5px;
+}
 .card__article a {
 	text-decoration: none;
 	color: #444;

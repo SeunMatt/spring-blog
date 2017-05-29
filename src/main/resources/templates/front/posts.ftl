@@ -28,24 +28,41 @@
                         <h2 class="post-title">
                         ${post.title}
                         </h2>
-                        <h3 class="post-subtitle">
-                        ${post.post}
-                        </h3>
+                        <h4 class="post-subtitle">
+                        ${post.post?substring(0, 150)} . . .
+                        </h4>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">${post.author}</a> on ${post.createdAt?date} </p>
+                    <p class="post-meta">
+                        Posted by <a href="#">${post.author.name}</a>
+                        on ${post.createdAt?date.@localdatetime}
+                        in ${post.category.category}
+                    </p>
                 </div>
                 <hr>
             <#else>
                 <h2 class="post-title">
-                    No Posts Yet . . . Still Cooking Them
+                    No Posts Yet, Check Back Later Please.
                 </h2>
             </#list>
 
             <!-- Pager -->
             <ul class="pager">
-                <li class="next">
-                    <a href="#">Older Posts &rarr;</a>
+                <#if ((prevLink!'')?length > 0)>
+                <li class="previous">
+                    <a href="${prevLink}">&larr; Newer Posts</a>
                 </li>
+                </#if>
+
+                <li class="pagination">
+                    <span> ${currentPage} / ${totalPages} </span>
+                </li>
+
+                <#if ( (nextLink!'')?length > 0)>
+                <li class="next">
+                    <a href="${nextLink}">Older Posts &rarr;</a>
+                </li>
+                </#if>
+
             </ul>
         </div>
     </div>

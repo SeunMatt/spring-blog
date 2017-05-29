@@ -14,16 +14,19 @@ What has been done
 - Admin Users Management
 - User Profile Setup
 - Creating Captcha for login
-
+- Front-end blog home page
+- Reading a single blog
+- making the cover pic of the blog reflected
+- display only published posts in front-end
 
 What is left to be done
 -----------------------
-- Front-end blog home page
 - Blog post listings by sections and categories
 - Blog filtering by date
-- Reading a single blog, increasing views
+- increasing views when a blog is read. use events
 - Social Sharing of single blog
-- making the cover pic of the blog reflected
+- add preview to the backend for posts when created
+- how to indicate a post is to be featured
 
 
 Deployment
