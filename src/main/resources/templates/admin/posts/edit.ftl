@@ -64,6 +64,25 @@
                                 <option value="${section.id}">${section.section}</option>
                             </#list>
                         </select>
+                        <br>
+                        <strong>IS FEATURED</strong>
+                        <br>
+                        <select name="featured" class="form-control">
+                            <#if post??>
+                                <#if (post.featured == true) >
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                <#else>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </#if>
+                            <#else>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                            </#if>
+                        </select>
+                        <br>
+                        <a class="btn btn-primary btn-flat" href="#">Preview</a>
                     </div>
                     <!-- /.box-body -->
                 </div>

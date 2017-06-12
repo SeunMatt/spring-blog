@@ -2,10 +2,10 @@ package com.smatt.models;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by smatt on 22/04/2017.
@@ -21,7 +21,10 @@ public class Category {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Category() {
+    @Transient
+	Logger logger = Logger.getLogger(Category.class);
+
+	public Category() {
         id = RandomStringUtils.randomAlphanumeric(10);
     }
 
@@ -91,4 +94,12 @@ public class Category {
     public String toString() {
         return "Category = " + getCategory();
     }
+
+	@Override
+	public boolean equals(Object obj) {
+    	if(obj instanceof Category )
+			return StringUtils.equals(this.getCategory(), ((Category)obj).getCategory());
+    	return false;
+	}
+
 }

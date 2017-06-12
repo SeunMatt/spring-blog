@@ -15,6 +15,6 @@ public class Constants {
 
     public static final String CATEGORY_ANNOUNCEMENT = "Announcement";
 
-    public static final int MAX_POST_PER_PAGE = 15;
+    public static final int MAX_POST_PER_PAGE = 8;
 
 }

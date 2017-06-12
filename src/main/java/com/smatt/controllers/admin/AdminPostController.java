@@ -93,9 +93,11 @@ public class AdminPostController {
                 existP.setCategory(categoryRepository.findOne(category));
                 existP.setSection(sectionRepository.findOne(section));
                 existP.setPublished(post.isPublished());
+                existP.setFeatured(post.isFeatured());
+
 
                 if(!StringUtils.isEmpty(post.getCoverPic()) && !StringUtils.equals(existP.getCoverPic(), post.getCoverPic()) && !file.isEmpty()) {
-                   logger.info("coverPic changed called");
+//                   logger.info("coverPic changed called");
                     //I have changed the coverpic while updating so delete the old one
                     String oldPix = existP.getCoverPic();
                     existP.setCoverPic(storageService.store(file));
@@ -115,7 +117,7 @@ public class AdminPostController {
             post.setCategory(categoryRepository.findOne(category));
             post.setSection(sectionRepository.findOne(section));
             Post savedPost = postRepository.save(post);
-            logger.info("Newly saved post obj ==\n " + savedPost.toString());
+//            logger.info("Newly saved post obj ==\n " + savedPost.toString());
             attr.addFlashAttribute("success", "Post saved Successfully");
             return "redirect:/eyin/posts/read/" + savedPost.getId();
         }
@@ -149,6 +151,13 @@ public class AdminPostController {
         attr.addFlashAttribute("success", "Post Deleted Successfully");
         return "redirect:"+index;
     }
+
+    @GetMapping(value = "/preview/{id}")
+    public String preview() {
+
+        return "";
+    }
+
 
 }
 

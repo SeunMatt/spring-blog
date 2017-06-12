@@ -18,15 +18,16 @@ What has been done
 - Reading a single blog
 - making the cover pic of the blog reflected
 - display only published posts in front-end
+- Blog post listings by sections and categories
+- Social Sharing of single blog
+- increasing views when a blog is read. use async
+- how to indicate a post is to be featured
+
 
 What is left to be done
 -----------------------
-- Blog post listings by sections and categories
 - Blog filtering by date
-- increasing views when a blog is read. use events
-- Social Sharing of single blog
 - add preview to the backend for posts when created
-- how to indicate a post is to be featured
 
 
 Deployment

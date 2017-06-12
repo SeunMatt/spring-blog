@@ -1,4 +1,4 @@
-<#include "../layouts/front.ftl"/>
+<#include "../../layouts/front.ftl"/>
 <@app title="${post.title}" description="${post.title}">
 
 <!-- Content Wrapper. Contains page content -->
@@ -30,11 +30,11 @@
                     </div>
                 </div>
                 <br>
-                <#--row for posts-->
+            <#--row for posts-->
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
                         <div class="postdiv">
-                            ${post.post}
+                        ${post.post}
                         </div>
                     </div>
                 </div>
@@ -42,11 +42,11 @@
                 <br>
 
                 <div class="row text-center">
-                        <h4><i>Share with your friends on:</i></h4>
-                        <div id="share"></div>
-                        <br>
-                        <div id="share1"></div>
-                   <br>
+                    <h4><i>Share with your friends on:</i></h4>
+                    <div id="share"></div>
+                    <br>
+                    <div id="share1"></div>
+                    <br>
                 </div>
 
             </div>
@@ -61,10 +61,10 @@
                     <div class="box-body">
                         <ul class="products-list product-list-in-box">
                             <#list relatedPosts as rPost>
-                            <li class="item">
-                               <a href="/p/${rPost.id}" class="product-title">${rPost.title}</a>
-                            </li>
-                            <!-- /.item -->
+                                <li class="item">
+                                    <a href="/p/${rPost.id}" class="product-title">${rPost.title}</a>
+                                </li>
+                                <!-- /.item -->
                             </#list>
                         </ul>
                     </div>
@@ -96,16 +96,16 @@
                         </ul>
                     </div>
                 </div>
-                <#--<div class="row">-->
-                    <#--<div class="col-xs-10">-->
-                        <#--<h4>Follow us on Social Media</h4>-->
-                        <#--<div class="footer-social">-->
-                            <#--<a href="#" target="_blank"><i class="fa fa-facebook"></i></a>-->
-                            <#--<a href="#" target="_blank"><i class="fa fa-twitter"></i></a>-->
-                            <#--<a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
+            <#--<div class="row">-->
+            <#--<div class="col-xs-10">-->
+            <#--<h4>Follow us on Social Media</h4>-->
+            <#--<div class="footer-social">-->
+            <#--<a href="#" target="_blank"><i class="fa fa-facebook"></i></a>-->
+            <#--<a href="#" target="_blank"><i class="fa fa-twitter"></i></a>-->
+            <#--<a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>-->
+            <#--</div>-->
+            <#--</div>-->
+            <#--</div>-->
 
 
 

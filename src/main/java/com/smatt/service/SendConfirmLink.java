@@ -11,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -38,6 +39,7 @@ public class SendConfirmLink {
         this.cfg = cfg;
     }
 
+    @Async
     public void sendEmail(User user, HttpServletRequest request) throws Exception {
 
         //process mail template

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertNotNull;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBlogApplicationTests {
@@ -24,19 +26,32 @@ public class SpringBlogApplicationTests {
     @Test
 	public void contextLoads() { }
 
- //	@Test
-//    public void whenCreatingPost_thenNoError() {
-//
-//        User user = new User("smatt", "smatt");
-//
-//        User savedU = userRepository.save(user);
-//
-//        Post post = new Post(0, "Post Test");
-//        post.setAuthor(savedU);
-//        Post savedP = postRepository.save(post);
-//        logger.info("saved post == " + savedP.toString());
-//
-//    }
+// 	@Test
+    public void whenCreatingPost_thenNoError() {
+
+        User user = new User("smatt", "smatt");
+
+        User savedU = userRepository.save(user);
+
+        Post post = new Post(0, "Post Test");
+        post.setAuthor(savedU);
+        Post savedP = postRepository.save(post);
+        logger.info("saved post == " + savedP.toString());
+
+    }
+
+    @Test
+    public void givenId_whenGettingPost_thenIncrementViewsAndReturnUpdatedPost() {
+        String id = "6K5jCDXOCv";
+        Post p = postRepository.findOne(id);
+        assertNotNull(p);
+        logger.info("p before updating = \n" + p.toString());
+
+        p = postRepository.findOneAndUpdateView(id);
+        assertNotNull(p);
+        logger.info("p after updating views \n" + p.toString());
+
+    }
 
 
 }

@@ -34,7 +34,6 @@
                  <#list posts as post>
                     <!-- timeline time label -->
                     <li class="time-label">
-                        <#assign x = "2017-05-22T09:38:23"/>
                         <span class="bg-green"> ${post.createdAt?date.@localdatetime} </span>
                     </li>
                     <!-- /.timeline-label -->

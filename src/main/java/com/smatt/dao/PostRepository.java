@@ -5,6 +5,7 @@ import com.smatt.models.Post;
 import com.smatt.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -43,5 +44,9 @@ public interface PostRepository extends CrudRepository<Post, String> {
 
    @Query("select p from Post p where p.featured = true and p.published = true order by p.createdAt desc")
    List<Post> findFeaturedPosts(Pageable p);
+
+   @Modifying
+   @Query("UPDATE Post p SET p.views = p.views + 1 WHERE id = ?1")
+   Post findOneAndUpdateView(String id);
 
 }
