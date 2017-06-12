@@ -1,6 +1,11 @@
 Spring Blog
 ===========
 
+Description
+------------
+This is a complete ready to use blog application developed with Spring Java. It has both front-end and admin back end.
+It is actively under development.
+
 What has been done
 ------------------
 - Login, Logout
