@@ -53,7 +53,7 @@ public class PostController {
     public String read(ModelMap modelMap, RedirectAttributes redirectAttributes, @PathVariable("id") String id) {
         Post post = postRepository.findOne(id);
 
-        if(Objects.isNull(post)) {
+        if(post == null || !post.isPublished()) {
             redirectAttributes.addFlashAttribute("error", "Post Not Found");
             return "redirect:/";
         }

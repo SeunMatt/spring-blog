@@ -1,59 +1,53 @@
 package com.smatt.controllers.admin;
 
-import com.smatt.config.Constants;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smatt.config.Roles;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.PostRepository;
 import com.smatt.dao.SectionRepository;
-import com.smatt.dao.UserRepository;
 import com.smatt.models.Post;
 import com.smatt.models.User;
-import com.smatt.service.MySecurityService;
-import com.smatt.service.StorageService;
+import com.smatt.service.PostService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 
 /**
- * Created by smatt on 12/04/2017.
+ * Created by smatt on 12/04/2017
  */
 
 @Controller
 @RequestMapping(value = "/eyin/posts")
 public class AdminPostController {
 
-    @Autowired
-    PostRepository postRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
-    @Autowired
-    SectionRepository sectionRepository;
+    private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
+    private SectionRepository sectionRepository;
+    private PostService postService;
 
     private String index = "/eyin/posts";
+    private Logger logger = Logger.getLogger(AdminPostController.class);
 
     @Autowired
-    StorageService storageService;
-
-    @Autowired
-    HttpSession session;
-
-    @Autowired
-    UserRepository userRepository;
-
-
-    Logger logger = Logger.getLogger(AdminPostController.class);
+    public AdminPostController(PostRepository pR, CategoryRepository cR, SectionRepository sR, PostService pS) {
+        this.postRepository = pR;
+        this.categoryRepository = cR;
+        this.sectionRepository = sR;
+        this.postService = pS;
+    }
 
     @GetMapping(value = {"", "/"})
-    public String index(ModelMap model) {
+    public String index(ModelMap model, HttpSession session) {
        if(Roles.SUPER_ADMIN.toString().equals(((User) session.getAttribute("user")).getRole()) || Roles.EDITOR.toString().equals(((User) session.getAttribute("user")).getRole())) {
          //show all posts
           model.addAttribute("posts", postRepository.findAll());
@@ -69,61 +63,22 @@ public class AdminPostController {
     @PostMapping(value = {"", "/"})
     public String save(Post post, @RequestParam("file") MultipartFile file, @RequestParam("category") String category,
                        @RequestParam("section") String section, RedirectAttributes attr, HttpSession session) {
+
         logger.info("post incoming == " + post.toString());
 
-        if(!post.validate()) {
-            attr.addFlashAttribute("post", post);
-            attr.addFlashAttribute("error", "Some Important Parameters are missing. Post must have title and post body");
-            return "redirect:"+index+"/edit";
+        ModelMap validateMap = postService.validatePost(post, attr, file, index);
+
+        //validate
+        if(! (boolean) validateMap.get("status")) {
+            attr = (RedirectAttributes) validateMap.get("attr");
+            return validateMap.get("url").toString();
         }
 
-        if(file != null && !file.isEmpty() && !file.getContentType().contains("image")) {
-            attr.addFlashAttribute("post", post);
-            attr.addFlashAttribute("error", "Only Image files are allowed kindly try again please");
-            return "redirect:"+index+"/edit";
-        }
+        //this will either save or update as the case maybe
+        ModelMap map = postService.savePost(post, category, section, file, session);
 
-        if(!StringUtils.isEmpty(post.getId())) {
-            //updating
-             Post existP = postRepository.findOne(post.getId());
-             logger.info("existing post = " + existP.toString());
-            if(existP != null) {
-                existP.setTitle(post.getTitle());
-                existP.setPost(post.getPost());
-                existP.setCategory(categoryRepository.findOne(category));
-                existP.setSection(sectionRepository.findOne(section));
-                existP.setPublished(post.isPublished());
-                existP.setFeatured(post.isFeatured());
-
-
-                if(!StringUtils.isEmpty(post.getCoverPic()) && !StringUtils.equals(existP.getCoverPic(), post.getCoverPic()) && !file.isEmpty()) {
-//                   logger.info("coverPic changed called");
-                    //I have changed the coverpic while updating so delete the old one
-                    String oldPix = existP.getCoverPic();
-                    existP.setCoverPic(storageService.store(file));
-                    if(!StringUtils.isEmpty(oldPix)) storageService.delete(oldPix);
-                }
-                logger.info("updated post = " + postRepository.save(existP).toString());
-                attr.addFlashAttribute("success", "Post updated Successfully");
-                return "redirect:/eyin/posts/read/" + existP.getId();
-            }
-        }
-        else {
-            //saving afresh
-            if(file != null && !file.isEmpty()) {
-                post.setCoverPic(storageService.store(file));
-            }
-            post.setAuthor( ((User) session.getAttribute(Constants.LOGGED_IN_USER)));
-            post.setCategory(categoryRepository.findOne(category));
-            post.setSection(sectionRepository.findOne(section));
-            Post savedPost = postRepository.save(post);
-//            logger.info("Newly saved post obj ==\n " + savedPost.toString());
-            attr.addFlashAttribute("success", "Post saved Successfully");
-            return "redirect:/eyin/posts/read/" + savedPost.getId();
-        }
-
-        attr.addFlashAttribute("error", "Unable to Find or Create Post");
-        return "redirect:";
+        attr.addFlashAttribute("success", map.get("status"));
+        return map.get("url").toString();
     }
 
    @GetMapping(value = "/read/{id}")
@@ -152,10 +107,44 @@ public class AdminPostController {
         return "redirect:"+index;
     }
 
-    @GetMapping(value = "/preview/{id}")
-    public String preview() {
 
-        return "";
+    /*
+    * Ajax invoked method for saving
+//    * */
+//    @PostMapping(value = {"/a"})
+//    @ResponseBody
+//    public String ajaxSave(
+//            Post post, RedirectAttributes attr, HttpSession session, @RequestParam("category") String category,
+//            @RequestParam("file") MultipartFile file,
+//            @RequestParam("section") String section
+//    ) {
+//
+//            ModelMap validateMap = postService.validatePost(post, attr, file, index);
+//            //validate
+//            if(! (boolean) validateMap.get("status")) {
+//                return "{\"error\":\"" + validateMap.get("error") + "\"}";
+//            }
+//
+//            //this will either save or update as the case maybe
+//            ModelMap map = postService.savePost(post, category, section, file, session);
+//            return "{\"success\":\"success\",\"id\":\"" + map.get("post") + "\"}";
+//    }
+
+
+    @GetMapping(value = "/preview/{id}")
+    public String preview(@PathVariable("id") String id, RedirectAttributes attr, ModelMap modelMap, HttpSession session) {
+            Post post = null;
+
+            if(StringUtils.isEmpty(id) || (post = postRepository.findOne(id)) == null) {
+                attr.addFlashAttribute("post", post);
+                return "redirect:" + index + "/edit";
+            }
+        modelMap.addAttribute("trendingPosts",  postRepository.findAllPublishedPosts(
+                new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views"))) );
+        modelMap.addAttribute("relatedPosts", postRepository.findByCategory(post.getCategory(), new PageRequest(0,5)));
+        session.setAttribute("categories", categoryRepository.findAll());
+        modelMap.addAttribute("post", post);
+            return "admin/posts/preview";
     }
 
 

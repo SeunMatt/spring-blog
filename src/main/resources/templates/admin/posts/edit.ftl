@@ -82,7 +82,8 @@
                             </#if>
                         </select>
                         <br>
-                        <a class="btn btn-primary btn-flat" href="#">Preview</a>
+                        <button id="previewBt" class="btn btn-primary btn-flat" <#if post??><#else>disabled</#if>>Preview</button>
+                        <a id="previewLink" href="/eyin/posts/preview/${(post.id)!""}" target="_blank"></a>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -203,12 +204,28 @@
          $("#cover_pic").trigger("click");
       });
 
+      $("#previewBt").on("click", function(event) {
+            event.preventDefault();
+            if(!$("input[name='id']").val()) {
+                swal("You have to save draft first before you can preview");
+                return false;
+            }
+          $('#previewLink').click(function() {
+              this.click();
+          }).click();
+      });
+
       function validateReq() {
 
         $("#post").val(tinymce.get("post").getContent());
 
         if(!$("#post").val() || !$("#author").val() || !$("#title").val()) {
             swal("error", "Missing Parameter: Check to see Author, Title and Post are specified!", "error");
+            return false;
+        }
+
+        if($("#post").val().split(" ").length < 150) {
+            swal("error", "Article body should be at least 150 chars in length", "error");
             return false;
         }
 

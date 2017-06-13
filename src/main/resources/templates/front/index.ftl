@@ -55,7 +55,7 @@
                                     <h4 class="attachment-heading"><a href="/p/${post.id}">${post.title}</a></h4>
 
                                     <div class="attachment-text">
-                                        ${post.post?substring(0, 150)}... <a href="/p/${post.id}">more</a>
+                                        ${post.post?substring(0, 100)}... <a href="/p/${post.id}">more</a>
                                     </div>
                                     <!-- /.attachment-text -->
                                 </div>
@@ -75,7 +75,7 @@
                                             <h4 class="attachment-heading"><a href="/p/${post.id}">${post.title}</a></h4>
 
                                             <div class="attachment-text">
-                                            ${post.post?substring(0, 150)}... <a href="/p/${post.id}">more</a>
+                                            ${post.post?substring(0, 100)}... <a href="/p/${post.id}">more</a>
                                             </div>
                                             <!-- /.attachment-text -->
                                         </div>
