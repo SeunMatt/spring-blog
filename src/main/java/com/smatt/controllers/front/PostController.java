@@ -73,48 +73,71 @@ public class PostController {
 
     //view all posts available in a category
     @GetMapping(value = {"/posts/{category}/{page}", "/posts/{category}"})
-    public String readByCategory(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page,
-                                 @PathVariable("category") String category) {
+    public String readByCategory(ModelMap modelMap, RedirectAttributes attr,
+      @PathVariable(value = "page", required = false) Integer page, @PathVariable("category") String category) {
 
-//        logger.info("page == " + page);
-        logger.info("Category = " + category);
-
-        if(Objects.isNull(page) || page < 0) page = 0;
+//        logger.info("Category = " + category + " page = " + page);
 
         if(StringUtils.isEmpty(category)) {
-            //return a 404 posts not found
-            //temporarily redirecting to index
+            attr.addFlashAttribute("status", "This Category \"" + category + "\" is not found!");
             return "redirect:/";
         }
 
-        Page<Post> posts = postRepository.findByCategory(
-                categoryRepository.findByCategory(category), new PageRequest(page, Constants.MAX_POST_PER_PAGE));
+        if(page == null || page < 0) page = 0;
+
+        Page<Post> posts = postRepository.findByCategory(categoryRepository.findByCategory(category),
+                    new PageRequest(page, Constants.MAX_POST_PER_PAGE));
 
         logger.info("post count = " + posts.getTotalElements());
 
         if(posts.getTotalElements() <= 0) {
-            //return to a page for empty category content
+            //TODO return to a page for empty category content
             //for now return to index
             return "redirect:/";
         }
 
 
-        int totalPages = posts.getTotalPages();
-        int currentPage = posts.getNumber();
-//        logger.info("currentPage = " + currentPage);
-        modelMap.addAttribute("title", StringUtils.capitalize(category).concat(" Stories"));
-        modelMap.addAttribute("posts", posts);
-        modelMap.addAttribute("currentPage", (currentPage + 1));
-        modelMap.addAttribute("totalPages", totalPages);
-        if( (currentPage + 1) < totalPages )
-            modelMap.addAttribute("nextLink", "/posts/" + category + "/" + (currentPage + 1)); //older posts
-        if( (currentPage - 1) >= 0 )
-            modelMap.addAttribute("prevLink", "/posts/" + category + "/" + (currentPage - 1)); //newer posts
+        modelMap = postService.showPaginatedPostList(
+                modelMap,
+                posts,
+                StringUtils.capitalize(category).concat(" Stories"),
+                "/posts/" + category
+                );
 
-        modelMap.addAttribute("trendingPosts",  postRepository.findAllPublishedPosts(
-                new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views"))) );
         return "front/posts";
     }
 
+
+    @GetMapping(value = {"/search/{keyword}", "/search/{keyword}/{page}"})
+    public String search(ModelMap modelMap, RedirectAttributes attr, @PathVariable(value = "page", required = false) Integer page,
+            @PathVariable("keyword") String keyword) {
+
+        logger.info("keyword = " + keyword);
+
+        if(StringUtils.isEmpty(keyword) || keyword.length() < 4) {
+            return "redirect:/";
+        }
+
+        if(page == null || page < 0) page = 0;
+
+        Page<Post> posts = postRepository.findByPostContaining(keyword,
+                new PageRequest(page, Constants.MAX_POST_PER_PAGE));
+
+        logger.info("search post count = " + posts.getTotalElements());
+
+        if(posts.getTotalElements() <= 0) {
+            attr.addFlashAttribute("status", "Search for phrase \"" + keyword + "\" not found! Refine and try again please");
+            return "redirect:/";
+        }
+
+        modelMap = postService.showPaginatedPostList(
+                modelMap,
+                posts,
+                "Search Result(s)",
+                "/search/" + keyword
+        );
+
+        return "front/posts";
+    }
 
 }

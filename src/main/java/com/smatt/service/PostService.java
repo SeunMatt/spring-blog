@@ -10,6 +10,9 @@ import com.sun.xml.internal.ws.util.CompletedFuture;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -131,4 +135,24 @@ public class PostService {
         return modelMap;
     }
 
+
+    public ModelMap showPaginatedPostList(ModelMap modelMap, Page<Post> posts, String title, String pageLink) {
+
+        int totalPages = posts.getTotalPages();
+        int currentPage = posts.getNumber();
+        //        logger.info("currentPage = " + currentPage);
+        modelMap.addAttribute("title", title);
+        modelMap.addAttribute("posts", posts);
+        modelMap.addAttribute("currentPage", (currentPage + 1));
+        modelMap.addAttribute("totalPages", totalPages);
+        if( (currentPage + 1) < totalPages )
+            modelMap.addAttribute("nextLink", pageLink + "/" + (currentPage + 1)); //older posts
+        if( (currentPage - 1) >= 0 )
+            modelMap.addAttribute("prevLink", pageLink + "/" + (currentPage - 1)); //newer posts
+
+        modelMap.addAttribute("trendingPosts",  postRepository.findAllPublishedPosts(
+                new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views"))) );
+
+        return modelMap;
+    }
 }

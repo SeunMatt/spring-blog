@@ -117,5 +117,37 @@ a:hover, a:focus {color: #17a78b}
     text-align: justify;
 }
 
+/*this is for the search bar at the top of the page*/
+.search {
+    position: relative;
+    color: #aaa;
+    /*font-size: 16px;*/
+}
 
+.search input {
+    width: 130px;
+    box-sizing: border-box;
+    border: 0px none;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
 
+.search input:focus {
+    width: 100%;
+    outline: none;
+}
+
+.search input { text-indent: 32px;}
+
+.search .fa-search {
+    position: absolute;
+    top: 16px;
+    left: 10px;
+    font-size: 20px;
+}

@@ -45,8 +45,7 @@ public interface PostRepository extends CrudRepository<Post, String> {
    @Query("select p from Post p where p.featured = true and p.published = true order by p.createdAt desc")
    List<Post> findFeaturedPosts(Pageable p);
 
-   @Modifying
-   @Query("UPDATE Post p SET p.views = p.views + 1 WHERE id = ?1")
-   Post findOneAndUpdateView(String id);
+//   @Query(value = "SELECT * FROM posts p WHERE p.post LIKE %?1%", nativeQuery = true)
+   Page<Post> findByPostContaining(String keyword, Pageable p);
 
 }

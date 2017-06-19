@@ -27,12 +27,12 @@ What has been done
 - Social Sharing of single blog
 - increasing views when a blog is read. use async
 - how to indicate a post is to be featured
+- add preview to the backend for posts when created
+- Blog search
 
 
 What is left to be done
 -----------------------
-- Blog filtering by date
-- add preview to the backend for posts when created
 
 
 Deployment

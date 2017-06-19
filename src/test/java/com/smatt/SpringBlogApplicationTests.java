@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertNotNull;
@@ -23,7 +25,7 @@ public class SpringBlogApplicationTests {
     @Autowired
     PostRepository postRepository;
 
-    @Test
+//    @Test
 	public void contextLoads() { }
 
 // 	@Test
@@ -41,17 +43,11 @@ public class SpringBlogApplicationTests {
     }
 
     @Test
-    public void givenId_whenGettingPost_thenIncrementViewsAndReturnUpdatedPost() {
-        String id = "6K5jCDXOCv";
-        Post p = postRepository.findOne(id);
-        assertNotNull(p);
-        logger.info("p before updating = \n" + p.toString());
+    public void givenKeywords_whenSeacrh_thenResults() {
 
-        p = postRepository.findOneAndUpdateView(id);
-        assertNotNull(p);
-        logger.info("p after updating views \n" + p.toString());
-
+        Page<Post> result = postRepository.findByPostContaining("This", new PageRequest(0,10));
+        assertNotNull(result);
+        System.out.println("max = " + result.getTotalElements());
     }
-
 
 }

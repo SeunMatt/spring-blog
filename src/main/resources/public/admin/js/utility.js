@@ -18,3 +18,11 @@ function displayWait(selector) {
 function cancelWait(selector) {
     $(selector).unblock()
 }
+
+$("#searchForm").on("submit", function(event) {
+    event.preventDefault();
+    console.log("called");
+    if($("#keywords").val().length > 3) {
+        location.href = "/search/" + $("#keywords").val();
+    }
+});

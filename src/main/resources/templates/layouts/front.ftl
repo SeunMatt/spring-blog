@@ -20,14 +20,15 @@
 
     <link rel="stylesheet" href="<@asset url = 'admin/css/AdminLTE.min.css' />">
 
-    <!-- footer -->
-    <link href="<@asset url='front/css/mystyle.css' />" rel="stylesheet">
-
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<@asset url = 'admin/css/skins/_all-skins.css' />">
 
-    <#--js social-->
+    <!-- footer -->
+    <link href="<@asset url='front/css/mystyle.css' />" rel="stylesheet">
+
+
+<#--js social-->
     <link rel="stylesheet" type="text/css" href="/front/plugins/jssocials-1.4.0/jssocials.css" />
     <link rel="stylesheet" type="text/css" href="/front/plugins/jssocials-1.4.0/jssocials-theme-flat.css" />
 
@@ -63,22 +64,28 @@
         <nav class="navbar navbar-static-top">
 
             <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
+            <#--<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">-->
+                <#--<span class="sr-only">Toggle navigation</span>-->
+                <#--<span class="icon-bar"></span>-->
+                <#--<span class="icon-bar"></span>-->
+                <#--<span class="icon-bar"></span>-->
+            <#--</a>-->
 
             <div class="navbar-header">
                 <a class="navbar-brand" href="/"><span class="fa fa-home"></span></a>
+                <div class="input-group">
+                    <form role="form" action="#" id="searchForm">
+                    <div class="search">
+                            <span class="fa fa-search"></span>
+                            <input placeholder="keywords" id="keywords" required>
+                    </div>
+                    </form>
+                </div>
             </div>
 
 
             <div class="navbar-custom-menu">
-
                 <ul class="nav navbar-nav">
-
                 </ul>
             </div>
 
@@ -88,51 +95,7 @@
 
     <!-- =============================================== -->
 
-    <!-- Left side column. contains the sidebar -->
-    <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
-                <li class="header">CATEGORIES</li>
-                <li class="<#if postMenu??>active<#else></#if>">
-                    <a href="#">
-                        <span>Technology</span>
-                    </a>
-                </li>
-                <li class="<#if categoryMenu??>active<#else></#if>">
-                    <a href="#">
-                        <span>Life</span>
-                    </a>
-                </li>
-                <li class="<#if sectionMenu??>active<#else></#if>">
-                    <a href="#">
-                       <span>Motivation</span>
-                    </a>
-                </li>
-                <li class="header">TAGS</li>
-                <li class="<#if categoryMenu??>active<#else></#if>">
-                    <a href="#">
-                        <span>Programming</span>
-                    </a>
-                </li>
-                <li class="<#if categoryMenu??>active<#else></#if>">
-                    <a href="#">
-                        <span>News</span>
-                    </a>
-                </li>
-                <li class="<#if categoryMenu??>active<#else></#if>">
-                    <a href="#">
-                        <span>Gists</span>
-                    </a>
-                </li>
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
-
-    <!-- =============================================== -->
+    <#include "../partials/alerts.ftl"/>
 
     <!-- Content Wrapper. Contains page content -->
      <#nested >
@@ -222,8 +185,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<@asset url = 'admin/js/demo.js' />"></script>
 
-<script src="/front/plugins/jssocials-1.4.0/jssocials.js"/>
-
+<script src="/front/plugins/jssocials-1.4.0/jssocials.js"></script>
 
 <script src="<@asset url = 'admin/js/utility.js' />"></script>
 
