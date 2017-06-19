@@ -33,7 +33,9 @@ What has been done
 
 What is left to be done
 -----------------------
-
+- handle 404 exception (500)
+- make exception to log errors
+- move to deployment
 
 Deployment
 ----------
