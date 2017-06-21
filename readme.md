@@ -29,12 +29,13 @@ What has been done
 - how to indicate a post is to be featured
 - add preview to the backend for posts when created
 - Blog search
+- handle 404 exception (500)
+- make exception to log errors
 
 
 What is left to be done
 -----------------------
-- handle 404 exception (500)
-- make exception to log errors
+- connect to and use PostgresSQL
 - move to deployment
 
 Deployment
@@ -44,6 +45,18 @@ Deployment
 - Deploying on Digital Ocean
 - Deploying with Docker
 
+Tutorials
+---------
+- Spring Security in Spring Boot: Custom User Registration, Authentication and Email Verification
+- How I Build A Complete Blogging Web App with Spring Boot.
+- How to display java.time.LocalDateTime in Freemarker Template
+- How to use JPA Life-Cycle Annotations to Automatically update created_at and updated_at database fields
+- Efficient Coding Using @Service
+- How to handle file upload in Spring Boot
 
 Bugs
 ------
+
+LICENSE
+-------
+(MIT License)[]

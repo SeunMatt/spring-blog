@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     public String generalExceptionHandler(Exception e) {
         logger.info("Global Exception Handler Invoked ! " + e.getMessage());
         e.printStackTrace();
-        return "redirect:/login";
+        return "redirect:/error/500";
     }
 
 

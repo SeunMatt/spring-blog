@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:700");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+::selection {
+  background: transparent;
+}
+
+img {
+  max-width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #fff;
+}
+
+.wrapper {
+  position: relative;
+  padding: 20px;
+}
+.wrapper .oops {
+  color: #4B4F4B;
+  font-size: 8em;
+  letter-spacing: 0.05em;
+  margin-top: 30px;
+}
+.wrapper .info {
+  color: #4B4F4B;
+  padding: 5px;
+}
+.wrapper .button {
+  background: #056b56;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px 40px;
+  border-radius: 50px;
+  transition: 150ms;
+}
+.wrapper .button:hover {
+  background: #059e80;
+  transition: 150ms;
+}
+.wrapper .button:hover .fa-angle-left {
+  animation: test 700ms ease-out;
+  animation-iteration-count: infinite;
+}
+@keyframes test {
+  to {
+    margin-right: 20px;
+  }
+}
+.wrapper .button .fa-angle-left {
+  font-size: 1.2em;
+  margin-right: 15px;
+}
+.wrapper img {
+  padding: 10px;
+}

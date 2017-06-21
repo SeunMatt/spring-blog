@@ -21,12 +21,6 @@ public interface PostRepository extends CrudRepository<Post, String> {
 
    List<Post> findByAuthor(User author);
 
-   //this will get the announcements
-   List<Post> findByCategoryOrderByCreatedAtDesc(String category);
-
-
-   List<Post> findByCategoryOrderByCreatedAtDesc(Category category, Pageable pageable);
-
    @Query("select p from Post p where p.published = true and p.category like ?1 order by p.createdAt desc")
    Page<Post> findByCategory(Category category, Pageable pageable);
 
@@ -45,7 +39,6 @@ public interface PostRepository extends CrudRepository<Post, String> {
    @Query("select p from Post p where p.featured = true and p.published = true order by p.createdAt desc")
    List<Post> findFeaturedPosts(Pageable p);
 
-//   @Query(value = "SELECT * FROM posts p WHERE p.post LIKE %?1%", nativeQuery = true)
    Page<Post> findByPostContaining(String keyword, Pageable p);
 
 }

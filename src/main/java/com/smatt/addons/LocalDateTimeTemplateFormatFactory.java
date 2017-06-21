@@ -3,11 +3,8 @@ package com.smatt.addons;
 import freemarker.core.*;
 import freemarker.template.TemplateDateModel;
 import freemarker.template.TemplateModelException;
-import org.apache.log4j.Logger;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -28,8 +25,6 @@ public class LocalDateTimeTemplateFormatFactory extends TemplateDateFormatFactor
 
 
     private static class LocalDateTimeTemplateFormat extends TemplateDateFormat {
-
-        Logger logger = Logger.getLogger(LocalDateTimeTemplateFormat.class);
 
         public static final LocalDateTimeTemplateFormat INSTANCE = new LocalDateTimeTemplateFormat();
 

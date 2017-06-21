@@ -91,8 +91,7 @@ public class PostController {
         logger.info("post count = " + posts.getTotalElements());
 
         if(posts.getTotalElements() <= 0) {
-            //TODO return to a page for empty category content
-            //for now return to index
+            attr.addFlashAttribute("status", "There are no posts yet for this category. Kindly select another");
             return "redirect:/";
         }
 

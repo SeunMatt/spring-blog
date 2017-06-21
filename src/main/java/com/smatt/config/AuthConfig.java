@@ -59,7 +59,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                         .accessDeniedPage("/admin/login")
                         .authenticationEntryPoint((request, response, authException) -> {
                             //this is called for access denied or forbidden event - 403
-                            //we just redirect the user to our login page ASAP
+                            //we just redirect the user to our access denied error page
     //                        logger.info("Authentication Entry Point is invoked!");
 //                            AbstractAuthenticationProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY
 //                            logger.info("path intended = " + request.getPathTranslated());
@@ -76,7 +76,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 //                            logger.info("user in role =  " + request.isUserInRole("SUPER_ADMIN"));
 //                            logger.info("base url = " + URLHelper.getBaseUrl(request));
                             request.getSession().setAttribute(Constants.INTENDED_URI, request.getRequestURI());
-                            response.sendRedirect("/login");
+                            response.sendRedirect("/error/accessdenied");
                         });
 
 

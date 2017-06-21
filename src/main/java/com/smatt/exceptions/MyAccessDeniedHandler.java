@@ -19,13 +19,13 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     Logger logger = Logger.getLogger(MyAccessDeniedHandler.class);
 
     public MyAccessDeniedHandler() {
-        logger.info("My Access Denied Handler Invoked");
+
     }
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
         logger.info("Access denied Handler Invoked!");
         e.printStackTrace();
-        httpServletResponse.sendRedirect("/login");
+        httpServletResponse.sendRedirect("/error/accessdenied");
     }
 }

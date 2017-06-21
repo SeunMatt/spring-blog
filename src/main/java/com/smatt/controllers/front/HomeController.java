@@ -60,33 +60,16 @@ public class HomeController {
         modelMap.addAttribute("featuredPosts", featuredPosts);
 
         List<Category> categories = (List<Category>) categoryRepository.findAll();
-        List<Post> allPosts = postRepository.findAllPosts(new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "createdAt")));
-
        	List< Map<String, Page<Post>> > superList = new ArrayList<>();
 
 
-		//TODO look at replacing this algo with another that uses Streams API
 		categories.stream().forEachOrdered(c -> {
 			HashMap<String, Page<Post>> map = new HashMap<>();
 			map.put(c.getCategory(), postRepository.findByCategory(c, new PageRequest(0, 4, Sort.Direction.DESC, "createdAt")));
 			superList.add(map);
 		});
 
-		 //TODO implement this and make it work
-//        categories.stream().forEachOrdered(c -> {
-//        	HashMap<String, List<Object>> map = new HashMap<>();
-//			map.put(c.getCategory(), allPosts.stream()
-//					.map(post -> {
-//						if(c.equals(post.getCategory()))
-//							return post;
-//						return null;
-//					})
-////					.filter(p ->  p != null)
-//					.collect(Collectors.toList()));
-//			superList.add(map);
-//		});
-
-        superList.forEach((m) -> System.out.println(m.keySet().toString() + " count == " + m.get(m.keySet().toArray()[0]).getTotalElements()));
+//        superList.forEach((m) -> System.out.println(m.keySet().toString() + " count == " + m.get(m.keySet().toArray()[0]).getTotalElements()));
 
         modelMap.addAttribute("superList", superList);
 

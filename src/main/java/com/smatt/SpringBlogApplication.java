@@ -2,20 +2,21 @@ package com.smatt;
 
 import com.smatt.addons.LocalDateTimeTemplateFormatFactory;
 import com.smatt.config.StorageProperties;
-import com.smatt.dao.PostRepository;
-import com.smatt.models.Post;
 import com.smatt.service.StorageService;
-import freemarker.core.TemplateDateFormat;
 import freemarker.core.TemplateDateFormatFactory;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.ObjectWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.HashMap;
@@ -26,7 +27,8 @@ import java.util.Map;
 @EnableConfigurationProperties({StorageProperties.class})
 public class SpringBlogApplication {
 
-	@Autowired
+    @Qualifier("freeMarkerConfiguration")
+    @Autowired
     Configuration cfg;
 
 
@@ -34,6 +36,13 @@ public class SpringBlogApplication {
 		SpringApplication.run(SpringBlogApplication.class, args);
 	}
 
+
+	@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer() {
+		return container -> {
+            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/404"), new ErrorPage("/error"));
+        };
+	}
 
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
