@@ -42,7 +42,7 @@ public class DBSeederTest {
     public void contextLoads() { }
 
 
-    @Test
+//    @Test
     public void seedCategoryTable() {
         Category c = new Category("Technology");
         Category c2 = new Category("General");
@@ -51,7 +51,7 @@ public class DBSeederTest {
         logger.info("category table seeded");
     }
 
-    @Test
+//    @Test
     public void seedSectionsTable() {
         Section s = new Section("General");
         Section s2 = new Section("International Business");
@@ -61,7 +61,7 @@ public class DBSeederTest {
         logger.info("sections table seeded");
     }
 
-    @Test
+//    @Test
     public void seedUsersTable() {
         User user = new User();
         user.setName("Admin Super");

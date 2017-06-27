@@ -6,7 +6,6 @@ import com.smatt.dao.PostRepository;
 import com.smatt.dao.SectionRepository;
 import com.smatt.models.Post;
 import com.smatt.models.User;
-import com.sun.xml.internal.ws.util.CompletedFuture;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**

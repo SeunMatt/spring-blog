@@ -15,7 +15,7 @@ public class LocalDateTimeTemplateFormatFactory extends TemplateDateFormatFactor
 
     public static final LocalDateTimeTemplateFormatFactory INSTANCE = new LocalDateTimeTemplateFormatFactory();
 
-    private LocalDateTimeTemplateFormatFactory() {}
+     private LocalDateTimeTemplateFormatFactory() {}
 
     @Override
     public TemplateDateFormat get(String s, int i, Locale locale, TimeZone timeZone, boolean b, Environment environment) throws TemplateValueFormatException {

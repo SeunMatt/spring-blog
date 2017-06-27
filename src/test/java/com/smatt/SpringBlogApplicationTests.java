@@ -44,10 +44,7 @@ public class SpringBlogApplicationTests {
 
     @Test
     public void givenKeywords_whenSeacrh_thenResults() {
-
-        Page<Post> result = postRepository.findByPostContaining("This", new PageRequest(0,10));
-        assertNotNull(result);
-        System.out.println("max = " + result.getTotalElements());
+        postRepository.findByPostContaining("This", new PageRequest(0,10));
     }
 
 }
