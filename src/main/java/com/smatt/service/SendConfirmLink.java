@@ -51,6 +51,8 @@ public class SendConfirmLink {
         map.put("year", new GregorianCalendar().get(Calendar.YEAR) + "");
         temp.process(map, stringWriter);
 
+        logger.info("sendMail link: " + map.get("link"));
+
         //send the message
         javaMailSender.send(mimeMessage -> {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);

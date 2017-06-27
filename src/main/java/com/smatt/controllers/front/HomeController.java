@@ -1,11 +1,10 @@
 package com.smatt.controllers.front;
 
-import com.smatt.config.Constants;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.PostRepository;
 import com.smatt.models.Category;
 import com.smatt.models.Post;
-import org.apache.commons.lang3.StringUtils;
+import com.smatt.utils.URLHelper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,10 +16,12 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by smatt on 21/03/2017.
@@ -44,7 +45,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(ModelMap modelMap) {
+    public String index(ModelMap modelMap, HttpServletRequest request) {
+
+        logger.info("Base Url: " + URLHelper.getBaseUrl(request));
 
         List<Post> trendingPosts = postRepository.findAllPublishedPosts(
                     new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views")));

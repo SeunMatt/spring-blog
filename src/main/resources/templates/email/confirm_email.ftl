@@ -259,9 +259,9 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align:center; margin:0 auto;">
-                                                    Click here to verify your account
+                                                    Click/copy-paste this link to verify your account
                                                     <br>
-                                                    <a href="http://localhost:9000/account/t/${user.token}">http://localhost:9000/account/t/${user.token}</a>
+                                                    <a href="${link}">${link}</a>
                                                 </td>
                                             </tr>
                                         </table>
