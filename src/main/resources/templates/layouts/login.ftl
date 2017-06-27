@@ -34,7 +34,7 @@
 <#nested >
 
 <!-- jQuery 2.2.3 -->
-<script src="<@asset url = 'admin/js/jQuery/jquery-2.2.3.min.js' />"></script>
+<script src="<@asset url = 'admin/js/jquery/jquery-2.2.3.min.js' />"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<@asset url = 'admin/js/bootstrap/bootstrap.min.js' /> "></script>
 <!-- iCheck -->
