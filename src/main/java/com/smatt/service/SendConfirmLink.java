@@ -40,11 +40,10 @@ public class SendConfirmLink {
     }
 
     @Async
-    public void sendEmail(User user, HttpServletRequest request) throws Exception {
+    public void sendEmail(User user, String baseUrl) throws Exception {
 
         //process mail template
         StringWriter stringWriter = new StringWriter();
-        String baseUrl = URLHelper.getBaseUrl(request);
         Template temp = cfg.getTemplate("email/confirm_email.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);

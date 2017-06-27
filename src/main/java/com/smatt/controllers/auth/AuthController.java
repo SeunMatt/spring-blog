@@ -187,7 +187,7 @@ public class AuthController {
 
         try {
             logger.info("baseUrl in Auth register: " + URLHelper.getBaseUrl(req));
-            sendConfirmLink.sendEmail(user, req);
+            sendConfirmLink.sendEmail(user, URLHelper.getBaseUrl(req));
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Unable to Send Email to " + user.getEmail() + "\n Error: " + e.getMessage());
@@ -245,7 +245,7 @@ public class AuthController {
                     user = userRepository.save(user);
                 }
 
-                sendConfirmLink.sendEmail(user, req);
+                sendConfirmLink.sendEmail(user, URLHelper.getBaseUrl(req));
                 attr.addFlashAttribute("success", "Confirmation Link Sent Successfully. <br> " +
                         "<a href='/resend/email'>Resend Confirmation Link</a>");
                 return "redirect:/login";
