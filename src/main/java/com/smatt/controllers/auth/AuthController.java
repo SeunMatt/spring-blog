@@ -9,6 +9,7 @@ import com.smatt.models.UserRegistration;
 import com.smatt.service.MySecurityService;
 import com.smatt.service.SendConfirmLink;
 import com.smatt.service.TokenGenerator;
+import com.smatt.utils.URLHelper;
 import okhttp3.*;
 import okhttp3.RequestBody;
 import org.apache.commons.lang3.StringUtils;
@@ -144,7 +145,7 @@ public class AuthController {
                              @RequestParam("g-recaptcha-response") String recaptchaResp) {
 
 //        logger.info("reg info = " + userRegistration.toString());
-        logger.info("recaptcha response = " + recaptchaResp);
+//        logger.info("recaptcha response = " + recaptchaResp);
 
         //verify recaptch
         if(!verifyReCaptcha(recaptchaResp)) {
@@ -185,6 +186,7 @@ public class AuthController {
         userRepository.save(user);
 
         try {
+            logger.info("baseUrl in Auth register: " + URLHelper.getBaseUrl(req));
             sendConfirmLink.sendEmail(user, req);
         } catch (Exception e) {
             e.printStackTrace();
