@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/front/plugins/jssocials-1.4.0/jssocials-theme-flat.css" />
 
     <!-- jQuery 2.2.3 -->
-    <script src="<@asset url = 'admin/js/jQuery/jquery-2.2.3.min.js' />"></script>
+    <script src="<@asset url = 'admin/js/jquery/jquery-2.2.3.min.js' />"></script>
 
 </head>
 <body class="hold-transition skin-blue-light sidebar-collapse layout-top-nav">
