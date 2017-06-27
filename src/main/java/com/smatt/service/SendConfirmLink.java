@@ -44,14 +44,16 @@ public class SendConfirmLink {
 
         //process mail template
         StringWriter stringWriter = new StringWriter();
+        String baseUrl = URLHelper.getBaseUrl(request);
         Template temp = cfg.getTemplate("email/confirm_email.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);
-        map.put("link", URLHelper.getBaseUrl(request) + "/account/t/" + user.getToken());
+        map.put("link",  baseUrl + "/account/t/" + user.getToken());
         map.put("year", new GregorianCalendar().get(Calendar.YEAR) + "");
         temp.process(map, stringWriter);
 
-        logger.info("sendMail link: " + map.get("link"));
+        logger.info("baseUrl in sendMail: " + baseUrl);
+        logger.info("sendMail link in map: " + map.get("link"));
 
         //send the message
         javaMailSender.send(mimeMessage -> {
