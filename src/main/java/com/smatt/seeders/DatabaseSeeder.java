@@ -7,7 +7,7 @@ import com.smatt.dao.UserRepository;
 import com.smatt.models.Category;
 import com.smatt.models.Section;
 import com.smatt.models.User;
-import com.sun.istack.internal.logging.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
