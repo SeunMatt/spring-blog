@@ -17,11 +17,6 @@ public class URLHelper {
       * e.g. http://localhost:9000
     * */
     public static String getBaseUrl(HttpServletRequest request) {
-        if(request == null) {
-            System.out.println("request sent to getBaseUrl is null");
-            return "/";
-        }
-        System.out.println("request sent to getBaseUrl is NOT null");
         return request.getScheme() + "://" + request.getServerName(); //+ ":" + request.getServerPort();
     }
 

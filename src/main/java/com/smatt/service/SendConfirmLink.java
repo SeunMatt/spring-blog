@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -48,11 +49,8 @@ public class SendConfirmLink {
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);
         map.put("link",  baseUrl + "/account/t/" + user.getToken());
-        map.put("year", new GregorianCalendar().get(Calendar.YEAR) + "");
+        map.put("year", LocalDate.now().getYear() + "");
         temp.process(map, stringWriter);
-
-        logger.info("baseUrl in sendMail: " + baseUrl);
-        logger.info("sendMail link in map: " + map.get("link"));
 
         //send the message
         javaMailSender.send(mimeMessage -> {

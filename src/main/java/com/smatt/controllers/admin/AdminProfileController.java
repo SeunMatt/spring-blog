@@ -50,9 +50,10 @@ public class AdminProfileController {
         User existingU = userRepository.findOne(user.getId());
 
         if(existingU == null) {
-            attr.addFlashAttribute("error", "User Object Not Found. Missing Parameter!");
+            attr.addFlashAttribute("error", "User Not Found. Missing Parameter!");
             return "redirect:"+index;
         }
+
 
         existingU.setUpdatedAt(new Date());
         existingU.setEmail(user.getEmail());

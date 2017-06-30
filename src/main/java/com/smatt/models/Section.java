@@ -16,6 +16,7 @@ public class Section {
 
     @Id
     private String id;
+    @Column(unique = true)
     private String section;
     private int articleCount;
     private LocalDateTime createdAt;

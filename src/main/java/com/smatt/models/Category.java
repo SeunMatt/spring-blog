@@ -16,6 +16,7 @@ public class Category {
 
     @Id
     private String id;
+    @Column(unique = true)
     private String category;
     private int articleCount;
     private LocalDateTime createdAt;
