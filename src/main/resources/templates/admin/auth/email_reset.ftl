@@ -20,7 +20,7 @@
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials" method="post" action="/resend/email">
+    <form class="lockscreen-credentials" method="post" action="/resend/email/${path}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <div class="input-group">
             <input type="email" class="form-control" placeholder="email" name="email" required>

@@ -1,4 +1,4 @@
-<#include "../layouts/login.ftl"/>
+<#include "../../layouts/login.ftl"/>
 <@login title="Admin Login" body="login-page">
 
 <div class="login-box">
@@ -6,7 +6,7 @@
         <a href="/"><b>Smatt</b> Blog</a>
     </div>
 
-    <#include "../partials/alerts.ftl" />
+    <#include "../../partials/alerts.ftl" />
 
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -38,7 +38,7 @@
             </div>
         </form>
 
-        <a href="/resend/email">I forgot my password</a><br>
+        <a href="/resend/email/auth">I forgot my password</a><br>
         <a href="/register" class="text-center">Don't have Account?</a>
 
     </div>

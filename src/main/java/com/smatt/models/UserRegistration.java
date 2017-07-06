@@ -57,7 +57,9 @@ public class UserRegistration {
     }
 
     public boolean passwordMatch() {
-        return getPassword().equals(getPassword_confirmation());
+
+        return getPassword() != null && getPassword_confirmation() != null &&
+                getPassword().equals(getPassword_confirmation());
     }
 
     public boolean isValidDetails() {

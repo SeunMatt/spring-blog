@@ -31,18 +31,20 @@ What has been done
 - Blog search
 - handle 404 exception (500)
 - make exception to log errors
-
+- added db seeder
+- implement password reset
 
 What is left to be done
 -----------------------
-- connect to and use PostgresSQL
-- move to deployment
+- 
 
 Deployment
 ----------
-- Deploying on Heroku
+- Deploying on Heroku - Done
+
 - Deploying on AWS Free tier
 - Deploying on Digital Ocean
+
 - Deploying with Docker
 
 Tutorials

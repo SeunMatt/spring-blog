@@ -17,7 +17,6 @@ public class TokenGenerator {
 
     public TokenGenerator() {
         secureRandom = new SecureRandom();
-        logger.info("generate token instantiated");
     }
 
     public String getToken(int lenght) {

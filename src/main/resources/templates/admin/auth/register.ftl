@@ -1,4 +1,4 @@
-<#include "../layouts/login.ftl"/>
+<#include "../../layouts/login.ftl"/>
 <@login title="Admin Regsisteration" body="register-page">
 
 <div class="register-box">
@@ -6,7 +6,7 @@
         <a href="/"><b>Smatt</b> Blog</a>
     </div>
 
-    <#include "../partials/alerts.ftl" />
+    <#include "../../partials/alerts.ftl" />
 
     <div class="register-box-body">
         <p class="login-box-msg">Register</p>
