@@ -86,6 +86,7 @@ public class UserRegistration {
         user.setPassword(new BCryptPasswordEncoder().encode(getPassword()));
         user.setToken(tokenGenerator.getToken(Constants.TOKEN_LENGTH));
         user.setConfirmEmail(false);
+        user.setBanned(true);
         return user;
     }
 }

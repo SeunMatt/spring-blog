@@ -128,6 +128,12 @@ public class AuthenticationService {
             return "redirect:/login";
         }
 
+        if(user.isBanned()) {
+            redirectAttributes.addFlashAttribute("error", "Your account is currently Deactivated (this is default for " +
+                    "new accounts). Contact Admin to activate it");
+            return "redirect:/login";
+        }
+
 
         if(doAuth(email, password, session)) {
             //used to display username on template

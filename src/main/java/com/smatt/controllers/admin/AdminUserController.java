@@ -46,7 +46,7 @@ public class AdminUserController {
             return "redirect:"+index;
         }
 
-        model.addAttribute("user", user);
+        model.addAttribute("o_user", user);
         model.addAttribute("posts", postRepository.findByAuthor(user));
         model.addAttribute("roles", Roles.values());
         model.addAttribute("userMenu", true);
@@ -73,7 +73,7 @@ public class AdminUserController {
         user.setUpdatedAt(new Date());
         userRepository.save(user);
 
-        attr.addFlashAttribute("success", "User " + user.getName() + " has been banned successfully");
+        attr.addFlashAttribute("success", "Operation Successful");
         return "redirect:/eyin/users/view/"+id;
     }
 

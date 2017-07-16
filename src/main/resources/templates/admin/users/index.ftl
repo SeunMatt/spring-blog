@@ -42,6 +42,7 @@
                                 <th>username</th>
                                 <th>email</th>
                                 <th>role</th>
+                                <th>Banned</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                     <td>${user.username}</td>
                                     <td>${user.email}</td>
                                     <td>${(user.role)!""}</td>
+                                    <td><#if user.banned><span style="color:red;">TRUE</span><#else>FALSE</#if></td>
                                     <td>
                                         <a href="/eyin/users/view/${user.id}" class="btn btn-sm btn-primary"><span class="fa fa-search"></span>
                                         </a>

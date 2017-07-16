@@ -21,7 +21,7 @@
     <section class="content">
         <form class="form-horizontal" method="POST" id="delForm" action="/eyin/users/ban">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <input type="hidden" name="id" value="${user.id}" />
+            <input type="hidden" name="id" value="${o_user.id}" />
             <input type="hidden" name="bstatus">
             <input type="hidden" name="role">
         </form>
@@ -32,21 +32,21 @@
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <img id="profilePicImg" class="profile-user-img img-responsive img-circle"
-                            <#if ((user.profilePic!""?length) > 0) >  src='/files/${user.profilePic}' <#else> src="<@asset url='admin/images/user.png'/>" </#if>  alt="User profile picture">
+                            <#if ((o_user.profilePic!""?length) > 0) >  src='/files/${o_user.profilePic}' <#else> src="<@asset url='admin/images/user.png'/>" </#if>  alt="User profile picture">
                         <h3 class="profile-username text-center">
-                            ${user.name}
+                            ${o_user.name}
                         </h3>
                         <p class="text-muted">
-                            username: ${user.username}
+                            username: ${o_user.username}
                             <br>
-                            email: ${user.email}
+                            email: ${o_user.email}
                             <br>
-                            status: <#if (user.banned)!false == true>Banned<#else>Active</#if>
+                            status: <#if (o_user.banned)!false == true>Banned<#else>Active</#if>
                             <br>
-                            role: ${(user.role)!""}
+                            role: ${(o_user.role)!""}
                         </p>
                         <hr>
-                        <p class="text-muted text-center">${(user.bio)!""}</p>
+                        <p class="text-muted text-center">${(o_user.bio)!""}</p>
 
                         <a href="#" class="btn btn-primary btn-block"><b>Send Mail</b></a>
                     </div>
@@ -74,7 +74,7 @@
                         <hr>
 
                         <button type="submit" id="delBt" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span> DELETE</button>
-                        <#if (user.banned)!false == true>
+                        <#if (o_user.banned)!false == true>
                          <button type="submit" id="unbanBt" class="btn btn-sm btn-success"><span class="fa fa-ban"></span> UNBLOCK</button>
                         <#else>
                          <button type="submit" id="banBt" class="btn btn-sm btn-danger"><span class="fa fa-ban"></span> BLOCK</button>
