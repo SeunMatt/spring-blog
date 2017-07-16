@@ -26,7 +26,7 @@ Features
  
  The password/email can be changed after deployment to server or installation.
  
-DEPLOYMENT
+Deployment
 ==========
 It is a Java Web Application and thus can be deployed to:
 - Heroku: [Here's how to do it](tutorials/heroku-deploy.md)
@@ -35,15 +35,15 @@ It is a Java Web Application and thus can be deployed to:
  
 - AWS (_tutorial needed_)
  
-RELEVANT TUTORIALS
+Relevant Tutorials
 ===================
 - 
  
-CONTRIBUTORS
+Contributors
 ============
 - [Seun Matt](https://twitter.com/SeunMatt2) 
  
-CONTRIBUTION
+Contribution
 ============
 [Read Contribution guide here](CONTRIBUTING.md)
  
