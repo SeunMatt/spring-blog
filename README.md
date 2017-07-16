@@ -3,7 +3,9 @@ Spring Blog
 This is a complete ready to use blog application developed with Spring Java. 
 It has both front-end and admin back end.
 
-
+Live Demo
+=========
+There is a live demo of this app running at [smattblog.herokuapp.com](smattblog.herokuapp.com)
 
 Features
 =========
@@ -27,11 +29,15 @@ Features
 DEPLOYMENT
 ==========
 It is a Java Web Application and thus can be deployed to:
-- Heroku: [Here's how to do it]()
+- Heroku: [Here's how to do it](tutorials/heroku-deploy.md)
 
 - Digital Ocean (_tutorial needed_)
  
-- AWS (_tutorial needed_) 
+- AWS (_tutorial needed_)
+ 
+RELEVANT TUTORIALS
+===================
+- 
  
 CONTRIBUTORS
 ============
@@ -39,10 +45,8 @@ CONTRIBUTORS
  
 CONTRIBUTION
 ============
-Contributions are welcome. First check the feature you want to add is not in any currently
-open (or closed) issue.
-Then create an issue about it first and we can proceed from there. 
+[Read Contribution guide here](CONTRIBUTING.md)
  
 LICENSE
 =======
-[MIT](LICENSE.md)
+[MIT](LICENSE)
