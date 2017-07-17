@@ -28,3 +28,4 @@ nbdist/
 /src/main/resources/application-heroku.properties
 /src/main/resources/app
 /src/main/resources/heroku
+/src/main/resources/application-heroku-demo.properties
