@@ -23,10 +23,10 @@ import java.util.Map;
 @Service
 public class SendConfirmLink {
 
-    JavaMailSender javaMailSender;
-    Environment env;
-    Configuration cfg;
-    Logger logger = Logger.getLogger(SendConfirmLink.class);
+    private JavaMailSender javaMailSender;
+    private Environment env;
+    private Configuration cfg;
+    private Logger logger = Logger.getLogger(SendConfirmLink.class);
 
     @Autowired
     public SendConfirmLink(JavaMailSender javaMailSender, Environment env, Configuration cfg) {
@@ -63,7 +63,6 @@ public class SendConfirmLink {
         //send the message
         javaMailSender.send(mimeMessage -> {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-            mimeMessageHelper.setTo(user.getEmail());
             mimeMessageHelper.setTo(user.getEmail());
             mimeMessageHelper.setFrom(env.getProperty("from-email"), "Spring Blog");
             mimeMessageHelper.setSubject(subject);

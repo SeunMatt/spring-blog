@@ -22,7 +22,15 @@ Features
   
  A SUPER-ADMIN can manage all posts, and as well manage users on the platform. 
  
- The Database is pre-seeded with a default admin account - email: test@test.com and password: test123
+ The Database is pre-seeded with a default admin account 
+ 
+ Admin Credentials
+ -----------------
+ Login Url: /login
+ 
+ Email: test@test.com
+ 
+ Password: test123
  
  The password/email can be changed after deployment to server or installation.
  

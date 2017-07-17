@@ -53,7 +53,7 @@
 
             <div class="col-md-3">
                 <!-- PRODUCT LIST -->
-                <div class="box box-widget">
+                <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Related Articles</h3>
                     </div>
@@ -76,39 +76,6 @@
                 </div>
                 <!-- /.box -->
                 <br><br>
-                <div class="row">
-                    <div class="col-xs-10">
-                        <h4>Most Read Articles</h4>
-                        <ul>
-                            <#list trendingPosts as trendingPost>
-                                <li style="list-style-type: square"><a href="#">${trendingPost.title}</a></li>
-                            </#list>
-                        </ul>
-                    </div>
-                </div>
-
-                <br><br>
-                <div class="row">
-                    <div class="col-xs-10">
-                        <h4>Sponsored Articles</h4>
-                        <ul>
-                            <li><a href="#">Contact Us to get sponsor an article</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <#--<div class="row">-->
-                    <#--<div class="col-xs-10">-->
-                        <#--<h4>Follow us on Social Media</h4>-->
-                        <#--<div class="footer-social">-->
-                            <#--<a href="#" target="_blank"><i class="fa fa-facebook"></i></a>-->
-                            <#--<a href="#" target="_blank"><i class="fa fa-twitter"></i></a>-->
-                            <#--<a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
-
-
-
 
             </div>
 

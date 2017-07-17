@@ -33,10 +33,14 @@ What has been done
 - make exception to log errors
 - added db seeder
 - implement password reset
+- contact me
 
 What is left to be done
 -----------------------
-- 
+- in-text images
+- about me
+- mail subscriptions
+- meta descriptions of content
 
 Deployment
 ----------
@@ -56,10 +60,8 @@ Tutorials
 - Efficient Coding Using Service
 - How to handle file upload in Spring Boot
 - How to run database seeder in Spring Boot
+- How to send email in Spring
+- How to setup google recaptcha 
 
 Bugs
 ------
-
-LICENSE
--------
-(MIT License)[]

@@ -7,16 +7,47 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Spring Blog <#if ((title?length) > 0) > | ${title}</#if></title>
+    <title>Smatt Blog <#if ((title?length) > 0) > | ${title}</#if></title>
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta description="${description}">
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+    <meta description="<#if post??)></#if>">
+
+    <meta name="keywords" content="blog, java, seun matt, smatt">
+    <meta name="robots" content="index,follow" />
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SeunMatt2" />
+    <meta name="twitter:creator" content="@SeunMatt2" />
+    <meta name="twitter:title" content="Smatt Blog - The Journal of Seun Matt and his thoughts" />
+    <meta name="twitter:description" content="This is the personal blog of Seun Matt built with Java" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:image:alt" content="logo" />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Smatt Blog - The Journal of Seun Matt and his thoughts">
+    <meta itemprop="description" content="This is the personal blog of Seun Matt built with Java">
+    <meta itemprop="image" content="">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Smatt Blog - The Journal of Seun Matt and his thoughts" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://smattblog.herokuapp.com/" />
+    <meta property="og:image" content=""/>
+    <meta property="og:description" content="This is the personal blog of Seun Matt built with Java" />
+    <meta property="og:site_name" content="Smatt Blog" />
+
+
+    <link rel="canonical" href="https://smattblog.herokuapp.com/"/>
+
+
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="<@asset url = 'admin/css/bootstrap/bootstrap.min.css' />">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<@asset url = 'font-awesome-4.7.0/css/font-awesome.min.css' />">
+
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <#--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
 
     <link rel="stylesheet" href="<@asset url = 'admin/css/AdminLTE.min.css' />">
 
@@ -122,9 +153,9 @@
                         <p><a href="/contact">Contact Us</a></p>
 
                         <div class="footer-social">
-                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://www.facebook.com/seun.matt" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/SeunMatt2" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/in/seun-matt-06351955/" target="_blank"><i class="fa fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>

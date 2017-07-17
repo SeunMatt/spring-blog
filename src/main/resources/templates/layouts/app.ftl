@@ -7,13 +7,39 @@
 <#--make the asset helper available-->
 <#assign asset = "com.smatt.addons.AssetDirective"?new()>
 
+    <title>Smatt Blog</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Seun Matt Online</title>
+    <meta name="keywords" content="blog, java, seun matt, smatt">
+    <meta name="robots" content="index,follow" />
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SeunMatt2" />
+    <meta name="twitter:creator" content="@SeunMatt2" />
+    <meta name="twitter:title" content="Smatt Blog - The Journal of Seun Matt and his thoughts" />
+    <meta name="twitter:description" content="This is the personal blog of Seun Matt built with Java" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:image:alt" content="logo" />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Smatt Blog - The Journal of Seun Matt and his thoughts">
+    <meta itemprop="description" content="This is the personal blog of Seun Matt built with Java">
+    <meta itemprop="image" content="">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Smatt Blog - The Journal of Seun Matt and his thoughts" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://smattblog.herokuapp.com/" />
+    <meta property="og:image" content=""/>
+    <meta property="og:description" content="This is the personal blog of Seun Matt built with Java" />
+    <meta property="og:site_name" content="Smatt Blog" />
+
+
+    <link rel="canonical" href="https://smattblog.herokuapp.com/"/>
+
 
     <!-- Bootstrap Core CSS -->
     <link href="<@asset url='front/vendor/bootstrap/css/bootstrap.min.css' />" rel="stylesheet">
@@ -57,21 +83,12 @@
                 <span class="sr-only">Toggle navigation</span>
                 Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="/">Seun Matt Online</a>
+            <a class="navbar-brand" href="/">Smatt Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/about">About</a>
-                </li>
-                <li>
-                    <a href="/contact">Contact</a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
