@@ -65,3 +65,5 @@ Tutorials
 
 Bugs
 ------
+
+git reset "./src/main/resources/application.properties" 40d6cfdccf9265c3d0fde4d3bb8e849b1c25c34c
