@@ -7,7 +7,7 @@ It has both front-end and admin back end.
 
 Live Demo
 =========
-There is a live demo of this app running at [smattblog.herokuapp.com](smattblog.herokuapp.com)
+[Smatt Blog](https://smattblog.herokuapp.com)
 
 Features
 =========
