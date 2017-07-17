@@ -10,7 +10,7 @@
     <title>Smatt Blog <#if ((title?length) > 0) > | ${title}</#if></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
-    <meta description="<#if post??)></#if>">
+    <meta description="<#if description??>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>">
 
     <meta name="keywords" content="blog, java, seun matt, smatt">
     <meta name="robots" content="index,follow" />

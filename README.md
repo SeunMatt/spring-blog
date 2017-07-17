@@ -3,6 +3,8 @@ Spring Blog
 This is a complete ready to use blog application developed with Spring Java. 
 It has both front-end and admin back end.
 
+**Watch this space for changes. Still under Rapid Development!**
+
 Live Demo
 =========
 There is a live demo of this app running at [smattblog.herokuapp.com](smattblog.herokuapp.com)

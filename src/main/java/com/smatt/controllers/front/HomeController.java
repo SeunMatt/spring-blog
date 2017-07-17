@@ -50,8 +50,6 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap modelMap, HttpServletRequest request, HttpSession session) {
 
-        logger.info("Base Url: " + URLHelper.getBaseUrl(request));
-
         List<Post> trendingPosts = postRepository.findAllPublishedPosts(
                     new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views")));
 
