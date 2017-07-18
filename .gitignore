@@ -24,6 +24,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-/src/main/resources/app
-/src/main/resources/heroku
-/src/main/resources/local.properties
+/src/main/resources/application-local.properties
