@@ -34,13 +34,13 @@ What has been done
 - added db seeder
 - implement password reset
 - contact me
+- meta descriptions of content
 
 What is left to be done
 -----------------------
 - in-text images
 - about me
 - mail subscriptions
-- meta descriptions of content
 
 Deployment
 ----------

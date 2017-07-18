@@ -1,5 +1,5 @@
-<#include "../layouts/front.ftl"/>
-<@app>
+<#include "../layouts/front.ftl" />
+<@app title="${title} and Articles" description="${title} and Articles">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

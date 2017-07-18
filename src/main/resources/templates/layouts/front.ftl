@@ -5,12 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Smatt Blog <#if ((title?length) > 0) > | ${title}</#if></title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
-    <meta description="<#if description??>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>">
+    <meta content="width=device-width, initial-scale=1, user-scalable=yes" name="viewport" />
+    <meta description="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
 
     <meta name="keywords" content="blog, java, seun matt, smatt">
     <meta name="robots" content="index,follow" />
@@ -19,22 +18,22 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@SeunMatt2" />
     <meta name="twitter:creator" content="@SeunMatt2" />
-    <meta name="twitter:title" content="Smatt Blog - The Journal of Seun Matt and his thoughts" />
-    <meta name="twitter:description" content="This is the personal blog of Seun Matt built with Java" />
+    <meta name="twitter:title" content="<#if ((title?length) > 0) >${title}<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if>" />
+    <meta name="twitter:description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
     <meta name="twitter:image" content="" />
     <meta name="twitter:image:alt" content="logo" />
 
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="Smatt Blog - The Journal of Seun Matt and his thoughts">
-    <meta itemprop="description" content="This is the personal blog of Seun Matt built with Java">
+    <meta itemprop="name" content="<#if ((title?length) > 0) >${title}<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if>" />
+    <meta itemprop="description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
     <meta itemprop="image" content="">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="Smatt Blog - The Journal of Seun Matt and his thoughts" />
+    <meta property="og:title" content="<#if ((title?length) > 0) >${title}<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if>" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://smattblog.herokuapp.com/" />
     <meta property="og:image" content=""/>
-    <meta property="og:description" content="This is the personal blog of Seun Matt built with Java" />
+    <meta property="og:description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
     <meta property="og:site_name" content="Smatt Blog" />
 
 

@@ -8,6 +8,9 @@ import com.smatt.models.Post;
 import com.smatt.service.PostService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,14 +43,6 @@ public class PostController {
         this.postService = postService;
     }
 
-
-    @GetMapping("/posts")
-    public String index(ModelMap model) {
-        model.addAttribute("posts", postRepository.findAll());
-        return "front/posts";
-    }
-
-
     //read a single post
     @GetMapping(value = "/p/{id}")
     public String read(ModelMap modelMap, RedirectAttributes redirectAttributes, @PathVariable("id") String id) {
@@ -58,15 +53,27 @@ public class PostController {
             return "redirect:/";
         }
 
-        post.setViews(post.getViews() + 1);
-
         //increase views async
+        post.setViews(post.getViews() + 1);
         postService.updatePostAsyn(post);
+
+        //extract description from post first paragraph
+        String desc = Jsoup.parse(post.getPost())
+                        .getElementsByTag("p")
+                        .first()
+                        .html();
+        desc = (desc.length() > 150) ? desc.substring(0, 150).concat("...") : desc;
+
+//        logger.info("post = \n" + post.getPost());
+//        logger.info("desc = \n" + desc);
 
         modelMap.addAttribute("trendingPosts",  postRepository.findAllPublishedPosts(
                     new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views"))) );
         modelMap.addAttribute("relatedPosts", postRepository.findByCategory(post.getCategory(), new PageRequest(0,5)));
         modelMap.addAttribute("post", post);
+
+        modelMap.addAttribute("description", desc);
+
         return "front/post";
     }
 

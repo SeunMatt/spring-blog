@@ -1,5 +1,5 @@
 <#include "../layouts/front.ftl"/>
-<@app title="${post.title}" description="${post.title}">
+<@app title="${post.title}" description="${description}">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
