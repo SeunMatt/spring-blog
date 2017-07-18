@@ -66,10 +66,10 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
     <!-- jQuery -->
     <script src="<@asset url='front/vendor/jquery/jquery.min.js' />"></script>
 
+    <#include "../partials/google-analytics.ftl" />
 
 </head>
 <body>

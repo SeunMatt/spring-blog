@@ -39,7 +39,7 @@ What has been done
 What is left to be done
 -----------------------
 - in-text images
-- about me
+- write about me
 - mail subscriptions
 
 Deployment

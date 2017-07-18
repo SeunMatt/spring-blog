@@ -26,6 +26,8 @@ Features
  
  The Database is pre-seeded with a default admin account 
  
+ SEO Friendly - dynamic page titles and meta tag contents. Very suitable for social sharing
+ 
  Admin Credentials
  -----------------
  Login Url: /login

@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Smatt Blog <#if ((title?length) > 0) > | ${title}</#if></title>
     <meta content="width=device-width, initial-scale=1, user-scalable=yes" name="viewport" />
-    <meta description="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
+    <#--<meta description="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />-->
 
     <meta name="keywords" content="blog, java, seun matt, smatt">
     <meta name="robots" content="index,follow" />
@@ -65,6 +65,7 @@
     <!-- jQuery 2.2.3 -->
     <script src="<@asset url = 'admin/js/jquery/jquery-2.2.3.min.js' />"></script>
 
+    <#include "../partials/google-analytics.ftl" />
 </head>
 <body class="hold-transition skin-blue-light sidebar-collapse layout-top-nav">
 <!-- Site wrapper -->
