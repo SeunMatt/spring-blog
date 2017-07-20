@@ -48,7 +48,7 @@
                             <h3 class="timeline-header"><a href="/eyin/posts/read/${post.id}">${post.title}</a></h3>
 
                             <div class="timeline-body">
-                                ${post.post}
+                                ${post.post?substring(0, 150)}
                                  <hr style="margin-bottom: 0px;">
 
                                 <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">

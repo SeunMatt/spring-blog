@@ -144,10 +144,16 @@
         selector: "textarea#post",
         plugins: [
             'advlist autolink link image charmap preview',
-            'searchreplace wordcount code fullscreen',
+            'searchreplace wordcount code',
             'insertdatetime contextmenu directionality',
+            'codesample'
         ],
-        toolbar1:  "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
+        toolbar1:  "undo redo | " +
+                    "styleselect |" +
+                    " bold italic |" +
+                    " alignleft aligncenter alignright alignjustify |" +
+                    " bullist numlist outdent indent |" +
+                    " link codesample",
         height: 280
     }); //end tinymce
 

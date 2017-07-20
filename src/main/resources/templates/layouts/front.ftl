@@ -62,6 +62,8 @@
     <link rel="stylesheet" type="text/css" href="/front/plugins/jssocials-1.4.0/jssocials.css" />
     <link rel="stylesheet" type="text/css" href="/front/plugins/jssocials-1.4.0/jssocials-theme-flat.css" />
 
+    <link rel="stylesheet" type="text/css" href="/front/css/prism.css" />
+
     <!-- jQuery 2.2.3 -->
     <script src="<@asset url = 'admin/js/jquery/jquery-2.2.3.min.js' />"></script>
 
@@ -217,6 +219,7 @@
 <script src="<@asset url = 'admin/js/demo.js' />"></script>
 
 <script src="/front/plugins/jssocials-1.4.0/jssocials.js"></script>
+<script src="/front/js/prism.js"></script>
 
 <script src="<@asset url = 'admin/js/utility.js' />"></script>
 
