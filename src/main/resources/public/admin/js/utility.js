@@ -19,6 +19,23 @@ function cancelWait(selector) {
     $(selector).unblock()
 }
 
+
+function loadComments (postId) {
+
+    $.ajax({
+       type: "get",
+       url: "/comment/read/"+postId,
+       success: function (response) {
+         $("#commentColumn").append(response);
+       },
+       error: function (error) {
+         $("#commentColumn").append("Error Loading Comments Try Again pls");
+       }
+    });
+
+}
+
+
 $("#searchForm").on("submit", function(event) {
     event.preventDefault();
     console.log("called");
@@ -26,3 +43,5 @@ $("#searchForm").on("submit", function(event) {
         location.href = "/search/" + $("#keywords").val();
     }
 });
+
+

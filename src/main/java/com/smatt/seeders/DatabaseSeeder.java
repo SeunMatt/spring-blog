@@ -82,22 +82,23 @@ public class DatabaseSeeder {
     }
 
     private void seedUsersTable() {
-      String sql = "SELECT username, email FROM users U WHERE U.username = \"admin\" OR U.email = \"test@test.com\" LIMIT 1";
-      List<User> u = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
-     if(u == null || u.size() <= 0) {
-         User user = new User();
-         user.setName("Spring Blog");
-         user.setUsername("admin");
-         user.setEmail("test@test.com");
-         user.setPassword(new BCryptPasswordEncoder().encode("test123"));
-         user.setRole(Roles.SUPER_ADMIN.toString());
-         user.setBanned(false);
-         user.setConfirmEmail(true);
-         userRepository.save(user);
-         logger.info("Users Seeded");
-     } else {
-         logger.info("Users Seeding Not Required");
-     }
+        String sql = "SELECT username, email FROM users U WHERE U.username = \"admin\" OR " +
+                "U.email = \"test@test.com\" LIMIT 1";
+        List<User> u = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
+        if(u == null || u.size() <= 0) {
+             User user = new User();
+             user.setName("Spring Blog");
+             user.setUsername("admin");
+             user.setEmail("test@test.com");
+             user.setPassword(new BCryptPasswordEncoder().encode("test123"));
+             user.setRole(Roles.SUPER_ADMIN.toString());
+             user.setBanned(false);
+             user.setConfirmEmail(true);
+             userRepository.save(user);
+             logger.info("Users Seeded");
+        } else {
+            logger.info("Users Seeding Not Required");
+        }
     }
 
 

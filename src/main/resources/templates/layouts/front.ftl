@@ -45,14 +45,14 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<@asset url = 'font-awesome-4.7.0/css/font-awesome.min.css' />">
 
-    <!-- Ionicons -->
-    <#--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
-
     <link rel="stylesheet" href="<@asset url = 'admin/css/AdminLTE.min.css' />">
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<@asset url = 'admin/css/skins/_all-skins.css' />">
+
+    <link rel="stylesheet" href="<@asset url = 'admin/css/sweet-alert-animations.min.css' />">
+    <link rel="stylesheet" href="<@asset url = 'admin/css/sweetalert.css' />">
 
     <!-- footer -->
     <link href="<@asset url='front/css/mystyle.css' />" rel="stylesheet">
@@ -66,7 +66,7 @@
 
     <!-- jQuery 2.2.3 -->
     <script src="<@asset url = 'admin/js/jquery/jquery-2.2.3.min.js' />"></script>
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <#include "../partials/google-analytics.ftl" />
 </head>
 <body class="hold-transition skin-blue-light sidebar-collapse layout-top-nav">
@@ -211,12 +211,10 @@
 <!-- FastClick -->
 <script src="<@asset url = 'admin/js/fastclick/fastclick.min.js' />"></script>
 <script src="<@asset url = 'admin/js/jquery.blockUI.js' />"></script>
+
 <script src="<@asset url = 'admin/js/sweetalert.min.js' />"></script>
 <!-- AdminLTE App -->
 <script src="<@asset url = 'admin/js/app.min.js' />"></script>
-<script type="text/javascript" src="<@asset url = 'admin/js/tinymce/tinymce.min.js'/>"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<@asset url = 'admin/js/demo.js' />"></script>
 
 <script src="/front/plugins/jssocials-1.4.0/jssocials.js"></script>
 <script src="/front/js/prism.js"></script>

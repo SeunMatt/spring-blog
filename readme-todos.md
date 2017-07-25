@@ -38,7 +38,6 @@ What has been done
 
 What is left to be done
 -----------------------
-- in-text images
 - write about me
 - mail subscriptions
 
@@ -55,11 +54,11 @@ Tutorials
 ---------
 - Spring Security in Spring Boot: Custom User Registration, Authentication and Email Verification
 - How I Build A Complete Blogging Web App with Spring Boot.
-- How to display java.time.LocalDateTime in Freemarker Template
+- How to display java.time.LocalDateTime in Freemarker Template - 
 - How to use JPA Life-Cycle Annotations to Automatically update created_at and updated_at database fields
 - Efficient Coding Using Service
 - How to handle file upload in Spring Boot
-- How to run database seeder in Spring Boot
+- How to run database seeder in Spring Boot - DONE
 - How to send email in Spring
 - How to setup google recaptcha 
 

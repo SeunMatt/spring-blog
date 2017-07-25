@@ -186,7 +186,7 @@ public class AuthenticationService {
         return "redirect:/login";
     }
 
-    private boolean verifyReCaptcha(String response) {
+    public boolean verifyReCaptcha(String response) {
         if(StringUtils.isEmpty(response))
             return false;
 
