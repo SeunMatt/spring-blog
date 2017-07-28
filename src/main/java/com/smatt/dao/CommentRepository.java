@@ -11,10 +11,10 @@ import java.util.List;
  */
 public interface CommentRepository extends CrudRepository<Comment, String> {
 
-    @Query("SELECT c FROM Comment c WHERE c.postId = ?1 AND c.parentCommentId = null")
+    @Query("SELECT c FROM Comment c WHERE c.postId = ?1 AND c.parentCommentId = null ORDER BY c.createdAt DESC")
     List<Comment> findDirectComments(String postId);
 
-    @Query("SELECT c FROM Comment c WHERE c.postId = ?1 AND c.parentCommentId = ?2")
+    @Query("SELECT c FROM Comment c WHERE c.postId = ?1 AND c.parentCommentId = ?2 ORDER BY c.createdAt ASC")
     List<Comment> findCommentReplies(String postId, String commentId);
 
 }

@@ -39,6 +39,7 @@ function loadCommentReplies (postId, commentId) {
         type: "get",
         url: "/comment/replies/"+ postId + "/" + commentId,
         success: function (response) {
+            $("#reply_"+commentId).html("");
             $("#reply_"+commentId).append(response);
             cancelWait("#comment_" + commentId);
             $("#vreplyBt_" + commentId + "").hide("slow");

@@ -198,6 +198,7 @@
                     displayWait("#replyForm");
                 },
                 success: function (response) {
+                    loadCommentReplies( $("input[name='postId']").val(), $("input[name='parentCommentId']").val() );
                     cancelWait("#replyForm");
                     $("#replyForm")[0].reset();
                     $("#replyModal").modal("hide");
