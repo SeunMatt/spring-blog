@@ -25,6 +25,7 @@ function loadComments (postId) {
        type: "get",
        url: "/comment/read/"+postId,
        success: function (response) {
+         $("#commentColumn").html("");
          $("#commentColumn").append(response);
        },
        error: function (error) {

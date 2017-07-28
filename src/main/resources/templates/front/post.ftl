@@ -178,6 +178,7 @@
                      cancelWait("#commentForm");
                      $("#commentForm")[0].reset();
                      grecaptcha.reset();
+                     loadComments($("input[name='postId']").val());
                  },
                  error: function (error) {
                      swal("Oops", "ERROR: " + error.responseText, "error");
