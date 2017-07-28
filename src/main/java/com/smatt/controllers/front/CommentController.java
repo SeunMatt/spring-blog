@@ -29,12 +29,10 @@ public class CommentController {
         this.commentService = cs;
     }
 
-
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<String> add(Comment comment, @RequestParam(value = "g-recaptcha-response", required = false) String recaptchaResp) {
         logger.info(comment.toString());
-//        logger.info("recaptcha response: " + recaptchaResp);
 
         if(!comment.isValid()) {
             return ResponseEntity.badRequest().body("Missing Required Inputs");
@@ -48,9 +46,34 @@ public class CommentController {
         return ResponseEntity.ok("Comment Added Successfully");
     }
 
+    @PostMapping("/reply")
+    @ResponseBody
+    public ResponseEntity<String> reply(Comment comment) {
+
+        logger.info(comment.toString());
+
+        if(!comment.isValid()) {
+            return ResponseEntity.badRequest().body("Missing Required Inputs");
+        }
+
+        commentRepository.save(comment);
+
+        return ResponseEntity.ok("Comment Added Successfully");
+
+    }
+
+
+    @GetMapping("/replies/{postId}/{commentId}")
+    @ResponseBody
+    public ResponseEntity<String> replies(@PathVariable("postId") String postId, @PathVariable("commentId") String commentId) {
+        return commentService.replies(postId, commentId);
+    }
+
     @GetMapping("/read/{postId}")
     @ResponseBody
     public ResponseEntity read(@PathVariable("postId") String postId) {
         return commentService.read(postId);
     }
+
+
 }

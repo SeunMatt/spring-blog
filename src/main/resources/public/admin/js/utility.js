@@ -21,7 +21,6 @@ function cancelWait(selector) {
 
 
 function loadComments (postId) {
-
     $.ajax({
        type: "get",
        url: "/comment/read/"+postId,
@@ -32,7 +31,22 @@ function loadComments (postId) {
          $("#commentColumn").append("Error Loading Comments Try Again pls");
        }
     });
+}
 
+function loadCommentReplies (postId, commentId) {
+    $.ajax({
+        type: "get",
+        url: "/comment/replies/"+ postId + "/" + commentId,
+        success: function (response) {
+            $("#reply_"+commentId).append(response);
+            cancelWait("#comment_" + commentId);
+            $("#vreplyBt_" + commentId + "").hide("slow");
+        },
+        error: function (error) {
+            cancelWait("#comment_" + commentId);
+            $("#reply_" + commentId).append("Error Loading Comments Try Again pls");
+        }
+    });
 }
 
 

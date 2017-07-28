@@ -100,9 +100,7 @@
                     <form class="form-horizontal" id="commentForm" action="/comment/add" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         <input type="hidden" name="postId" value="${post.id}">
-                        <input type="hidden" name="parentCommentId" value="${post.id}">
                         <div class="box-body">
-                            <p id="comment-info">Replying to <span class="text-info">Matt</span> <button type="button" class="btn btn-danger btn-xs" data-id=""><i class="fa fa-times"></i> clear</button></p>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 
@@ -156,6 +154,9 @@
             </div>
         </div>
 
+
+        <#include "../partials/comment-modal.ftl" />
+
     </section>
     <!-- /.content -->
 </div>
@@ -164,28 +165,49 @@
     $().ready(function() {
 
         $("#commentForm").on("submit", function (event) {
-        event.preventDefault();
-        $.ajax({
-             type: "post",
-             url: "/comment/add",
-             data: $("#commentForm").serialize(),
-             beforeSend: function () {
-                 displayWait("#commentForm");
-             },
-             success: function (response) {
-                 swal("Comment Posted", "Your comment has been posted successfully", "success")
-                 cancelWait("#commentForm");
-                 $("#commentForm")[0].reset();
-                 grecaptcha.reset();
-             },
-             error: function (error) {
-                 swal("Oops", "ERROR: " + error.responseText, "error");
-                 cancelWait("#commentForm");
-                 grecaptcha.reset();
-             }
-         });
+            event.preventDefault();
+            $.ajax({
+                 type: "post",
+                 url: "/comment/add",
+                 data: $("#commentForm").serialize(),
+                 beforeSend: function () {
+                     displayWait("#commentForm");
+                 },
+                 success: function (response) {
+                     swal("Comment Posted", "Your comment has been posted successfully", "success")
+                     cancelWait("#commentForm");
+                     $("#commentForm")[0].reset();
+                     grecaptcha.reset();
+                 },
+                 error: function (error) {
+                     swal("Oops", "ERROR: " + error.responseText, "error");
+                     cancelWait("#commentForm");
+                     grecaptcha.reset();
+                 }
+             });
+        });
 
-     });
+        $("#replyForm").on("submit", function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "post",
+                url: "/comment/reply",
+                data: $("#replyForm").serialize(),
+                beforeSend: function () {
+                    displayWait("#replyForm");
+                },
+                success: function (response) {
+                    cancelWait("#replyForm");
+                    $("#replyForm")[0].reset();
+                    $("#replyModal").modal("hide");
+                },
+                error: function (error) {
+                    cancelWait("#replyForm");
+                    $("#replymodal").modal("hide");
+                    swal("Oops", "ERROR: " + error.responseText, "error");
+                }
+            });
+        });
 
         $("#share").jsSocials({
             shares: [
@@ -218,8 +240,16 @@
         $(document).on("click", ".reply", function(event) {
             event.preventDefault();
             $("input[name='parentCommentId']").val($(this).attr("data-id"));
-            console.log("parentCommentId: " + $("input[name='parentCommentId']").val() );
-            $("#collapseComment").click();
+            $("#replyModal").modal({"static": true});
+//            console.log("name: " + $(this).parent().children("span").html());
+//            console.log("comment: " + $(this).parent().children("p").html());
+            $("#replyText").html($(this).parent().children("span").html() + "<br>" + $(this).parent().children("p").html());
+        });
+
+        $(document).on("click", ".vreply", function(event) {
+            event.preventDefault();
+            displayWait("#comment_" + $(this).attr("data-id"));
+            loadCommentReplies($("input[name='postId']").val(), $(this).attr("data-id"));
         });
 
         loadComments($("input[name='postId']").val());

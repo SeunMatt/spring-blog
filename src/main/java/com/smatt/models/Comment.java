@@ -115,7 +115,8 @@ public class Comment {
                 + "\nName: " + this.getName()
                 + " | Email: " + this.getEmail()
                 + " | PostId: " + this.getPostId()
-                + " | Notify: " + this.isNotify();
+                + " | Notify: " + this.isNotify()
+                + " | ParentCommentId: " + this.getParentCommentId();
     }
 
     @PrePersist

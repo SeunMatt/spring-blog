@@ -14,4 +14,7 @@ public interface CommentRepository extends CrudRepository<Comment, String> {
     @Query("SELECT c FROM Comment c WHERE c.postId = ?1 AND c.parentCommentId = null")
     List<Comment> findDirectComments(String postId);
 
+    @Query("SELECT c FROM Comment c WHERE c.postId = ?1 AND c.parentCommentId = ?2")
+    List<Comment> findCommentReplies(String postId, String commentId);
+
 }

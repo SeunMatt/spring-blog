@@ -32,32 +32,58 @@ public class CommentService {
         this.cfg = cfg;
     }
 
-
+    /*
+    * This is used to load direct comments to an article
+    * */
     public ResponseEntity read(String postId) {
 
         List<Comment> comments = commentRepository.findDirectComments(postId);
 
-        logger.info("post id: " + postId);
-        logger.info("comments returned: " + comments.size());
+//        logger.info("post id: " + postId);
+//        logger.info("comments returned: " + comments.size());
 
         if(comments.size() <= 0)
             return ResponseEntity.ok("No Comments yet! Be the first to Comment");
+
+        return ResponseEntity.ok(processCommentTemplate(comments, "partials/comment.ftl"));
+    }
+
+    /*
+    * This will be used to load all replies that are under a particular comment
+    * */
+    public ResponseEntity<String> replies(String postId, String commentId) {
+
+        List<Comment> comments = commentRepository.findCommentReplies(postId, commentId);
+
+//        logger.info("post id: " + postId + " | comment Id: " + commentId);
+//        logger.info("comments returned: " + comments.size());
+
+        if(comments.size() <= 0)
+            return ResponseEntity.ok("No Replies yet!");
+
+        return ResponseEntity.ok(processCommentTemplate(comments, "partials/comment-replies.ftl"));
+    }
+
+    /*
+    * A helper method
+    * */
+    private String processCommentTemplate(List<Comment> comments, String tmpDir) {
 
         try {
             //process mail template
             StringWriter stringWriter = new StringWriter();
             cfg.setSharedVariable("asset", new AssetDirective());
-            Template temp = cfg.getTemplate("partials/comment.ftl");
+            Template temp = cfg.getTemplate(tmpDir);
             Map<String, Object> map = new HashMap<>();
             map.put("comments", comments);
             temp.process(map, stringWriter);
 
-            return ResponseEntity.ok(stringWriter.getBuffer().toString());
+            return stringWriter.getBuffer().toString();
+
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.ok("Cannot Get Comment Now. Try again later");
+            return "Cannot Get Comment or Replies Now. Please Try Again Later";
         }
-
     }
 
 }
