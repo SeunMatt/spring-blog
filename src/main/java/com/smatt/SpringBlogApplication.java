@@ -1,5 +1,6 @@
 package com.smatt;
 
+import com.smatt.addons.AssetDirective;
 import com.smatt.addons.LocalDateTimeTemplateFormatFactory;
 import com.smatt.config.StorageProperties;
 import com.smatt.service.StorageService;
@@ -54,6 +55,7 @@ public class SpringBlogApplication {
             Map<String, TemplateDateFormatFactory> customDateFormats = new HashMap<>();
             customDateFormats.put("localdatetime", LocalDateTimeTemplateFormatFactory.INSTANCE);
             cfg.setCustomDateFormats(customDateFormats);
+            cfg.setSharedVariable("asset", new AssetDirective());
 			DefaultObjectWrapper objectWrapper = new DefaultObjectWrapper();
 			objectWrapper.setIterableSupport(true);
             cfg.setObjectWrapper(objectWrapper);

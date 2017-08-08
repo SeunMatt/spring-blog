@@ -1,264 +1,259 @@
 <#include "../layouts/front.ftl"/>
-<@app title="${post.title}" description="${description}">
+<@app>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-
-    <!-- Main content -->
-    <section class="content">
-
+<div class="details">
+    <input type="hidden" id="postId" value="${post.id}" />
+    <div class="container">
         <div class="row">
-
-            <div class="col-md-9">
-
-            <#--image row-->
-                <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <div class="small-box">
-                            <img class="img-responsive" id="img_cover_pic" src="<#if (post.coverPic?length > 0)><@asset url='files/${post.coverPic!""}'/><#else><@asset url='admin/images/default-post-picture.png'/></#if>" alt="Cover Picture" />
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <h1>${post.title}</h1>
-                        <h5><i>Posted by ${post.author.name} on ${post.createdAt?date.@localdatetime}, <span class="fa fa-eye"></span> ${post.views}</i></h5>
-                        <small>Tags: Java, Technology</small>
-                    </div>
+            <div class="col-sm-8">
+                <div class="det_pic">
+                    <img class="img-responsive" id="img_cover_pic" src="<#if (post.coverPic?length > 0)><@asset url='files/${post.coverPic!""}'/><#else><@asset url='admin/images/default-post-picture.png'/></#if>" alt="" />
                 </div>
                 <br>
-                <#--row for posts-->
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <div class="postdiv">
-                            ${post.post}
-                        </div>
-                    </div>
+                <h1 class="title">${post.title} </h1>
+                <ul class="links">
+                    <li><i class="date"> </i><span class="icon_text">${post.createdAt?date.@localdatetime}</span></li>
+                    <li><a href="#"><i class="admin"> </i><span class="icon_text">Posted in <strong>${post.category.category}</strong> by <strong>${post.author.name}</strong></a></li>
+                    <li><i class="views"> </i><span class="icon_text">Hits: ${post.views}</span></li>
+                    <li><i class="tags"> </i><span class="icon_text"> ${post.section.section}</span></li>
+                </ul>
+                <div class="det_text">
+                  ${post.post}
                 </div>
-
-                <br>
-
                 <div class="row text-center">
-                        <h4><i>Share with your friends on:</i></h4>
-                        <div id="share"></div>
-                        <br>
-                        <div id="share1"></div>
-                   <br>
+                    <div id="share"></div>
+                    <br>
                 </div>
+            </div>
+            <div class="col-sm-4">
 
             </div>
-
-            <div class="col-md-3">
-                <!-- PRODUCT LIST -->
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Related Articles</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <ul class="products-list product-list-in-box">
-                            <#list relatedPosts as rPost>
-                            <li class="item">
-                               <a href="/p/${rPost.id}" class="product-title">${rPost.title}</a>
-                            </li>
-                            <!-- /.item -->
-                            </#list>
-                        </ul>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer text-center">
-                        <a href="/posts/${post.category.category}" class="uppercase">View All</a>
-                    </div>
-                    <!-- /.box-footer -->
-                </div>
-                <!-- /.box -->
-                <br><br>
-
-            </div>
-
         </div>
+        <br>
+        <#--comment section-->
+        <ul class="links" style="border-bottom: 0px none;">
+            <li>
+                <a href="#commentModal" data-toggle="modal" class="btn btn-lg btn-default">Comments (20)</a>
+            </li>
+        </ul>
 
         <br><br>
 
-        <#--Add Comment Row-->
-        <div class="row">
-            <div class="col-sm-5">
-                <!-- Horizontal Form -->
-                <div class="box box-info collapsed-box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Add Comment</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" id="collapseComment" data-widget="collapse"><i class="fa fa-plus"></i>
-                            </button>
+        <#-- slider section -->
+        <div class="slide" style="">
+            <div class="container">
+                <div class="fle-xsel">
+                    <ul id="newsRoll">
+                        <li>
+                            <div class="might-grid">
+                                <div class="might-top">
+                                    <h4><a href="#">Build Web Applications like a Pro in 6 Simple Steps</a></h4>
+                                    <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="might-grid">
+                                <div class="might-top">
+                                    <h4><a href="#">This is the Beginning of the End</a></h4>
+                                    <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="banner-1">
+                                    <img src="<@asset url='front/images/s-1.jpg' />" class="img-responsive" alt="">
+                                    <h3></h3>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="might-grid">
+                                <div class="might-top">
+                                    <h4><a href="#">This is the Beginning of the End</a></h4>
+                                    <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="banner-1">
+                                    <img src="/front/images/s-3.jpg" class="img-responsive" alt="">
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="banner-1">
+                                    <img src="/front/images/s-6.jpg" class="img-responsive" alt="">
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+
+    <#--comment modal-->
+        <div class="portfolio-modal modal fade" id="commentModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
                         </div>
                     </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
-                    <form class="form-horizontal" id="commentForm" action="/comment/add" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        <input type="hidden" name="postId" value="${post.id}">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" placeholder="Name" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" name="email" placeholder="Email" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Comment</label>
-                                <div class="col-sm-10">
-                                    <textarea rows="5" cols="5" class="form-control" name="comment" placeholder="Comment" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="notify"> Notify me, via email, of direct comment reply
-                                        </label>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="modal-body">
+                                <#--collapsible for leave a comment-->
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title" style="font-weight: 700;text-align: left;font-size: 20px;">
+                                                <a data-toggle="collapse" href="#collapse1">Leave a Comment</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse1" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="lev" style="text-align: left;margin-top: 0px;">
+                                                    <form id="commentform" action="/comment/add" method="post">
+                                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                        <input type="hidden" name="postId" value="${post.id}">
+                                                        <label for="name">Name</label>
+                                                        <input id="name" name="name" type="text" value="" maxlength="30" size="30" aria-required="true" required>
+                                                        <label for="email">Email</label>
+                                                        <input id="email" name="email" type="text" value="" maxlength="30" size="30" aria-required="true" required>
+                                                        <label for="comment">Comment</label>
+                                                        <textarea name="comment" required></textarea>
+                                                        <br>
+                                                        <input type="checkbox" name="notify"> Notify me, via email, of direct comment reply
+                                                        <br><br>
+                                                        <div class="clearfix"></div>
+                                                        <div class="g-recaptcha" data-sitekey="6LcpmiAUAAAAACv69eLygOFO3OPoayrMpT2fk_rJ"></div>
+                                                        <div class="clearfix"></div>
+                                                        <br>
+                                                        <input name="submit" type="submit" id="submit" value="Send">
+                                                        <input id="collapseBt" type="submit" value="Cancel">
+                                                        <div class="clearfix"></div>
+                                                    </form>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <br>
+                                <div class="comments1" id="commentColumn"></div>
+                                <br>
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                             </div>
-                            <div class="form-group">
-                                <div class="col-xs-8">
-                                    <div class="g-recaptcha" data-sitekey="6LcpmiAUAAAAACv69eLygOFO3OPoayrMpT2fk_rJ"></div>
-                                </div>
-                            </div>
-
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-info pull-right">Post Comment</button>
-                        </div>
-                        <!-- /.box-footer -->
-                    </form>
+                    </div>
                 </div>
-                <!-- /.box -->
-            </div>
-        </div>
-
-        <#--View Comments Row-->
-        <div class="row">
-            <div class="col-sm-10" id="commentColumn">
-
             </div>
         </div>
 
 
-        <#include "../partials/comment-modal.ftl" />
 
-    </section>
-    <!-- /.content -->
+    </div>
 </div>
-<!-- /.content-wrapper -->
-<script>
-    $().ready(function() {
-
-        $("#commentForm").on("submit", function (event) {
-            event.preventDefault();
-            $.ajax({
-                 type: "post",
-                 url: "/comment/add",
-                 data: $("#commentForm").serialize(),
-                 beforeSend: function () {
-                     displayWait("#commentForm");
-                 },
-                 success: function (response) {
-                     swal("Comment Posted", "Your comment has been posted successfully", "success")
-                     cancelWait("#commentForm");
-                     $("#commentForm")[0].reset();
-                     grecaptcha.reset();
-                     loadComments($("input[name='postId']").val());
-                 },
-                 error: function (error) {
-                     swal("Oops", "ERROR: " + error.responseText, "error");
-                     cancelWait("#commentForm");
-                     grecaptcha.reset();
-                 }
-             });
-        });
-
-        $("#replyForm").on("submit", function (event) {
-            event.preventDefault();
-            $.ajax({
-                type: "post",
-                url: "/comment/reply",
-                data: $("#replyForm").serialize(),
-                beforeSend: function () {
-                    displayWait("#replyForm");
+<script src="<@asset url='admin/js/utility.js' />"></script>
+<script src="<@asset url='front/plugins/jssocials-1.4.0/jssocials.js' />"></script>
+<script src="<@asset url='front/js/prism.js' />"></script>
+<script type="text/javascript" src="<@asset url = 'front/js/jquery.flexisel.js' />"></script>
+<script type="text/javascript">
+    $(window).load(function() {
+        $("#newsRoll").flexisel({
+            visibleItems: 3,
+            animationSpeed: 1000,
+            autoPlay: false,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint:480,
+                    visibleItems: 1,
+                    itemsToScroll: 1
                 },
-                success: function (response) {
-                    loadCommentReplies( $("input[name='postId']").val(), $("input[name='parentCommentId']").val() );
-                    cancelWait("#replyForm");
-                    $("#replyForm")[0].reset();
-                    $("#replyModal").modal("hide");
+                landscape: {
+                    changePoint:640,
+                    visibleItems: 3,
+                    itemsToScroll: 1
                 },
-                error: function (error) {
-                    cancelWait("#replyForm");
-                    $("#replymodal").modal("hide");
-                    swal("Oops", "ERROR: " + error.responseText, "error");
+                tablet: {
+                    changePoint:768,
+                    visibleItems: 3,
+                    itemsToScroll: 1
                 }
-            });
+            }
         });
+    });
+
+    $(document).ready(function () {
+
+        loadComments($("#postId").val());
 
         $("#share").jsSocials({
             shares: [
                 "twitter",
-                {   share: "facebook",
+                {
+                    share: "facebook",
                     label: "Share",
                     logo: "fa fa-facebook",
                     hashtags: "blogpost"
                 },
-                "googleplus"
-            ],
-            showCount: false,
-            shareIn: "popup"
-        });
-
-        $("#share1").jsSocials({
-            shares: [
+                "googleplus",
                 "linkedin",
                 "whatsapp",
                 {
                     share: "messenger",
-                    label: "Messenger",
+                    label: false,
                     shareIn: "self"
                 }
             ],
             showCount: false,
+            showLabel: false,
             shareIn: "popup"
         });
 
-        $(document).on("click", ".reply", function(event) {
+        $("#collapseBt").on("click", function (event) {
             event.preventDefault();
-            $("input[name='parentCommentId']").val($(this).attr("data-id"));
-            $("#replyModal").modal({"static": true});
-//            console.log("name: " + $(this).parent().children("span").html());
-//            console.log("comment: " + $(this).parent().children("p").html());
-            $("#replyText").html($(this).parent().children("span").html() + "<br>" + $(this).parent().children("p").html());
+            $("#collapse1").collapse("hide");
         });
 
-        $(document).on("click", ".vreply", function(event) {
+        $("#commentform").on("submit", function (event) {
             event.preventDefault();
-            displayWait("#comment_" + $(this).attr("data-id"));
-            loadCommentReplies($("input[name='postId']").val(), $(this).attr("data-id"));
+            $.ajax({
+                type: "post",
+                url: "/comment/add",
+                data: $("#commentform").serialize(),
+                beforeSend: function () {
+                    displayWait("#commentform");
+                },
+                success: function (response) {
+                    swal("Comment Posted", "Your comment has been posted successfully", "success")
+                    cancelWait("#commentform");
+                    $("#commentform")[0].reset();
+                    grecaptcha.reset();
+                    loadComments($("input[name='postId']").val());
+                    $("#collapse1").collapse("hide");
+                },
+                error: function (error) {
+                    swal("Oops", "ERROR: " + error.responseText, "error");
+                    cancelWait("#commentform");
+                    grecaptcha.reset();
+                }
+            });
         });
-
-        loadComments($("input[name='postId']").val());
-
-
     });
-
-
 </script>
 </@app>

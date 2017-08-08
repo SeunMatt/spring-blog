@@ -50,7 +50,7 @@ public class FileUploadController {
     @GetMapping("/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-        logger.info("supplied file name = " + filename);
+//        logger.info("supplied file name = " + filename);
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity
                 .ok()

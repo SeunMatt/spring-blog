@@ -1,29 +1,38 @@
-<!-- Box Comment -->
-<div class="box box-widget">
-    <!-- /.box-body -->
-    <div class="box-body box-comments" style="box-shadow: none;">
-        <#list comments as comment>
-        <div class="box-comment" id="comment_${comment.id}">
-            <!-- User image -->
-            <img class="img-circle img-sm" src="<@asset url='admin/images/default-post-user.jpg' />" alt="User Image">
-
-            <div class="comment-text">
-                      <span class="username">
-                        ${comment.name}
-                        <span class="text-muted pull-right">${comment.createdAt?date.@localdatetime}</span>
-                      </span><!-- /.username -->
-                <p>${comment.comment}</p>
-                <button type="button" class="btn btn-default btn-xs reply" data-id="${comment.id}"><i class="fa fa-share"></i> Reply</button>
-                <button type="button" class="btn btn-default btn-xs vreply" data-id="${comment.id}" id="vreplyBt_${comment.id}">View Replies</button>
+<h4>COMMENTS</h4>
+<hr class="star-primary">
+<div class="comments-main">
+    <#list comments as comment>
+        <div class="col-md-10 cmts-main-right">
+            <h5>${comment.name} <span>On ${comment.createdAt?date.@localdatetime}</span></h5>
+            <p>${comment.comment}</p>
+            <br>
+            <div class="replies">
+                <div class="cmts-main-right reply">
+                    <h6>TOM BROWN <span>On April 14, 2014, 18:01</span></h6>
+                    <p>Vivamus congue turpis in augue pellentesque scelerisque. Pellentesque aliquam laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
+                    </p>
+                </div>
+                <br>
+                <div class="cmts-main-right reply">
+                    <h6>TOM BROWN <span>On April 14, 2014, 18:01</span></h6>
+                    <p>Vivamus congue turpis in augue pellentesque scelerisque. Pellentesque aliquam laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
+                    </p>
+                </div>
+                <br>
+                <div class="cmts-main-right reply">
+                    <h6>TOM BROWN <span>On April 14, 2014, 18:01</span></h6>
+                    <p>Vivamus congue turpis in augue pellentesque scelerisque. Pellentesque aliquam laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
+                    </p>
+                </div>
             </div>
-            <!-- /.comment-text -->
+            <br>
+            <div class="cmts">
+                <div class="cmnts-right">
+                    <a href="#">Reply</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <!-- /.box-comment -->
-         <div class="row">
-             <div id="reply_${comment.id}" class="col-sm-12"></div>
-         </div>
-        </#list>
-
-    </div>
+        <div class="clearfix"></div>
+    </#list>
 </div>
-<!-- /.box -->

@@ -7,6 +7,7 @@ import com.smatt.models.Contact;
 import com.smatt.models.Post;
 import com.smatt.service.ContactService;
 import com.smatt.utils.URLHelper;
+import com.smatt.utils.Utility;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by smatt on 21/03/2017.
@@ -57,7 +59,13 @@ public class HomeController {
 
         //featured posts
         List<Post> featuredPosts = postRepository.findFeaturedPosts(
-                new PageRequest(0, 3));
+                new PageRequest(0, 4))
+                .stream()
+                .map(p -> {
+                    p.setPost(Utility.makePreviewText(p.getPost()));
+                    return p;
+                }).collect(Collectors.toList());
+
 //        logger.info("featured posts sorted by latest and limit ed to 3 == " + featuredPosts.size()  + "\n" + featuredPosts.toString());
 
 		modelMap.addAttribute("trendingPosts", trendingPosts);
