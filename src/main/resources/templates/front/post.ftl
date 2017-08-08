@@ -33,7 +33,7 @@
         <#--comment section-->
         <ul class="links" style="border-bottom: 0px none;">
             <li>
-                <a href="#commentModal" data-toggle="modal" class="btn btn-lg btn-default">Comments (20)</a>
+                <a href="#commentModal" data-toggle="modal" class="btn btn-lg btn-default">Read/Leave a Comment</a>
             </li>
         </ul>
 
@@ -174,7 +174,7 @@
         $("#newsRoll").flexisel({
             visibleItems: 3,
             animationSpeed: 1000,
-            autoPlay: false,
+            autoPlay: true,
             autoPlaySpeed: 3000,
             pauseOnHover: true,
             enableResponsiveBreakpoints: true,

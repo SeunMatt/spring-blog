@@ -1,73 +1,117 @@
-<#include "../layouts/app.ftl"/>
-<@app>
+<#include "../layouts/front.ftl" />
+<@app title="${title} and Articles" description="${title} and Articles">
 
-<!-- Page Header -->
-<!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('<@asset url = 'front/img/home-bg.jpg' />')">
-    <div class="container">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <!-- Main content -->
+    <section class="content">
+
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <hr class="small">
-                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+
+            <div class="col-md-offset-1 col-md-8">
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-center">
+                        <h1>${title}</h1>
+                    </div>
                 </div>
+
+                <br><br>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <ul class="timeline">
+                            <#list posts as post>
+                            <#if (post?index % 2) == 0>
+                            <!-- timeline item -->
+                            <li>
+                                <i class="fa fa-comments bg-blue"></i>
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> ${post.createdAt?date.@localdatetime}</span>
+
+                                    <h3 class="timeline-header"><a href="/p/${post.id}">${post.title}</a></h3>
+
+                                    <div class="timeline-body">
+                                    ${post.post?substring(0, 150)} ...
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <a href="/p/${post.id}" class="btn btn-primary btn-xs btn-flat">Read more</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- END timeline item -->
+                            </#if>
+                            </#list>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <ul class="timeline">
+                            <#list posts as post>
+                                <#if (post?index % 2) != 0>
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa  fa-newspaper-o bg-green"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> ${post.createdAt?date.@localdatetime}</span>
+
+                                            <h3 class="timeline-header"><a href="/p/${post.id}">${post.title}</a></h3>
+
+                                            <div class="timeline-body">
+                                            ${post.post?substring(0, 150)} ...
+                                            </div>
+                                            <div class="timeline-footer">
+                                                <a href="/p/${post.id}" class="btn btn-primary btn-xs btn-flat">Read more</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- END timeline item -->
+                                </#if>
+                            </#list>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <#if (totalPages > 1)>
+                        <ul class="list-inline text-center">
+                            <#if ((prevLink!'')?length > 0)>
+                                <li><a class="btn btn-md btn-flat bg-purple" href="${prevLink}"> <span class="fa fa-arrow-left"></span> Previous</a></li>
+                            </#if>
+
+                            <li><span class="h1">${currentPage}</span> / <span class="h3">${totalPages}</span></li>
+
+                            <#if ( (nextLink!'')?length > 0)>
+                                <li><a class="btn btn-md btn-flat bg-navy" href="${nextLink}">Next <span class="fa fa-arrow-right"></span></a></li>
+                            </#if>
+                        </ul>
+                        </#if>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="col-md-3">
+                <br><br>
+                <#include "../partials/most-read-article.ftl" />
+                <br><br>
+            </div>
+
         </div>
-    </div>
-</header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-            <#list posts as post>
-                <div class="post-preview">
-                    <a href="/post/${post.id}">
-                        <h2 class="post-title">
-                        ${post.title}
-                        </h2>
-                        <h4 class="post-subtitle">
-                        ${post.post?substring(0, 150)} . . .
-                        </h4>
-                    </a>
-                    <p class="post-meta">
-                        Posted by <a href="#">${post.author.name}</a>
-                        on ${post.createdAt?date.@localdatetime}
-                        in ${post.category.category}
-                    </p>
-                </div>
-                <hr>
-            <#else>
-                <h2 class="post-title">
-                    No Posts Yet, Check Back Later Please.
-                </h2>
-            </#list>
 
-            <!-- Pager -->
-            <ul class="pager">
-                <#if ((prevLink!'')?length > 0)>
-                <li class="previous">
-                    <a href="${prevLink}">&larr; Newer Posts</a>
-                </li>
-                </#if>
-
-                <li class="pagination">
-                    <span> ${currentPage} / ${totalPages} </span>
-                </li>
-
-                <#if ( (nextLink!'')?length > 0)>
-                <li class="next">
-                    <a href="${nextLink}">Older Posts &rarr;</a>
-                </li>
-                </#if>
-
-            </ul>
-        </div>
-    </div>
+    </section>
+    <!-- /.content -->
 </div>
-
-<hr>
+<!-- /.content-wrapper -->
 
 </@app>
