@@ -43,6 +43,10 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 </#if>
+                                 <#else>
+                                    <br>
+                                    <h3>Coming Soon! Subscribe to stay tuned!</h3>
+                                    <br>
                                 </#list>
                             </div>
                             <div class="col-sm-6">

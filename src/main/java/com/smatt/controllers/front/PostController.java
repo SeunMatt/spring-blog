@@ -28,7 +28,6 @@ import java.util.Objects;
  */
 
 @Controller
-//@RequestMapping(value = "/app")
 public class PostController {
 
     private final PostService postService;
@@ -69,7 +68,7 @@ public class PostController {
 
         modelMap.addAttribute("trendingPosts",  postRepository.findAllPublishedPosts(
                     new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views"))) );
-        modelMap.addAttribute("relatedPosts", postRepository.findByCategory(post.getCategory(), new PageRequest(0,5)));
+        modelMap.addAttribute("relatedPosts", postRepository.findRelatedInCategory(post.getCategory(), post.getId()));
         modelMap.addAttribute("post", post);
 
         modelMap.addAttribute("description", desc);

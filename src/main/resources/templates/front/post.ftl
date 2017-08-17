@@ -25,9 +25,6 @@
                     <br>
                 </div>
             </div>
-            <#--<div class="col-sm-4">-->
-                <#--<#include "../partials/single-post-right-column.ftl" />-->
-            <#--</div>-->
         </div>
         <br>
         <#--comment section-->
@@ -45,55 +42,32 @@
                 <div class="fle-xsel">
                     <h3><a href="/posts/${post.category.category}">More ${post.category.category} Stories</a></h3>
                     <ul id="newsRoll">
+                        <#list relatedPosts as rP>
                         <li>
                             <div class="might-grid">
                                 <div class="might-top">
-                                    <h4><a href="#">Build Web Applications like a Pro in 6 Simple Steps</a></h4>
-                                    <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
+                                    <h4><a href="/p/${rP.id}">${rP.title}</a></h4>
+                                    <p>${rP.post?substring(0, 100)}</p>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
                         </li>
-                        <li>
-                            <div class="might-grid">
-                                <div class="might-top">
-                                    <h4><a href="#">This is the Beginning of the End</a></h4>
-                                    <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="banner-1">
-                                    <img src="<@asset url='front/images/s-1.jpg' />" class="img-responsive" alt="">
-                                    <h3></h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="might-grid">
-                                <div class="might-top">
-                                    <h4><a href="#">This is the Beginning of the End</a></h4>
-                                    <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="banner-1">
-                                    <img src="/front/images/s-3.jpg" class="img-responsive" alt="">
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="banner-1">
-                                    <img src="/front/images/s-6.jpg" class="img-responsive" alt="">
-                                </div>
-                            </a>
-                        </li>
+                         <#else>
+                             <li>
+                                 <div class="might-grid">
+                                     <div class="might-top">
+                                         <h4><a href="#">Subscribe to our Newsletter</a></h4>
+                                         <div class="news">
+                                             <form>
+                                                 <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" />
+                                                 <input type="submit" value="Subscribe">
+                                             </form>
+                                         </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                 </div>
+                             </li>
+                        </#list>
                     </ul>
                     <div class="clearfix"> </div>
                 </div>

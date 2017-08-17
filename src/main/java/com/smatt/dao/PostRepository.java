@@ -24,6 +24,9 @@ public interface PostRepository extends CrudRepository<Post, String> {
    @Query("select p from Post p where p.published = true and p.category like ?1 order by p.createdAt desc")
    Page<Post> findByCategory(Category category, Pageable pageable);
 
+   @Query("select p from Post p where p.published = true and p.category like ?1 and p.id <> ?2 order by p.createdAt desc")
+   List<Post> findRelatedInCategory(Category category, String excludeId);
+
    //this method will get all posts, sort
    @Query("select p from Post p")
    List<Post> findAllPosts(Pageable pageable);
