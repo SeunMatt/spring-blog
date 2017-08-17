@@ -5,7 +5,7 @@
     <input type="hidden" id="postId" value="${post.id}" />
     <div class="container">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-offset-2 col-sm-8">
                 <div class="det_pic">
                     <img class="img-responsive" id="img_cover_pic" src="<#if (post.coverPic?length > 0)><@asset url='files/${post.coverPic!""}'/><#else><@asset url='admin/images/default-post-picture.png'/></#if>" alt="" />
                 </div>
@@ -13,7 +13,7 @@
                 <h1 class="title">${post.title} </h1>
                 <ul class="links">
                     <li><i class="date"> </i><span class="icon_text">${post.createdAt?date.@localdatetime}</span></li>
-                    <li><a href="#"><i class="admin"> </i><span class="icon_text">Posted in <strong>${post.category.category}</strong> by <strong>${post.author.name}</strong></a></li>
+                    <li><i class="admin"> </i><span class="icon_text">Posted in <strong>${post.category.category}</strong> by <strong>${post.author.name}</strong></li>
                     <li><i class="views"> </i><span class="icon_text">Hits: ${post.views}</span></li>
                     <li><i class="tags"> </i><span class="icon_text"> ${post.section.section}</span></li>
                 </ul>
@@ -25,9 +25,9 @@
                     <br>
                 </div>
             </div>
-            <div class="col-sm-4">
-
-            </div>
+            <#--<div class="col-sm-4">-->
+                <#--<#include "../partials/single-post-right-column.ftl" />-->
+            <#--</div>-->
         </div>
         <br>
         <#--comment section-->
@@ -43,6 +43,7 @@
         <div class="slide" style="">
             <div class="container">
                 <div class="fle-xsel">
+                    <h3><a href="/posts/${post.category.category}">More ${post.category.category} Stories</a></h3>
                     <ul id="newsRoll">
                         <li>
                             <div class="might-grid">

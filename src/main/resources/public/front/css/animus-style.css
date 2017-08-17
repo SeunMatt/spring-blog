@@ -68,7 +68,7 @@ body a{
 .head-nav ul{
 	padding:0;
 	margin: 0;
-	text-align: center;
+	text-align: right;
 }
 *,
 *:after,
@@ -373,10 +373,25 @@ a.link:hover{
 	width: 14%;
 	margin-right: 3%;
 }
+.top1 i.fa {
+	width: 32px;
+	display: inline-block;
+	color: #556A7F;
+}
 .top2 {
 	float: right;
 	width: 82%;
 }
+.top2 ul li {
+	list-style-type: none;
+	text-align: left;
+}
+.top2 ul li a {
+	font-size: 1em;
+	font-weight: 300;
+	font-family: "Raleway";
+}
+
 i.ham {
 	width: 32px;
 	height: 32px;
@@ -416,6 +431,7 @@ i.lik {
 	font-size: 1em;
 	font-weight: 300;
 	text-align: left;
+	font-family: "Raleway";
 }
 .footer a{
 	color: #dc8e7f;

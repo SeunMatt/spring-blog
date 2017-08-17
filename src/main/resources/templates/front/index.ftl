@@ -73,32 +73,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 about-right heading">
-                <div class="abt-2">
-                    <h3>CATEGORIES</h3>
-                    <ul>
-                        <#list categories as category>
-                            <li><a href="/posts/${category.category}">${category.category}</a></li>
-                        </#list>
-                    </ul>
-                </div>
-                <div class="abt-2">
-                    <h3 style="text-transform: none;">Tags</h3>
-                    <ul>
-                    <#list categories as category>
-                        <li><a href="/posts/${category.category}">${category.category}</a></li>
-                    </#list>
-                    </ul>
-                </div>
-                <div class="abt-2">
-                    <h3>NEWS LETTER</h3>
-                    <div class="news">
-                        <form>
-                            <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" />
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
+            <div class="col-md-4 about-right">
+                <#include "../partials/right-column.ftl" />
             </div>
             <div class="clearfix"></div>
         </div>

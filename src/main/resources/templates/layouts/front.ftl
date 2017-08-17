@@ -89,7 +89,7 @@
     <div class="container">
         <div class="col-md-3 copy">
             <div class="top1">
-                <!-- <i class="ham"></i> -->
+                <i class="fa fa-home"></i>
             </div>
             <div class="top2">
                 <h6>Copyrights © 2017 Spring Blog</h6>
@@ -99,7 +99,7 @@
         </div>
         <div class="col-md-3 copy">
             <div class="top1">
-                <i class="lik"></i>
+                <i class="fa fa-link"></i>
             </div>
             <div class="top2">
                 <h6>Open Source </h6>
@@ -107,7 +107,20 @@
             </div>
             <div class="clearfix"> </div>
         </div>
-        <div class="clearfix"> </div>
+        <div class="col-md-3 copy">
+            <div class="top1">
+                <i class="fa fa-list-ul"></i>
+            </div>
+            <div class="top2">
+                <h6>Categories</h6>
+                <ul>
+                    <#list categories as category>
+                        <li><a href="/posts/${category.category}">${category.category}</a></li>
+                    </#list>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
     </div>
 </div>
 <!-- footer -->
