@@ -180,7 +180,7 @@ body a:hover{
 	padding: 0;
 	margin-top: 3%;
 }
-.news form input[type="text"] {
+.news form input[type="email"] {
 	width: 100%;
 	color: #190608;
 	outline: none;
@@ -272,8 +272,10 @@ body a:hover{
     font-style: normal!important;
 }
 .might-top h4 a{
-	/*color: #3d1a1b;*/
 	color: #333333;
+}
+.might-top h4 a:hover{
+	color: #333333 !important;
 }
 .a-1:nth-child(1){
 	margin-top:0%;
@@ -429,11 +431,13 @@ body a:hover{
 	padding:0px;
 }
 .nbs-flexisel-item p a{
-	color:#000;
-	font-size:1.2em;
+	color:rgba(0,0,0,0.8);
+	text-decoration: underline;
 }
 .nbs-flexisel-item p a:hover{
-	color:#6CC372;
+	font-size:1.2em;
+	text-decoration: none;
+	color: rgba(0,0,0,0.9);
 }
 .nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
 	width: 34px;
@@ -1173,7 +1177,7 @@ ul.navig {
     font-size: 12px;
     width: 48%;
 }
-.news form input[type="text"] {
+.news form input[type="email"] {
     font-size: 12px;
     padding: 6px 10px;
 }
@@ -1500,7 +1504,7 @@ ul.navig {
 .abt-2 ul li {
     margin: 9px 0px 0px 20px;
 }
-.news form input[type="text"] {
+.news form input[type="email"] {
     padding: 4px 10px;
 }
 .abt-one a img{

@@ -94,7 +94,7 @@ public class PostController {
         Page<Post> posts = postRepository.findByCategory(categoryRepository.findByCategory(category),
                     new PageRequest(page, Constants.MAX_POST_PER_PAGE));
 
-        logger.info("post count = " + posts.getTotalElements());
+//        logger.info("post count = " + posts.getTotalElements());
 
         if(posts.getTotalElements() <= 0) {
             attr.addFlashAttribute("status", "There are no posts yet for this category. Kindly select another");
@@ -120,6 +120,7 @@ public class PostController {
         logger.info("keyword = " + keyword);
 
         if(StringUtils.isEmpty(keyword) || keyword.length() < 4) {
+            attr.addFlashAttribute("status", "Search term is too short!");
             return "redirect:/";
         }
 
@@ -128,7 +129,7 @@ public class PostController {
         Page<Post> posts = postRepository.findByPostContaining(keyword,
                 new PageRequest(page, Constants.MAX_POST_PER_PAGE));
 
-        logger.info("search post count = " + posts.getTotalElements());
+//        logger.info("search post count = " + posts.getTotalElements());
 
         if(posts.getTotalElements() <= 0) {
             attr.addFlashAttribute("status", "Search for phrase \"" + keyword + "\" not found! Refine and try again please");
@@ -142,7 +143,7 @@ public class PostController {
                 "/search/" + keyword
         );
 
-        return "front/posts";
+        return "front/search-result";
     }
 
 }

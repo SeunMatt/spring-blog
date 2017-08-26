@@ -21,7 +21,8 @@
     <small>Never miss an update from me again!</small>
     <div class="news">
         <form>
-            <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="email" placeholder="example@gmail.com" required/>
             <input type="submit" value="Subscribe">
         </form>
     </div>

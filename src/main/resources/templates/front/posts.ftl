@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <#list posts as post>
-                                    <#if ((post?index % 2) == 0 && post?index > 2)>
+                                    <#if ((post?index % 2) == 0 && post?index >= 2)>
                                     <div class="might-grid">
                                         <div class="grid-might">
                                             <a href="/p/${post.id}"><img class="img-responsive" <#if ( (post.coverPic!'')?length > 0)>src="<@asset url='files/${post.coverPic}'/>"<#else>src="<@asset url='admin/images/default-post-picture.png'/>"</#if> alt="" /></a>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <#list posts as post>
-                                    <#if ((post?index % 2) != 0 && post?index > 2)>
+                                    <#if ((post?index % 2) != 0 && post?index >= 2)>
                                         <div class="might-grid">
                                             <div class="grid-might">
                                                 <a href="/p/${post.id}"><img class="img-responsive" <#if ( (post.coverPic!'')?length > 0)>src="<@asset url='files/${post.coverPic}'/>"<#else>src="<@asset url='admin/images/default-post-picture.png'/>"</#if> alt="" /></a>

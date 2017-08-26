@@ -1,6 +1,7 @@
 package com.smatt;
 
 import com.smatt.models.Post;
+import io.vavr.collection.Iterator;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -53,5 +54,25 @@ public class MyTest {
         Document doc = Jsoup.parse(html);
         Element element = doc.getElementsByTag("p").first();
         logger.info("text of first p \n" + element.html());
+    }
+
+    @Test
+    public void givenList_whenSlideBy_thenGroup() {
+
+        Iterator<io.vavr.collection.List<String>> categorized
+                = io.vavr.collection.List.of("c1a", "c1a", "c1a", "c1a", "c2a", "c2b", "c3a", "c3b", "c4a")
+                .slideBy(s -> s.substring(0,1));
+
+//        categorized.forEach(list -> {
+//            System.out.println(list);
+//            System.out.println("==============");
+//        });
+        System.out.println(categorized.size());
+
+        Iterator i = io.vavr.collection.List.of(1,2,3,4,5,7,8,9).slideBy(x -> x/10);
+        i.forEach(list -> {
+            System.out.println(list);
+            System.out.println("==============");
+        });
     }
 }

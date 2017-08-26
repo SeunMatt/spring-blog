@@ -40,14 +40,15 @@ What is left to be done
 -----------------------
 - write about me
 - mail subscriptions
+- implement search
+- section to tags
+- SEO of page titles and description
 
 Deployment
 ----------
 - Deploying on Heroku - Done
 
-- Deploying on AWS Free tier
 - Deploying on Digital Ocean
-
 - Deploying with Docker
 
 Tutorials
@@ -64,5 +65,3 @@ Tutorials
 
 Bugs
 ------
-
-git reset "./src/main/resources/application.properties" 40d6cfdccf9265c3d0fde4d3bb8e849b1c25c34c

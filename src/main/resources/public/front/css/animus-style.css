@@ -732,7 +732,7 @@ a.b-home:hover{
 .contact-info form {
 	padding: 1em 0;
 }
-.contact-info input[type="text"] {
+.contact-info input[type="text"], .contact-info input[type="email"] {
 	border: none;
 	outline: none;
 	border: 1px solid #999;
@@ -740,7 +740,7 @@ a.b-home:hover{
 	width: 95%;
 	margin-bottom: 0.5em;
 }
-.contact-info input[type="text"]:hover {
+.contact-info input[type="text"]:hover, .contact-info input[type="email"]:hover {
 	border: 1px solid #dc8e7f;
 }
 .contact-info textarea {
@@ -1696,7 +1696,7 @@ a.b-home {
 .archievs li a {
 	font-size: 0.750em;
 }
-.contact-info input[type="text"] {
+.contact-info input[type="text"], .contact-info input[type="email"] {
 	padding: 8px;
 	width: 100%;
 }

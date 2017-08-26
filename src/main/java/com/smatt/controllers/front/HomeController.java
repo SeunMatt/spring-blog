@@ -81,8 +81,6 @@ public class HomeController {
 			superList.add(map);
 		});
 
-//        superList.forEach((m) -> System.out.println(m.keySet().toString() + " count == " + m.get(m.keySet().toArray()[0]).getTotalElements()));
-
         modelMap.addAttribute("superList", superList);
 
         session.setAttribute("categories", categories);
@@ -108,14 +106,13 @@ public class HomeController {
             }
 
             try {
+                logger.info("Contact Attempt: " + contact.toString());
                 contactService.sendEmail(contact);
                 attr.addFlashAttribute("success", "Your message has been sent successfully! I'll be in touch soon");
                 return "redirect:/contact";
             } catch (Exception e) {
                 logger.error("Error Sending Contact Form Message \n" + e.getMessage());
                 e.printStackTrace();
-                //TODO
-                // contact the guy back to reach you
                 attr.addFlashAttribute("error", "Oops! Error Occurred, please try again");
                 return "redirect:/contact";
             }

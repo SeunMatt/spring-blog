@@ -4,6 +4,7 @@ import com.smatt.dao.PostRepository;
 import com.smatt.dao.UserRepository;
 import com.smatt.models.Post;
 import com.smatt.models.User;
+import io.vavr.collection.Iterator;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 

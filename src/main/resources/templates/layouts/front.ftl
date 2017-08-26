@@ -44,15 +44,22 @@
             </div>
             <div class="header-right">
                 <ul>
-                    <li><a href="#"><i class="fb"> </i></a></li>
-                    <li><a href="#"><i class="twt"> </i></a></li>
+                    <li><a target="_blank" href="https://facebook.com/seun.matt"><i class="fb"> </i></a></li>
+                    <li><a target="_blank" href="https://twitter.com/seunmatt2"><i class="twt"> </i></a></li>
                     <li>
                         <div class="search2">
-                            <form>
-                                <input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">
+                            <form action="#" id="searchForm">
+                                <input type="text" id="searchBox" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">
                                 <input type="submit" value="">
                             </form>
-                        </div></li>
+                        </div>
+                        <script>
+                            $("#searchForm").on("submit", function (event) {
+                               event.preventDefault();
+                               window.location.href = "/search/" + $("#searchBox").val();
+                            });
+                        </script>
+                    </li>
                     <div class="clearfix"></div>
                 </ul>
 
@@ -62,9 +69,9 @@
         <div class="head-nav">
             <span class="menu"> </span>
             <ul class="cl-effect-15">
-                <li class="active"><a href="index.html">HOME</a></li>
-                <li><a href="/about" data-hover="ABOUT">ABOUT</a></li>
-                <li><a href="/contact" data-hover="CONTACT">CONTACT</a></li>
+                <li id="nav-home"><a href="/">HOME</a></li>
+                <li id="nav-about"><a href="/about" data-hover="ABOUT">ABOUT</a></li>
+                <li id="nav-contact"><a href="/contact" data-hover="CONTACT">CONTACT</a></li>
                 <div class="clearfix"> </div>
             </ul>
         </div>

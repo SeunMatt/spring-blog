@@ -43,6 +43,7 @@
                     <h3><a href="/posts/${post.category.category}">More ${post.category.category} Stories</a></h3>
                     <ul id="newsRoll">
                         <#list relatedPosts as rP>
+                         <script>var autoPlay = true;</script>
                         <li>
                             <div class="might-grid">
                                 <div class="might-top">
@@ -53,14 +54,16 @@
                             </div>
                         </li>
                          <#else>
+                             <script>var autoPlay = false;</script>
                              <li>
                                  <div class="might-grid">
                                      <div class="might-top">
                                          <h4><a href="#">Subscribe to our Newsletter</a></h4>
                                          <div class="news">
                                              <form>
-                                                 <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" />
-                                                 <input type="submit" value="Subscribe">
+                                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                 <input type="email" placeholder="example@gmail.com" required />
+                                                 <input type="submit" value="Subscribe" style="padding: 0px; float: left; height: 30px; ">
                                              </form>
                                          </div>
                                      </div>
@@ -76,7 +79,7 @@
 
 
     <#--comment modal-->
-        <div class="portfolio-modal modal fade" id="commentModal" tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="portfolio-modal modal fade" id="commentModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-content">
                 <div class="close-modal" data-dismiss="modal">
                     <div class="lr">
@@ -149,7 +152,7 @@
         $("#newsRoll").flexisel({
             visibleItems: 3,
             animationSpeed: 1000,
-            autoPlay: true,
+            autoPlay: (autoPlay) ? autoPlay : false,
             autoPlaySpeed: 3000,
             pauseOnHover: true,
             enableResponsiveBreakpoints: true,

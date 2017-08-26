@@ -6,6 +6,7 @@
     <div class="container">
         <div class="about-main">
             <div class="col-md-8 about-left">
+                <#include "../partials/alerts.ftl"/>
                 <div class="about-tre">
                     <div class="a-1">
                          <#list featuredPosts as featured>
@@ -90,12 +91,13 @@
 <div class="slide" style="">
     <div class="container">
         <div class="fle-xsel">
+            <h3 class="section-title" style="font-weight: 200;">Around the Web</h3>
             <ul id="newsRoll">
                 <li>
                     <div class="might-grid">
                         <div class="might-top">
-                            <h4><a href="#">Build Web Applications like a Pro in 6 Simple Steps</a></h4>
-                            <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
+                            <h4><a href="#">Place your adverts here</a></h4>
+                            <p>Wanna advertise with us? reach out to us now <a hre="/contact">contact me</a></p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -103,8 +105,8 @@
                 <li>
                     <div class="might-grid">
                         <div class="might-top">
-                            <h4><a href="#">This is the Beginning of the End</a></h4>
-                            <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
+                            <h4><a href="#">Your Featured Posts here</a></h4>
+                            <p>Have something interesting coming up? Why not let us write about it? <a hre="/contact">reach out</a> now</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -114,29 +116,6 @@
                         <div class="banner-1">
                             <img src="<@asset url='front/images/s-1.jpg' />" class="img-responsive" alt="">
                             <h3></h3>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <div class="might-grid">
-                        <div class="might-top">
-                            <h4><a href="#">This is the Beginning of the End</a></h4>
-                            <p>Nullam non magna lobortis, faucibus erat eu, consequat justo. Suspendisse commodo nibh odio.</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="banner-1">
-                            <img src="/front/images/s-3.jpg" class="img-responsive" alt="">
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="banner-1">
-                            <img src="/front/images/s-6.jpg" class="img-responsive" alt="">
                         </div>
                     </a>
                 </li>
@@ -174,6 +153,10 @@
             }
         });
 
+    });
+    $().ready(function () {
+       $("#nav-home").removeClass("active");
+       $("#nav-home").addClass("active");
     });
 </script>
 
