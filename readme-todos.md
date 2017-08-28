@@ -40,9 +40,7 @@ What is left to be done
 -----------------------
 - write about me
 - mail subscriptions
-- implement search
 - section to tags
-- SEO of page titles and description
 
 Deployment
 ----------

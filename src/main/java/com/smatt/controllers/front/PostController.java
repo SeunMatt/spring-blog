@@ -76,7 +76,6 @@ public class PostController {
         return "front/post";
     }
 
-
     //view all posts available in a category
     @GetMapping(value = {"/posts/{category}/{page}", "/posts/{category}"})
     public String readByCategory(ModelMap modelMap, RedirectAttributes attr,

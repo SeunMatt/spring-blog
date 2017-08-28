@@ -1,5 +1,5 @@
-<#include "../layouts/front.ftl"/>
-<@app>
+<#include "../layouts/front.ftl" />
+<@app title="${title}" description="${title}">
 <div class="about" style="background-color: #fff;">
     <div class="container">
         <div class="about-main">
@@ -52,6 +52,25 @@
                                         </div>
                                     </#if>
                                 </#list>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="a-1">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <#if (totalPages > 1)>
+                                    <ul class="list-inline text-center">
+                                        <#if ((prevLink!'')?length > 0)>
+                                            <li><a class="btn btn-md btn-flat bg-purple" href="${prevLink}"> <span class="fa fa-arrow-left"></span> Previous</a></li>
+                                        </#if>
+
+                                        <li><span class="h1">${currentPage}</span> / <span class="h3">${totalPages}</span></li>
+
+                                        <#if ( (nextLink!'')?length > 0)>
+                                            <li><a class="btn btn-md btn-flat bg-navy" href="${nextLink}">Next <span class="fa fa-arrow-right"></span></a></li>
+                                        </#if>
+                                    </ul>
+                                </#if>
                             </div>
                         </div>
                     </div>

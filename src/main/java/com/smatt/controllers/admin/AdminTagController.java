@@ -1,8 +1,6 @@
 package com.smatt.controllers.admin;
 
-import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.SectionRepository;
-import com.smatt.models.Category;
 import com.smatt.models.Section;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Date;
-
 /**
  * Created by smatt on 22/04/2017.
  */
 @Controller
 @RequestMapping(value = "/eyin/sections")
-public class AdminSectionController {
+public class AdminTagController {
 
     private String index = "/eyin/sections";
 
     @Autowired
     SectionRepository sectionRepository;
 
-    Logger logger = Logger.getLogger(AdminSectionController.class);
+    Logger logger = Logger.getLogger(AdminTagController.class);
 
     @GetMapping(value = {"", "/"})
     public String index(ModelMap model) {

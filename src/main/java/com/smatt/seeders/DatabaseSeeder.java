@@ -3,9 +3,11 @@ package com.smatt.seeders;
 import com.smatt.config.Roles;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.SectionRepository;
+import com.smatt.dao.TagRepository;
 import com.smatt.dao.UserRepository;
 import com.smatt.models.Category;
 import com.smatt.models.Section;
+import com.smatt.models.Tag;
 import com.smatt.models.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class DatabaseSeeder {
     private UserRepository userRepository;
     private CategoryRepository categoryRepository;
     private SectionRepository sectionRepository;
+    private TagRepository tagRepository;
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -35,11 +38,13 @@ public class DatabaseSeeder {
             UserRepository userRepository,
             CategoryRepository categoryRepository,
             SectionRepository sectionRepository,
+            TagRepository tr,
             JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.sectionRepository = sectionRepository;
         this.jdbcTemplate = jdbcTemplate;
+        this.tagRepository = tr;
     }
 
     @EventListener
@@ -47,6 +52,7 @@ public class DatabaseSeeder {
         seedUsersTable();
         seedCategoryTable();
         seedSectionsTable();
+        seedTagsTable();
     }
 
     private void seedCategoryTable() {
@@ -60,7 +66,7 @@ public class DatabaseSeeder {
             categoryRepository.save(Arrays.asList(c, c2, c3));
             logger.info("category table seeded");
         }else {
-            logger.info("Category Seeding Not Required");
+            logger.trace("Category Seeding Not Required");
         }
     }
 
@@ -77,7 +83,24 @@ public class DatabaseSeeder {
             sectionRepository.save(Arrays.asList(s, s2, s3, s4));
             logger.info("sections table seeded");
         } else {
-            logger.info("Sections Seeding Not Required.");
+            logger.trace("Sections Seeding Not Required.");
+        }
+    }
+
+    private void seedTagsTable() {
+        io.vavr.collection.List list = io.vavr.collection.List.of("General", "PHP", "JavaScript", "Motivation");
+        String sql = "SELECT * FROM tags s WHERE s.tag IN (" + list.mkString("\"", "\",\"", "\"") + ")";
+        List<Tag> rs = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
+        if(rs == null || rs.size() <= 0) {
+            Tag t1 = new Tag("Java");
+            Tag t2 = new Tag("PHP");
+            Tag t3 = new Tag("JavaScript");
+            Tag t4 = new Tag("Motivation");
+
+            tagRepository.save(Arrays.asList(t1,t2,t3,t4));
+            logger.info("tags table seeded");
+        } else {
+            logger.trace("Tags Seeding Not Required.");
         }
     }
 
@@ -97,7 +120,7 @@ public class DatabaseSeeder {
              userRepository.save(user);
              logger.info("Users Seeded");
         } else {
-            logger.info("Users Seeding Not Required");
+            logger.trace("Users Seeding Not Required");
         }
     }
 

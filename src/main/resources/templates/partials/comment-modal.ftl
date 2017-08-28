@@ -18,22 +18,21 @@
                     <input type="hidden" name="parentCommentId" value="">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
-
+                            <label for="name" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="name" placeholder="Name" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
+                            <label for="email" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Comment</label>
+                            <label for="comment" class="col-sm-2 control-label">Comment</label>
                             <div class="col-sm-10">
-                                <textarea rows="5" cols="5" class="form-control" name="comment" placeholder="Reply" required></textarea>
+                                <textarea rows="5" cols="5" class="form-control" id="comment" name="comment" placeholder="Reply" required></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -48,7 +47,6 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-info pull-right">Post Reply</button>
                         </div>
-
                     </div>
                 </form>
             </div>
@@ -61,3 +59,26 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+    $("#replyForm").on("submit", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "/comment/reply",
+            type: "post",
+            data: $("#replyForm").serialize(),
+            beforeSend: function () {
+                displayWait("#replyForm");
+            },
+            success: function (response) {
+                cancelWait("#replyForm");
+                $("#r__" + $("#activeC").val()).html(response);
+                $("#replyForm #email, #replyForm #name, #replyForm #comment").val("");
+                $("#replyModal").modal("hide");
+            },
+            error: function (error) {
+                cancelWait("#replyForm");
+                $("#replyModal").modal("hide");
+            }
+        });
+    });
+</script>

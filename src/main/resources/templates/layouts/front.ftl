@@ -1,8 +1,8 @@
-<#macro app title="" body="" description="">
+<#macro app title="" description="">
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Smatt Blog</title>
+    <title><#if ((title?length) > 0) >Smatt Blog - ${title}<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if></title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta content="width=device-width, initial-scale=1, user-scalable=yes" name="viewport" />
@@ -10,6 +10,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="blog, java, seun matt, smatt">
     <meta name="robots" content="index,follow" />
+    <meta name="description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SeunMatt2" />
+    <meta name="twitter:creator" content="@SeunMatt2" />
+    <meta name="twitter:title" content="<#if ((title?length) > 0) >${title} | Smatt Blog<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if>" />
+    <meta name="twitter:description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:image:alt" content="logo" />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="<#if ((title?length) > 0) >${title} | Smatt Blog<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if>" />
+    <meta itemprop="description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
+    <meta itemprop="image" content="">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="<#if ((title?length) > 0) >${title} | Smatt Blog<#else>Smatt Blog - The Journal of Seun Matt and his thoughts</#if>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://smattblog.herokuapp.com/" />
+    <meta property="og:image" content=""/>
+    <meta property="og:description" content="<#if ((description?length > 0))>${description}<#else>This is the personal blog of Seun Matt built with Java</#if>" />
+    <meta property="og:site_name" content="Smatt Blog" />
+
+
+    <link rel="canonical" href="https://smattblog.herokuapp.com/"/>
 
 
     <link rel="stylesheet" href="<@asset url = 'front/css/bootstrap.css' />">
@@ -30,6 +56,9 @@
     <script src="<@asset url = 'admin/js/jquery/jquery-2.2.3.min.js' />"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <#include "../partials/google-analytics.ftl" />
+    <script>
+        var csrf = "${_csrf.token}";
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -54,9 +83,11 @@
                             </form>
                         </div>
                         <script>
-                            $("#searchForm").on("submit", function (event) {
-                               event.preventDefault();
-                               window.location.href = "/search/" + $("#searchBox").val();
+                            $(function () {
+                                $("#searchForm").on("submit", function (event) {
+                                    event.preventDefault();
+                                    window.location.href = "/search/" + $("#searchBox").val();
+                                });
                             });
                         </script>
                     </li>

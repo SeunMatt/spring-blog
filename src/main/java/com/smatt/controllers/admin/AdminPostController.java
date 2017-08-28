@@ -1,10 +1,10 @@
 package com.smatt.controllers.admin;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smatt.config.Roles;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.PostRepository;
 import com.smatt.dao.SectionRepository;
+import com.smatt.dao.TagRepository;
 import com.smatt.models.Post;
 import com.smatt.models.User;
 import com.smatt.service.PostService;
@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by smatt on 12/04/2017
@@ -33,17 +34,20 @@ public class AdminPostController {
     private PostRepository postRepository;
     private CategoryRepository categoryRepository;
     private SectionRepository sectionRepository;
+    private TagRepository tagRepository;
     private PostService postService;
 
     private String index = "/eyin/posts";
     private Logger logger = Logger.getLogger(AdminPostController.class);
 
     @Autowired
-    public AdminPostController(PostRepository pR, CategoryRepository cR, SectionRepository sR, PostService pS) {
+    public AdminPostController(PostRepository pR, CategoryRepository cR,
+                               SectionRepository sR, PostService pS, TagRepository tR) {
         this.postRepository = pR;
         this.categoryRepository = cR;
         this.sectionRepository = sR;
         this.postService = pS;
+        this.tagRepository = tR;
     }
 
     @GetMapping(value = {"", "/"})
@@ -62,9 +66,10 @@ public class AdminPostController {
 
     @PostMapping(value = {"", "/"})
     public String save(Post post, @RequestParam("file") MultipartFile file, @RequestParam("category") String category,
-                       @RequestParam("section") String section, RedirectAttributes attr, HttpSession session) {
+                       @RequestParam("tags")Set tags, RedirectAttributes attr, HttpSession session) {
 
         logger.info("post incoming == " + post.toString());
+        logger.info("tags = " + tags.toString());
 
         ModelMap validateMap = postService.validatePost(post, attr, file, index);
 
@@ -75,7 +80,7 @@ public class AdminPostController {
         }
 
         //this will either save or update as the case maybe
-        ModelMap map = postService.savePost(post, category, section, file, session);
+        ModelMap map = postService.savePost(post, category, tags, file, session);
 
         attr.addFlashAttribute("success", map.get("status"));
         return map.get("url").toString();
@@ -92,9 +97,10 @@ public class AdminPostController {
     public String edit(@PathVariable(required = false) String id, ModelMap model) {
         model.addAttribute("postMenu", true);
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("sections", sectionRepository.findAll());
+        model.addAttribute("tags", tagRepository.findAll());
         if(!StringUtils.isEmpty(id))
             model.addAttribute("post", postRepository.findOne(id));
+        logger.info("post = " + postRepository.findOne(id));
         return "admin/posts/edit";
     }
 

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +49,7 @@ public class AdminIndexController {
                 StringUtils.equals(user.getRole(), Constants.ROLE_EDITOR)) {
             List<Post> allPosts = (List<Post>) postRepository.findAll();
             model.addAttribute("categoryCount", ((List)categoryRepository.findAll()).size());
-            model.addAttribute("sectionCount", ((List)sectionRepository.findAll()).size());
+            model.addAttribute("sectionCount", ((List) sectionRepository.findAll()).size());
             model.addAttribute("postCount", allPosts.size());
             model.addAttribute("viewCount", allPosts.stream().collect(Collectors.summingInt(p -> p.getViews())));
         }

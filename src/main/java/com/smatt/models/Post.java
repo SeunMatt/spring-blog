@@ -1,13 +1,13 @@
 package com.smatt.models;
 
-import com.smatt.config.Roles;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.GeneratorType;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -34,19 +34,23 @@ public class Post
     private boolean featured;
 
     @Column(columnDefinition = "boolean")
-    public boolean published;
+    private boolean published;
 
     @OneToOne(targetEntity = User.class, cascade = {CascadeType.REMOVE})
     public User author;
 
-    @OneToOne
+//    @OneToOne
+    @Transient
     public Section section;
 
     @OneToOne
     public Category category;
 
-
-
+    @Access(AccessType.PROPERTY)
+    @ManyToMany
+    @JoinTable(name = "posts_tags", joinColumns = { @JoinColumn(name = "post_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    public Set<Tag> tags = new HashSet<>();
 
     public Post() { }
 
@@ -159,6 +163,15 @@ public class Post
         this.featured = featured;
     }
 
+
+    public Set<Tag> getTags() {
+        return this.tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
     @PrePersist
     public void preSave() {
         if(createdAt == null) {
@@ -191,7 +204,7 @@ public class Post
                 "\ncoverPic = " + getCoverPic() +
                 "\nauthor:\n\t" + (!Objects.isNull(getAuthor()) ? getAuthor().getUsername() : "null") +
                 "\ncategory \n\t" + getCategory() +
-                "\nsection \n\t" + getSection();
+                "\ntags \n\t" + getTags();
     }
 
     public boolean validate() {

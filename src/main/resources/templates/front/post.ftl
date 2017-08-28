@@ -1,5 +1,5 @@
 <#include "../layouts/front.ftl"/>
-<@app>
+<@app title="${post.title}" description="${description}">
 
 <div class="details">
     <input type="hidden" id="postId" value="${post.id}" />
@@ -30,7 +30,7 @@
         <#--comment section-->
         <ul class="links" style="border-bottom: 0px none;">
             <li>
-                <a href="#commentModal" data-toggle="modal" class="btn btn-lg btn-default">Read/Leave a Comment</a>
+                <a href="#commentModal" data-toggle="modal" class="btn btn-lg btn-default">Read/Leave a Comment <span id="commentCount"></span></span></a>
             </li>
         </ul>
 
@@ -139,7 +139,7 @@
             </div>
         </div>
 
-
+    <#include "../partials/comment-modal.ftl" />
 
     </div>
 </div>
@@ -179,6 +179,7 @@
     $(document).ready(function () {
 
         loadComments($("#postId").val());
+        loadCommentCount($("#postId").val());
 
         $("#share").jsSocials({
             shares: [

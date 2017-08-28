@@ -7,40 +7,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * Created by smatt on 22/04/2017.
+ * Created by smatt on 26/08/2017.
  */
-@Entity
-@Table(name = "sections")
-public class Section {
+//@Entity
+//@Table(name = "posts_tags")
+public class PostTags {
 
     @Id
     private String id;
-    @Column(unique = true)
-    private String section;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-
-    public Section() {}
-
-    public Section(String section) {
-        this.section = section;
-    }
-
+    public PostTags() {}
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -77,9 +61,5 @@ public class Section {
         updatedAt = LocalDateTime.now();
     }
 
-    @Override
-    public String toString() {
-        return "Section: " + getSection();
-    }
 
 }

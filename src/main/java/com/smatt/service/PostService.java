@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -20,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -60,7 +60,7 @@ public class PostService {
     * This is a service method to save
      * it accepts the incoming post popula
     * */
-    public ModelMap savePost(Post post, String category, String section, MultipartFile file, HttpSession session) {
+    public ModelMap savePost(Post post, String category, Set tags, MultipartFile file, HttpSession session) {
 
         ModelMap map = new ModelMap();
 
@@ -72,10 +72,9 @@ public class PostService {
                 existP.setTitle(post.getTitle());
                 existP.setPost(post.getPost());
                 existP.setCategory(categoryRepository.findOne(category));
-                existP.setSection(sectionRepository.findOne(section));
+                existP.setTags(tags);
                 existP.setPublished(post.isPublished());
                 existP.setFeatured(post.isFeatured());
-
 
                 if(!StringUtils.isEmpty(post.getCoverPic()) && !StringUtils.equals(existP.getCoverPic(), post.getCoverPic()) && !file.isEmpty()) {
                     //                   logger.info("coverPic changed called");
@@ -96,7 +95,6 @@ public class PostService {
             }
             post.setAuthor( ((User) session.getAttribute(Constants.LOGGED_IN_USER)));
             post.setCategory(categoryRepository.findOne(category));
-            post.setSection(sectionRepository.findOne(section));
             Post savedPost = postRepository.save(post);
             //            logger.info("Newly saved post obj ==\n " + savedPost.toString());
             map.addAttribute("post", savedPost);

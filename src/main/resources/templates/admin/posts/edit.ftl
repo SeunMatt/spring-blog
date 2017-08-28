@@ -30,9 +30,6 @@
 
                 <!-- Admin Box -->
                 <div class="box box-secondary">
-                    <#--<div class="box-header with-border">-->
-                        <#--<h3 class="box-title"></h3>-->
-                    <#--</div>-->
                     <!-- /.box-header -->
                     <div class="box-body box-admin">
                         <strong>CATEGORY</strong>
@@ -47,21 +44,6 @@
                             </#if>
                             <#list categories as category>
                                 <option value="${category.id}">${category.category}</option>
-                            </#list>
-                        </select>
-                        <br>
-                        <strong>SECTION</strong>
-                        <br>
-                        <select class="form-control" id="section" name="section">
-                            <#if (post.category)??>
-                                <option selected value="${post.section.id}">
-                                ${post.section.section}
-                                </option>
-                                <option disabled>---------------</option>
-                            <#else>
-                            </#if>
-                            <#list sections as section>
-                                <option value="${section.id}">${section.section}</option>
                             </#list>
                         </select>
                         <br>
@@ -88,6 +70,29 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
+
+                <!-- Tags Box -->
+                <div class="box box-secondary">
+                    <!-- /.box-header -->
+                    <div class="box-body box-admin">
+                        <strong>TAGS</strong>
+                        <br>
+                        <select name="tags" class="form-control select2" multiple="multiple" data-placeholder="Add Tags" style="width: 100%;">
+                            <#list tags as tag>
+                              <#--<#if post.tags??>-->
+                                 <#if post.tags??>
+                                     <option <#if post.tags?seq_contains(tag)> selected </#if> value="${tag.id}">${tag}</option>
+                                 <#else>
+                                      <option value="${tag.id}">${tag}</option>
+                                 </#if>
+                            </#list>
+                        </select>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
             </div>
             <!-- /.col -->
             <div class="col-md-9">
@@ -139,6 +144,8 @@
 
 <script>
   $(document).ready(function(){
+      //Initialize Select2 Elements
+      $(".select2").select2();
 
       tinymce.init({
         selector: "textarea#post",

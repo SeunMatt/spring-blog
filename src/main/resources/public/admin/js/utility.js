@@ -34,6 +34,20 @@ function loadComments (postId) {
     });
 }
 
+
+function loadCommentCount(postId) {
+    $.ajax({
+        type: "post",
+        url: "/comment/count/",
+        data: {"postId": postId, "_csrf":csrf},
+        success: function (response) {
+            $("#commentCount").html("( " + response + " )");
+        },
+        error: function (error) {
+        }
+    });
+}
+
 function loadCommentReplies (postId, commentId) {
     $.ajax({
         type: "get",
@@ -50,14 +64,3 @@ function loadCommentReplies (postId, commentId) {
         }
     });
 }
-
-
-$("#searchForm").on("submit", function(event) {
-    event.preventDefault();
-    console.log("called");
-    if($("#keywords").val().length > 3) {
-        location.href = "/search/" + $("#keywords").val();
-    }
-});
-
-

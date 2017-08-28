@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by smatt on 21/07/2017.
  */
@@ -17,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/comment")
 public class CommentController {
 
-    CommentRepository commentRepository;
-    AuthenticationService authService;
-    CommentService commentService;
-    Logger logger = Logger.getLogger(CommentController.class);
+    private CommentRepository commentRepository;
+    private AuthenticationService authService;
+    private CommentService commentService;
+    private Logger logger = Logger.getLogger(CommentController.class);
 
     @Autowired
     public CommentController(CommentRepository c, AuthenticationService aS, CommentService cs) {
@@ -46,22 +48,27 @@ public class CommentController {
         return ResponseEntity.ok("Comment Added Successfully");
     }
 
+    /*
+    * Post a reply to a particular comment
+    * */
     @PostMapping("/reply")
     @ResponseBody
     public ResponseEntity<String> reply(Comment comment) {
-
         logger.info(comment.toString());
 
         if(!comment.isValid()) {
             return ResponseEntity.badRequest().body("Missing Required Inputs");
         }
 
-        commentRepository.save(comment);
-
-        return ResponseEntity.ok("Comment Added Successfully");
-
+        Comment saved = commentRepository.save(comment);
+        return commentService.replies(saved.getPostId(), saved.getParentCommentId());
     }
 
+    @PostMapping("/count")
+    @ResponseBody
+    public ResponseEntity<String> count(@RequestParam String postId) {
+        return ResponseEntity.ok(commentRepository.findDirectComments(postId).size() + "");
+    }
 
     @GetMapping("/replies/{postId}/{commentId}")
     @ResponseBody
@@ -74,6 +81,7 @@ public class CommentController {
     public ResponseEntity read(@PathVariable("postId") String postId) {
         return commentService.read(postId);
     }
+
 
 
 }

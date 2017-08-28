@@ -25,3 +25,6 @@ dist/
 nbdist/
 .nb-gradle/
 /src/main/resources/application-local.properties
+/src/main/resources/templates/partials/comment_old.ftl
+/src/main/resources/templates/partials/most-read-article.ftl
+/src/main/resources/templates/partials/file_upload.ftl

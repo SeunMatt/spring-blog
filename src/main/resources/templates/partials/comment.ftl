@@ -1,38 +1,35 @@
 <h4>COMMENTS</h4>
 <hr class="star-primary">
 <div class="comments-main">
+    <input type="hidden" id="activeC" value="" />
     <#list comments as comment>
         <div class="col-md-10 cmts-main-right">
             <h5>${comment.name} <span>On ${comment.createdAt?date.@localdatetime}</span></h5>
             <p>${comment.comment}</p>
-            <br>
-            <div class="replies">
-                <div class="cmts-main-right reply">
-                    <h6>TOM BROWN <span>On April 14, 2014, 18:01</span></h6>
-                    <p>Vivamus congue turpis in augue pellentesque scelerisque. Pellentesque aliquam laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
-                    </p>
-                </div>
-                <br>
-                <div class="cmts-main-right reply">
-                    <h6>TOM BROWN <span>On April 14, 2014, 18:01</span></h6>
-                    <p>Vivamus congue turpis in augue pellentesque scelerisque. Pellentesque aliquam laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
-                    </p>
-                </div>
-                <br>
-                <div class="cmts-main-right reply">
-                    <h6>TOM BROWN <span>On April 14, 2014, 18:01</span></h6>
-                    <p>Vivamus congue turpis in augue pellentesque scelerisque. Pellentesque aliquam laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
-                    </p>
-                </div>
-            </div>
-            <br>
+            <div class="replies" id="r__${comment.id}"></div>
             <div class="cmts">
                 <div class="cmnts-right">
-                    <a href="#">Reply</a>
+                    <a href="#" class="replyBt" data-id="${comment.id}">Reply</a>
+                    <a href="#" class="vReply" data-id="${comment.id}">View Replies</a>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
         <div class="clearfix"></div>
     </#list>
+    <script>
+        $(document).on("click", ".replyBt", function (event) {
+            event.preventDefault();
+            $("input[name='parentCommentId']").val( $(this).attr("data-id") );
+            $("#activeC").val($(this).attr("data-id"));
+            $("#replyModal").modal();
+        });
+        $(document).on("click", ".vReply", function (event) {
+           event.preventDefault();
+           var vRId = $(this).attr("data-id");
+            $.get("/comment/replies/" + $("#postId").val() + "/" + $(this).attr("data-id"), function (response) {
+                $("#r__" + vRId).html(response);
+            });
+        });
+    </script>
 </div>

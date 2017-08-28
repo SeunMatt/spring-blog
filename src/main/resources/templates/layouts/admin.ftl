@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="<@asset url = 'font-awesome-4.7.0/css/font-awesome.min.css' />">
 
     <link rel="stylesheet" href="<@asset url = 'admin/css/AdminLTE.min.css' />">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<@asset url = 'admin/plugins/select2/select2.min.css' />">
     <!-- Theme style -->
     <link rel="stylesheet" href="<@asset url = 'admin/css/blockui.min.css' />">
     <link rel="stylesheet" href="<@asset url = 'admin/css/sweet-alert-animations.min.css' />">
@@ -166,11 +168,12 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="<@asset url = 'admin/js/bootstrap/bootstrap.min.js' /> "></script>
 <!-- SlimScroll -->
-<script src="<@asset url = 'admin/js//slimscroll/jquery.slimscroll.min.js' />"></script>
+<script src="<@asset url = 'admin/js/slimscroll/jquery.slimscroll.min.js' />"></script>
 <!-- FastClick -->
 <script src="<@asset url = 'admin/js/fastclick/fastclick.min.js' />"></script>
 <script src="<@asset url = 'admin/js/jquery.blockUI.js' />"></script>
 <script src="<@asset url = 'admin/js/sweetalert.min.js' />"></script>
+<script src="<@asset url = 'admin/plugins/select2/select2.min.js' />"></script>
 <!-- AdminLTE App -->
 <script src="<@asset url = 'admin/js/app.min.js' />"></script>
 <script type="text/javascript" src="<@asset url = 'admin/js/tinymce/tinymce.min.js'/>"></script>

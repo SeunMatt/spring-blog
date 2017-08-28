@@ -55,7 +55,7 @@
                                     category: ${post.category.category!""}
                                 </span>
                                 <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
-                                    section: ${post.section.section!""}
+                                    <#--Tags: ${post.tags!""}-->
                                 </span>
                                 <br>
                             </div>

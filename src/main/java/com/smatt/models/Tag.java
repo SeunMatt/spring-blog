@@ -5,26 +5,30 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
- * Created by smatt on 22/04/2017.
+ * Created by smatt on 26/08/2017.
  */
 @Entity
-@Table(name = "sections")
-public class Section {
+@Table(name = "tags")
+public class Tag {
 
     @Id
     private String id;
+
     @Column(unique = true)
-    private String section;
+    private String tag;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public Tag() {}
 
-    public Section() {}
-
-    public Section(String section) {
-        this.section = section;
+    public Tag(String tag) {
+        this.tag = tag;
+        id = RandomStringUtils.randomAlphanumeric(10);
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     public String getId() {
@@ -35,12 +39,12 @@ public class Section {
         this.id = id;
     }
 
-    public String getSection() {
-        return section;
+    public String getTag() {
+        return tag;
     }
 
-    public void setSection(String section) {
-        this.section = section;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -79,7 +83,6 @@ public class Section {
 
     @Override
     public String toString() {
-        return "Section: " + getSection();
+        return getTag();
     }
-
 }

@@ -75,4 +75,13 @@ public class MyTest {
             System.out.println("==============");
         });
     }
+
+    @Test
+    public void testStringConcat() {
+        io.vavr.collection.List list = io.vavr.collection.List.of("General", "PHP", "JavaScript", "Motivation");
+        String clause = list.mkString("\"", "\",\"", "\"");
+        System.out.println(clause);
+        String sql = "SELECT * FROM tags s WHERE s.tag IN (" + clause + ")";
+        System.out.println(sql);
+    }
 }
