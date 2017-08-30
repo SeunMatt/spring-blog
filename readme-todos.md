@@ -36,12 +36,11 @@ What has been done
 - contact me
 - meta descriptions of content
 - section to tags
-
+- write about me
+- mail subscriptions
 
 What is left to be done
 -----------------------
-- write about me
-- mail subscriptions
 
 Deployment
 ----------
