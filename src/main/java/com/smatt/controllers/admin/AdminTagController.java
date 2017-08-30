@@ -1,7 +1,9 @@
 package com.smatt.controllers.admin;
 
 import com.smatt.dao.SectionRepository;
+import com.smatt.dao.TagRepository;
 import com.smatt.models.Section;
+import com.smatt.models.Tag;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,54 +18,56 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * Created by smatt on 22/04/2017.
  */
 @Controller
-@RequestMapping(value = "/eyin/sections")
+@RequestMapping(value = "/eyin/tags")
 public class AdminTagController {
 
-    private String index = "/eyin/sections";
+    private String index = "/eyin/tags";
+    private TagRepository tagRepository;
+    private Logger logger = Logger.getLogger(AdminTagController.class);
 
     @Autowired
-    SectionRepository sectionRepository;
+    public AdminTagController(TagRepository tr) {
+        this.tagRepository = tr;
+    }
 
-    Logger logger = Logger.getLogger(AdminTagController.class);
 
     @GetMapping(value = {"", "/"})
     public String index(ModelMap model) {
-        model.addAttribute("sections", sectionRepository.findAll());
-        model.addAttribute("sectionMenu", true);
-        return "admin/sections/index";
+        model.addAttribute("tags", tagRepository.findAll());
+        model.addAttribute("tagMenu", true);
+        return "admin/tags/index";
     }
 
     @PostMapping(value = {"", "/"})
-    public String add(RedirectAttributes attr, @RequestParam(value = "section") String section) {
-        sectionRepository.save(new Section(section));
-        attr.addFlashAttribute("success", "New Section added Successfully");
+    public String add(RedirectAttributes attr, @RequestParam(value = "tag") String tag) {
+        tagRepository.save(new Tag(tag));
+        attr.addFlashAttribute("success", "New Tag added Successfully");
         return "redirect:"+index;
     }
 
     @PostMapping(value = "/delete")
     public String delete(RedirectAttributes attr, @RequestParam(value = "id") String id) {
-//        logger.info("id of category == " + id);
-       Section section = sectionRepository.findOne(id);
+       Tag tag = tagRepository.findOne(id);
 
-        if(section == null) {
-            attr.addFlashAttribute("error", "Section Not Found");
+        if(tag == null) {
+            attr.addFlashAttribute("error", "Tag Not Found");
         } else {
-            sectionRepository.delete(section);
-            attr.addFlashAttribute("success", "Section has been deleted successfully");
+            tagRepository.delete(tag);
+            attr.addFlashAttribute("success", "Tag has been deleted successfully");
         }
         return "redirect:"+index;
     }
 
     @PostMapping(value = "/update")
-    public String update(RedirectAttributes attr, Section section) {
+    public String update(RedirectAttributes attr,Tag tag) {
 
-        Section existingS = sectionRepository.findOne(section.getId());
-        if(existingS == null) {
+        Tag existingT = tagRepository.findOne(tag.getId());
+        if(existingT == null) {
             attr.addFlashAttribute("error", "Invalid Request, Missing Parameter");
         } else {
-            existingS.setSection(section.getSection());
-            sectionRepository.save(existingS);
-            attr.addFlashAttribute("success", "Section has been updated successfully");
+            existingT.setTag(tag.getTag());
+            tagRepository.save(existingT);
+            attr.addFlashAttribute("success", "Tag has been updated successfully");
         }
         return "redirect:"+index;
     }

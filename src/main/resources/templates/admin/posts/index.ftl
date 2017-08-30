@@ -52,10 +52,10 @@
                                  <hr style="margin-bottom: 0px;">
 
                                 <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
-                                    category: ${post.category.category!""}
+                                    Category: ${post.category.category!""}
                                 </span>
                                 <span style="color: rgba(0,0,0,0.6); margin-right: 3%; float: left;">
-                                    <#--Tags: ${post.tags!""}-->
+                                    Tags: <#list post.tags as tag>${tag} <#sep>, <#else>No Tags</#list>
                                 </span>
                                 <br>
                             </div>

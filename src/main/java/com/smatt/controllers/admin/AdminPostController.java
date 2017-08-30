@@ -66,10 +66,10 @@ public class AdminPostController {
 
     @PostMapping(value = {"", "/"})
     public String save(Post post, @RequestParam("file") MultipartFile file, @RequestParam("category") String category,
-                       @RequestParam("tags")Set tags, RedirectAttributes attr, HttpSession session) {
+                       @RequestParam(value = "tags", required = false)Set tags, RedirectAttributes attr, HttpSession session) {
 
         logger.info("post incoming == " + post.toString());
-        logger.info("tags = " + tags.toString());
+        logger.info("tags = " + ((tags != null) ? tags.toString() : "null"));
 
         ModelMap validateMap = postService.validatePost(post, attr, file, index);
 
@@ -80,7 +80,7 @@ public class AdminPostController {
         }
 
         //this will either save or update as the case maybe
-        ModelMap map = postService.savePost(post, category, tags, file, session);
+        ModelMap map = postService.savePost(post, category, file, session);
 
         attr.addFlashAttribute("success", map.get("status"));
         return map.get("url").toString();
@@ -100,7 +100,7 @@ public class AdminPostController {
         model.addAttribute("tags", tagRepository.findAll());
         if(!StringUtils.isEmpty(id))
             model.addAttribute("post", postRepository.findOne(id));
-        logger.info("post = " + postRepository.findOne(id));
+//        logger.info("post = " + postRepository.findOne(id));
         return "admin/posts/edit";
     }
 

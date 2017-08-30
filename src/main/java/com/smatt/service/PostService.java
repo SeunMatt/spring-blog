@@ -3,7 +3,6 @@ package com.smatt.service;
 import com.smatt.config.Constants;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.PostRepository;
-import com.smatt.dao.SectionRepository;
 import com.smatt.models.Post;
 import com.smatt.models.User;
 import org.apache.commons.lang3.StringUtils;
@@ -29,21 +28,19 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class PostService {
 
-    PostRepository postRepository;
-    CategoryRepository categoryRepository;
-    SectionRepository sectionRepository;
-    StorageService storageService;
-    Logger logger = Logger.getLogger(PostService.class);
+    private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
+    private StorageService storageService;
+    private Logger logger = Logger.getLogger(PostService.class);
 
     @Autowired
     public PostService(
             PostRepository postRepository, StorageService storageService,
-            CategoryRepository categoryRepository, SectionRepository sectionRepository
+            CategoryRepository categoryRepository
     ) {
         this.postRepository = postRepository;
         this.storageService = storageService;
         this.categoryRepository = categoryRepository;
-        this.sectionRepository = sectionRepository;
     }
 
     /*
@@ -60,7 +57,7 @@ public class PostService {
     * This is a service method to save
      * it accepts the incoming post popula
     * */
-    public ModelMap savePost(Post post, String category, Set tags, MultipartFile file, HttpSession session) {
+    public ModelMap savePost(Post post, String category, MultipartFile file, HttpSession session) {
 
         ModelMap map = new ModelMap();
 
@@ -68,25 +65,23 @@ public class PostService {
             //updating
             Post existP = postRepository.findOne(post.getId());
             logger.info("existing post = " + existP.toString());
-            if(existP != null) {
-                existP.setTitle(post.getTitle());
-                existP.setPost(post.getPost());
-                existP.setCategory(categoryRepository.findOne(category));
-                existP.setTags(tags);
-                existP.setPublished(post.isPublished());
-                existP.setFeatured(post.isFeatured());
+            existP.setTitle(post.getTitle());
+            existP.setPost(post.getPost());
+            existP.setCategory(categoryRepository.findOne(category));
+            existP.setTags(post.getTags());
+            existP.setPublished(post.isPublished());
+            existP.setFeatured(post.isFeatured());
 
-                if(!StringUtils.isEmpty(post.getCoverPic()) && !StringUtils.equals(existP.getCoverPic(), post.getCoverPic()) && !file.isEmpty()) {
-                    //                   logger.info("coverPic changed called");
-                    //I have changed the coverpic while updating so delete the old one
-                    String oldPix = existP.getCoverPic();
-                    existP.setCoverPic(storageService.store(file));
-                    if(!StringUtils.isEmpty(oldPix)) storageService.delete(oldPix);
-                }
-                map.addAttribute("post", postRepository.save(existP));
-                map.addAttribute("status", "Post Updated Successfully");
-                map.addAttribute("url", "redirect:/eyin/posts/read/" + existP.getId());
+            if(!StringUtils.isEmpty(post.getCoverPic()) && !StringUtils.equals(existP.getCoverPic(), post.getCoverPic()) && !file.isEmpty()) {
+                //logger.info("coverPic changed called");
+                //I have changed the coverpic while updating so delete the old one
+                String oldPix = existP.getCoverPic();
+                existP.setCoverPic(storageService.store(file));
+                if(!StringUtils.isEmpty(oldPix)) storageService.delete(oldPix);
             }
+            map.addAttribute("post", postRepository.save(existP));
+            map.addAttribute("status", "Post Updated Successfully");
+            map.addAttribute("url", "redirect:/eyin/posts/read/" + existP.getId());
         }
         else {
             //saving afresh
@@ -96,7 +91,7 @@ public class PostService {
             post.setAuthor( ((User) session.getAttribute(Constants.LOGGED_IN_USER)));
             post.setCategory(categoryRepository.findOne(category));
             Post savedPost = postRepository.save(post);
-            //            logger.info("Newly saved post obj ==\n " + savedPost.toString());
+            logger.info("Newly saved post obj ==\n " + savedPost.toString());
             map.addAttribute("post", savedPost);
             map.addAttribute("status", "Post Saved Successfully");
             map.addAttribute("url", "redirect:/eyin/posts/read/" + savedPost.getId());

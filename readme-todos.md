@@ -35,17 +35,17 @@ What has been done
 - implement password reset
 - contact me
 - meta descriptions of content
+- section to tags
+
 
 What is left to be done
 -----------------------
 - write about me
 - mail subscriptions
-- section to tags
 
 Deployment
 ----------
 - Deploying on Heroku - Done
-
 - Deploying on Digital Ocean
 - Deploying with Docker
 

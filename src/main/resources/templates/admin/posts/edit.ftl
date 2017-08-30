@@ -35,15 +35,12 @@
                         <strong>CATEGORY</strong>
                         <br>
                         <select class="form-control" id="category" name="category">
-                            <#if (post.category)??>
-                                <option selected value="${post.category.id}">
-                                    ${post.category.category}
-                                </option>
-                                <option disabled>---------------</option>
-                            <#else>
-                            </#if>
                             <#list categories as category>
+                                <#if post??>
+                                    <option <#if post.category.category == category.category> selected </#if> value="${category.id}">${category.category}</option>
+                                <#else>
                                 <option value="${category.id}">${category.category}</option>
+                                </#if>
                             </#list>
                         </select>
                         <br>
@@ -77,10 +74,9 @@
                     <div class="box-body box-admin">
                         <strong>TAGS</strong>
                         <br>
-                        <select name="tags" class="form-control select2" multiple="multiple" data-placeholder="Add Tags" style="width: 100%;">
+                        <select name="tags" id="tags" class="form-control select2" multiple="multiple" data-placeholder="Add Tags" style="width: 100%;">
                             <#list tags as tag>
-                              <#--<#if post.tags??>-->
-                                 <#if post.tags??>
+                                 <#if post??>
                                      <option <#if post.tags?seq_contains(tag)> selected </#if> value="${tag.id}">${tag}</option>
                                  <#else>
                                       <option value="${tag.id}">${tag}</option>
@@ -238,7 +234,17 @@
         }
 
         if($("#post").val().split(" ").length < 150) {
-            swal("error", "Article body should be at least 150 chars in length", "error");
+            swal("error", "Article body should be at least 150 words in length", "error");
+            return false;
+        }
+
+        if(!$("#tags").select2().val()) {
+            swal("error", "You have to give article at least one tag", "error");
+            return false;
+        }
+
+        if(!$("#category").val()) {
+            swal("error", "Article must have a Category", "error");
             return false;
         }
 

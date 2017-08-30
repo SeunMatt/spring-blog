@@ -3,6 +3,8 @@ package com.smatt;
 import com.smatt.addons.AssetDirective;
 import com.smatt.addons.LocalDateTimeTemplateFormatFactory;
 import com.smatt.config.StorageProperties;
+import com.smatt.dao.CategoryRepository;
+import com.smatt.dao.TagRepository;
 import com.smatt.service.StorageService;
 import freemarker.core.TemplateDateFormatFactory;
 import freemarker.template.Configuration;
@@ -46,7 +48,7 @@ public class SpringBlogApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService) {
+	CommandLineRunner init(StorageService storageService, CategoryRepository cr, TagRepository tr) {
 		return (args) -> {
 //			storageService.deleteAll();
 			storageService.init();
@@ -56,6 +58,8 @@ public class SpringBlogApplication {
             customDateFormats.put("localdatetime", LocalDateTimeTemplateFormatFactory.INSTANCE);
             cfg.setCustomDateFormats(customDateFormats);
             cfg.setSharedVariable("asset", new AssetDirective());
+            cfg.setSharedVariable("categories", cr.findAll());
+            cfg.setSharedVariable("tags", tr.findAll());
 			DefaultObjectWrapper objectWrapper = new DefaultObjectWrapper();
 			objectWrapper.setIterableSupport(true);
             cfg.setObjectWrapper(objectWrapper);

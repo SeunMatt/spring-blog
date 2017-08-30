@@ -15,7 +15,7 @@
                     <li><i class="date"> </i><span class="icon_text">${post.createdAt?date.@localdatetime}</span></li>
                     <li><i class="admin"> </i><span class="icon_text">Posted in <strong>${post.category.category}</strong> by <strong>${post.author.name}</strong></li>
                     <li><i class="views"> </i><span class="icon_text">Hits: ${post.views}</span></li>
-                    <li><i class="tags"> </i><span class="icon_text"> ${post.section.section}</span></li>
+                    <li><i class="tags"> </i><span class="icon_text"> <#list post.tags as tag>${tag} <#sep>, <#else>No Tags</#list></span></li>
                 </ul>
                 <div class="det_text">
                   ${post.post}
@@ -60,10 +60,10 @@
                                      <div class="might-top">
                                          <h4><a href="#">Subscribe to our Newsletter</a></h4>
                                          <div class="news">
-                                             <form>
+                                             <form method="post" action="/newsletter/subscribe">
                                                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                                 <input type="email" placeholder="example@gmail.com" required />
-                                                 <input type="submit" value="Subscribe" style="padding: 0px; float: left; height: 30px; ">
+                                                 <input type="email" name="email" id="email" placeholder="example@gmail.com" required/>
+                                                 <input type="submit" value="Subscribe">
                                              </form>
                                          </div>
                                      </div>

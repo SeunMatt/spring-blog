@@ -46,8 +46,7 @@ public class Post
     @OneToOne
     public Category category;
 
-    @Access(AccessType.PROPERTY)
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "posts_tags", joinColumns = { @JoinColumn(name = "post_id") },
             inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     public Set<Tag> tags = new HashSet<>();

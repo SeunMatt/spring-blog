@@ -6,6 +6,7 @@ import com.smatt.models.Category;
 import com.smatt.models.Contact;
 import com.smatt.models.Post;
 import com.smatt.service.ContactService;
+import com.smatt.service.NewsletterService;
 import com.smatt.utils.URLHelper;
 import com.smatt.utils.Utility;
 import org.apache.log4j.Logger;
@@ -16,8 +17,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,29 +41,25 @@ public class HomeController {
 	private PostRepository postRepository;
     private CategoryRepository categoryRepository;
     private ContactService contactService;
+    private NewsletterService newsletterService;
 
     Logger logger = Logger.getLogger(HomeController.class);
 
     @Autowired
-    public HomeController(PostRepository pRepo, CategoryRepository cRepo, ContactService c) {
+    public HomeController(PostRepository pRepo, CategoryRepository cRepo, ContactService c, NewsletterService n) {
         this.postRepository = pRepo;
         this.categoryRepository = cRepo;
         this.contactService = c;
-        Assert.notNull(postRepository, "postRepository is null in HomeController");
-        Assert.notNull(categoryRepository, "categoryRepository is null in HomeController");
+        this.newsletterService = n;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap modelMap, HttpServletRequest request, HttpSession session) {
 
-        List<Post> trendingPosts = postRepository.findAllPublishedPosts(
-                    new PageRequest(0, 4, new Sort(Sort.Direction.DESC, "views")));
-
-//        logger.info("trending posts = " + trendingPosts.size() + "\n" + trendingPosts.toString());
 
         //featured posts
         List<Post> featuredPosts = postRepository.findFeaturedPosts(
-                new PageRequest(0, 4))
+                new PageRequest(0, 2))
                 .stream()
                 .map(p -> {
                     p.setPost(Utility.makePreviewText(p.getPost()));
@@ -68,8 +68,7 @@ public class HomeController {
 
 //        logger.info("featured posts sorted by latest and limit ed to 3 == " + featuredPosts.size()  + "\n" + featuredPosts.toString());
 
-		modelMap.addAttribute("trendingPosts", trendingPosts);
-        modelMap.addAttribute("featuredPosts", featuredPosts);
+		modelMap.addAttribute("featuredPosts", featuredPosts);
 
         List<Category> categories = (List<Category>) categoryRepository.findAll();
        	List< Map<String, Page<Post>> > superList = new ArrayList<>();
@@ -82,8 +81,6 @@ public class HomeController {
 		});
 
         modelMap.addAttribute("superList", superList);
-
-        session.setAttribute("categories", categories);
 
         return "front/index";
     }
@@ -118,5 +115,29 @@ public class HomeController {
             }
         }
     }
+
+    @RequestMapping("/newsletter/subscribe")
+    public String subscribe(HttpServletRequest req, ModelMap modelMap, RedirectAttributes attr,
+                            @RequestParam(value = "email", required = false) String email) {
+
+        if(req.getMethod().equals(RequestMethod.GET.toString())) {
+            modelMap.addAttribute("previousLink", "/" + req.getRequestURI());
+            return "front/newsletter_subscribed";
+        }
+        else if(req.getMethod().equals(RequestMethod.POST.toString())) {
+
+            if (StringUtils.isEmpty("email")) {
+                attr.addFlashAttribute("error", "Email Should be Valid");
+                return "redirect:/" + req.getRequestURI();
+            }
+
+            newsletterService.subscribe(email);
+            return "redirect:/newsletter/subscribe";
+        }
+
+        return "redirect:/";
+
+    }
+
 
 }

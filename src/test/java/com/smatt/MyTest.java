@@ -84,4 +84,10 @@ public class MyTest {
         String sql = "SELECT * FROM tags s WHERE s.tag IN (" + clause + ")";
         System.out.println(sql);
     }
+
+    @Test
+    public void testStringIndex() {
+        System.out.println("tag_Java".substring(4));
+    }
+
 }

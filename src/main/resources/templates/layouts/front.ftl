@@ -123,32 +123,18 @@
 <#nested />
 
 <!-- footer -->
-<div class="footer">
+<div class="footer" style="padding: 50px 0px;">
     <div class="container">
-        <div class="col-md-3 copy">
-            <div class="top1">
-                <i class="fa fa-home"></i>
-            </div>
+        <div class="row">
+            <div class="col-md-3 copy">
             <div class="top2">
                 <h6>Copyrights © 2017 Spring Blog</h6>
                 <p>All rights reserved</p>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-        <div class="col-md-3 copy">
-            <div class="top1">
-                <i class="fa fa-link"></i>
-            </div>
-            <div class="top2">
-                <h6>Open Source </h6>
                 <p><a href="https://github.com/seunmatt/spring-blog" target="_blank">Fork me on github</a></p>
             </div>
             <div class="clearfix"> </div>
         </div>
-        <div class="col-md-3 copy">
-            <div class="top1">
-                <i class="fa fa-list-ul"></i>
-            </div>
+            <div class="col-md-4 copy">
             <div class="top2">
                 <h6>Categories</h6>
                 <ul>
@@ -158,6 +144,20 @@
                 </ul>
             </div>
             <div class="clearfix"> </div>
+        </div>
+            <div class="col-md-5 copy">
+            <div class="top2">
+                <div class="news">
+                    <h6>Newsletter</h6>
+                    <form method="post" action="/newsletter/subscribe">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <input type="email" name="email" id="email" placeholder="example@gmail.com" required/>
+                        <input style="float:left;" type="submit" value="Subscribe">
+                    </form>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
         </div>
     </div>
 </div>

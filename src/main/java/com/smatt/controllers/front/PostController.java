@@ -3,8 +3,10 @@ package com.smatt.controllers.front;
 import com.smatt.config.Constants;
 import com.smatt.dao.CategoryRepository;
 import com.smatt.dao.PostRepository;
+import com.smatt.dao.TagRepository;
 import com.smatt.models.Category;
 import com.smatt.models.Post;
+import com.smatt.models.Tag;
 import com.smatt.service.PostService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -13,6 +15,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -33,13 +36,15 @@ public class PostController {
     private final PostService postService;
     PostRepository postRepository;
     CategoryRepository categoryRepository;
+    TagRepository tagRepository;
     Logger logger = Logger.getLogger(PostController.class);
 
     @Autowired
-    public PostController(PostRepository postRepository, CategoryRepository categoryRepository, PostService postService) {
+    public PostController(PostRepository postRepository, CategoryRepository categoryRepository, PostService postService, TagRepository tr) {
         this.postRepository = postRepository;
         this.categoryRepository = categoryRepository;
         this.postService = postService;
+        this.tagRepository = tr;
     }
 
     //read a single post
@@ -61,7 +66,7 @@ public class PostController {
                         .getElementsByTag("p")
                         .first()
                         .html();
-        desc = (desc.length() > 150) ? desc.substring(0, 150).concat("...") : desc;
+        desc = (desc.length() > 100) ? desc.substring(0, 100).concat("...") : desc;
 
 //        logger.info("post = \n" + post.getPost());
 //        logger.info("desc = \n" + desc);
@@ -89,22 +94,30 @@ public class PostController {
         }
 
         if(page == null || page < 0) page = 0;
+        Page<Post> posts = null;
 
-        Page<Post> posts = postRepository.findByCategory(categoryRepository.findByCategory(category),
+        if(category.startsWith("tag_")) {
+           Tag tag = tagRepository.findByTag(category.substring(4));
+             posts = new PageImpl<>(tag.getPosts());
+        } else {
+            posts = postRepository.findByCategory(categoryRepository.findByCategory(category),
                     new PageRequest(page, Constants.MAX_POST_PER_PAGE));
+        }
+
+
+
 
 //        logger.info("post count = " + posts.getTotalElements());
 
         if(posts.getTotalElements() <= 0) {
-            attr.addFlashAttribute("status", "There are no posts yet for this category. Kindly select another");
+            attr.addFlashAttribute("status", "There are no posts yet for this Category / Tag. Kindly select another");
             return "redirect:/";
         }
-
 
         modelMap = postService.showPaginatedPostList(
                 modelMap,
                 posts,
-                StringUtils.capitalize(category).concat(" Stories"),
+                StringUtils.capitalize((category.startsWith("tag_") ? category.substring(4) : category)).concat(" Stories"),
                 "/posts/" + category
                 );
 

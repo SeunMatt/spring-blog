@@ -39,7 +39,7 @@
                             <h4>Published: ${post.published?c}</h4>
                             <h4>Author: ${post.author.name!""}</h4>
                             <h5>Category: ${post.category.category!""}</h5>
-                            <h5>Section: ${post.section.section!""}</h5>
+                            <h5>Tags: <#list post.tags as tag>${tag} <#sep>, <#else>No Tags</#list></h5>
 
                             <h5>
                                 <span class="mailbox-read-time pull-left">views: ${post.views}</span>

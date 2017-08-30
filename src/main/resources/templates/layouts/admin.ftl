@@ -132,9 +132,9 @@
                         <i class="fa fa-th-list"></i> <span>Categories</span>
                     </a>
                 </li>
-                <li class="<#if sectionMenu??>active<#else></#if>">
-                    <a href="/eyin/sections">
-                        <i class="fa fa-th-large"></i> <span>Sections</span>
+                <li class="<#if tagMenu??>active<#else></#if>">
+                    <a href="/eyin/tags">
+                        <i class="fa fa-th-large"></i> <span>Tags</span>
                     </a>
                 </li>
                 <li class="<#if userMenu??>active<#else></#if>">

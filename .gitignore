@@ -28,3 +28,10 @@ nbdist/
 /src/main/resources/templates/partials/comment_old.ftl
 /src/main/resources/templates/partials/most-read-article.ftl
 /src/main/resources/templates/partials/file_upload.ftl
+/src/main/resources/templates/front/index_old2.ftl
+/src/main/resources/templates/front/index_old.ftl
+/src/main/resources/templates/front/post_old.ftl
+/src/main/resources/templates/front/posts_old.ftl
+/src/main/resources/templates/layouts/front_old.ftl
+/readme-todos.md
+/src/test/java/com/smatt/LocalTest.java

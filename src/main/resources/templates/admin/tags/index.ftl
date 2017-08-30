@@ -1,19 +1,19 @@
 <#include "../../layouts/admin.ftl"/>
-<@admin title="Admin Posts">
+<@admin title="Admin - Tags">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sections
+            Tags
             <small></small>
         </h1>
         <br>
-        <a href="#" class="btn btn-primary btn-lg btn-flat margin-top margin-bottom" id="addBt">Add Section</a>
+        <a href="#" class="btn btn-primary btn-lg btn-flat margin-top margin-bottom" id="addBt">Add Tag</a>
         <ol class="breadcrumb">
             <li><a href="/eyin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Sections</li>
+            <li class="active">Tags</li>
         </ol>
         <br>
         <#include "../../partials/alerts.ftl"/>
@@ -21,10 +21,10 @@
 
     <!-- Main content -->
     <section class="content">
-        <form role="form" method="post" id="delForm" action="/eyin/sections/delete">
+        <form role="form" method="post" id="delForm" action="/eyin/tags/delete">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input type="hidden" name="id" />
-            <input type="hidden" name="section" />
+            <input type="hidden" name="tag" />
         </form>
         <!-- row -->
         <div class="row">
@@ -32,27 +32,27 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Sections</h3>
+                        <h3 class="box-title">Tags</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="sections" class="table table-bordered table-striped">
+                        <table id="tags" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Sections</th>
+                                <th>Tag</th>
                                 <th>No. of Articles</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <#list sections as section>
+                            <#list tags as tag>
                             <tr>
-                                <td>${section.section}</td>
-                                <td>${section.articleCount}</td>
+                                <td>${tag}</td>
+                                <td></td>
                                 <td>
-                                    <button data-id="${section.id}" data-cat="${section.section}" class="btn btn-sm btn-primary edit"><span class="fa fa-pencil"></span>
+                                    <button data-id="${tag.id}" data-cat="${tag.tag}" class="btn btn-sm btn-primary edit"><span class="fa fa-pencil"></span>
                                     </button>
-                                    <button data-id="${section.id}" class="btn btn-sm btn-danger del"><span class="fa fa-trash"></span>
+                                    <button data-id="${tag.id}" class="btn btn-sm btn-danger del"><span class="fa fa-trash"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -80,7 +80,7 @@
            var id = $(this).attr("data-id");
            swal({
                        title: "Are you sure?",
-                       text: "Do you really wanna Delete the Section?",
+                       text: "Do you really wanna Delete the Tag?",
                        type: "warning",
                        showCancelButton: true,
                        cancelButtonClass: "btn-default",
@@ -91,21 +91,21 @@
                    function() {
                        displayWait(".box-body");
                        $("input[name='id']").val(id);
-                       $("#delForm").attr("action", "/eyin/sections/delete");
+                       $("#delForm").attr("action", "/eyin/tags/delete");
                        document.getElementById("delForm").submit();
                    });
        });
 
        $(".edit").on("click", function (event) {
-           var id = $(this).attr("data-id"), sec = $(this).attr("data-cat");
+           var id = $(this).attr("data-id"), tag = $(this).attr("data-cat");
            swal({
-                       title: "Rename Section",
-                       text: "Old Section Name: " + sec,
+                       title: "Rename Tag",
+                       text: "Old Tag Name: " + tag,
                        type: "input",
                        showCancelButton: true,
                        closeOnConfirm: false,
                        animation: "slide-from-top",
-                       inputPlaceholder: "New Section Name",
+                       inputPlaceholder: "New Tag Name",
                        showLoaderOnConfirm: true
                    },
                    function(inputValue){
@@ -116,8 +116,8 @@
                            return false
                        }
                        $("input[name='id']").val(id);
-                       $("input[name='section']").val(inputValue);
-                       $("#delForm").attr("action", "/eyin/sections/update");
+                       $("input[name='tag']").val(inputValue);
+                       $("#delForm").attr("action", "/eyin/tags/update");
                        document.getElementById("delForm").submit();
                    });
 
@@ -126,13 +126,13 @@
        $("#addBt").on("click", function (event) {
            event.preventDefault();
            swal({
-                       title: "New Section",
+                       title: "New Tag",
                        text: "",
                        type: "input",
                        showCancelButton: true,
                        closeOnConfirm: false,
                        animation: "slide-from-top",
-                       inputPlaceholder: "Section Name",
+                       inputPlaceholder: "Tag Name",
                        showLoaderOnConfirm: true
                    },
                    function(inputValue){
@@ -142,8 +142,8 @@
                            swal.showInputError("You need to write something!");
                            return false
                        }
-                       $("input[name='section']").val(inputValue);
-                       $("#delForm").attr("action", "/eyin/sections");
+                       $("input[name='tag']").val(inputValue);
+                       $("#delForm").attr("action", "/eyin/tags");
                        document.getElementById("delForm").submit();
                    });
 

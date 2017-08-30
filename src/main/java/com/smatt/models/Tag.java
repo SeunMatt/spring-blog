@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,6 +23,9 @@ public class Tag {
     private String tag;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
+    private List<Post> posts = new ArrayList<>();
 
     public Tag() {}
 
@@ -84,5 +89,13 @@ public class Tag {
     @Override
     public String toString() {
         return getTag();
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
