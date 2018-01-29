@@ -40,7 +40,7 @@ public class SpringBlogApplicationTests {
     @Autowired
     BlogProperties blogProperties;
 
-    @Test
+//    @Test
 	public void contextLoads() { }
 
 // 	@Test
@@ -93,7 +93,7 @@ public class SpringBlogApplicationTests {
     }
 
 
-    @Test
+//    @Test
     public void whenJMailChimpAddSubscriber_thenAddSubscriber() throws Exception {
         JMailChimp jMailChimp = new JMailChimp(blogProperties.getMailChimpApiKey(), blogProperties.getMailChimpApiRoot());
         jMailChimp.addSubscriber("seats@gmail.com",

@@ -25,7 +25,7 @@ public class MyTest {
 
     public MyTest() {}
 
-    @Test
+//    @Test
     public void testSumByStream() {
         List<Post> posts = Arrays.asList(
            new Post(1, "Post 1"),
@@ -36,7 +36,7 @@ public class MyTest {
         assertEquals(result, 6);
     }
 
-    @Test
+//    @Test
     public void testJsoup() {
         String html = "<p>Prodsters is a free invite only community of African Developers, UI / UX Designers, Project managers, Scrum masters, Architects etc. (collectively &ldquo;Talents&rdquo;) who can create their own digital team (&ldquo;team&rdquo;) or join other teams (&ldquo;teams&rdquo;) for paid projects.</p>\n" +
                 "<p>Project owners submit projects (&ldquo;the project&rdquo;) through the Site; Prodsters then pick the most suitable team that can work on the project to completion. The Project Owner interacts directly with Prodtsers throughout the life span of the project and not with any team.</p>\n" +
@@ -56,7 +56,7 @@ public class MyTest {
         logger.info("text of first p \n" + element.html());
     }
 
-    @Test
+//    @Test
     public void givenList_whenSlideBy_thenGroup() {
 
         Iterator<io.vavr.collection.List<String>> categorized
@@ -76,7 +76,7 @@ public class MyTest {
         });
     }
 
-    @Test
+//    @Test
     public void testStringConcat() {
         io.vavr.collection.List list = io.vavr.collection.List.of("General", "PHP", "JavaScript", "Motivation");
         String clause = list.mkString("\"", "\",\"", "\"");
@@ -85,7 +85,7 @@ public class MyTest {
         System.out.println(sql);
     }
 
-    @Test
+//    @Test
     public void testStringIndex() {
         System.out.println("tag_Java".substring(4));
     }
