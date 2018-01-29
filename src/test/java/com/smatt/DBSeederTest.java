@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * Created by smatt on 16/05/2017.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class DBSeederTest {
 
     Logger logger = Logger.getLogger(DBSeederTest.class);

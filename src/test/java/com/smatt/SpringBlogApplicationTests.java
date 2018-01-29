@@ -25,9 +25,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@TestPropertySource("/application-local.properties")
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//@TestPropertySource("/application-local.properties")
 public class SpringBlogApplicationTests {
 
     Logger logger = Logger.getLogger(SpringBlogApplicationTests.class);
